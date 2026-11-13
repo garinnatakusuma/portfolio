@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#101012" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <meta name="description" content="Garin Nata Kusuma — Footwear Designer & Technical Design Drafter. Footwear concepts, technical design, pattern making and manufacturing tooling." />
+  <meta name="author" content="Garin Nata Kusuma" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Garin Nata Kusuma — Footwear Design & Engineering" />
+  <meta property="og:description" content="Turning narratives into functional footwear — from concept development to technical design and manufacturing." />
+  <meta property="og:url" content="https://garinnatakusuma.github.io/PORTOFOLIO/" />
+  <meta property="og:image" content="https://garinnatakusuma.github.io/PORTOFOLIO/HERO_IFCC.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Garin Nata Kusuma — Footwear Design & Engineering</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+
+  <style>
+    :root {
+      --ink: #101012;
+      --ink-2: #17171a;
+      --ink-3: #202024;
+      --paper: #f1eee8;
+      --paper-2: #e8e3da;
+      --white: #f8f7f4;
+      --muted: #a5a2a0;
+      --muted-dark: #716d68;
+      --orange: #ed6e03;
+      --orange-deep: #b94e00;
+      --orange-soft: rgba(237,110,3,.13);
+      --line-dark: rgba(255,255,255,.11);
+      --line-light: rgba(16,16,18,.14);
+      --display: 'Archivo', Arial, sans-serif;
+      --body: 'Inter', Arial, sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --nav-h: 76px;
+      --ease: cubic-bezier(.22,1,.36,1);
+      --max: 1240px;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 18px); }
+    body { background: var(--ink); color: var(--white); font-family: var(--body); line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img, video { display: block; max-width: 100%; }
+    ::selection { background: var(--orange); color: #111; }
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+    .wrap { width: min(var(--max), calc(100% - 64px)); margin-inline: auto; }
+    .mono { font-family: var(--mono); letter-spacing: .04em; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--orange); font: 600 .72rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ''; width: 7px; height: 7px; background: currentColor; border-radius: 50%; box-shadow: 0 0 14px currentColor; }
+    .section { padding: 112px 0; position: relative; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 54px; }
+    .section-head h2 { max-width: 780px; font: 800 clamp(2.5rem, 6vw, 5.7rem)/.96 var(--display); letter-spacing: -.065em; }
+    .section-head h2 em { color: var(--orange); font-style: normal; }
+    .section-head p { max-width: 340px; color: var(--muted); font-size: .94rem; }
+    .light { background: var(--paper); color: var(--ink); }
+    .light .section-head p { color: var(--muted-dark); }
+    .light .eyebrow { color: var(--orange-deep); }
+    .light .section-head h2 em { color: var(--orange-deep); }
+
+    /* Navigation */
+    .site-nav { position: fixed; z-index: 1000; inset: 0 0 auto; height: var(--nav-h); padding: 0 4.5%; display: flex; align-items: center; justify-content: space-between; background: rgba(16,16,18,.74); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid transparent; transition: .35s var(--ease); }
+    .site-nav.scrolled { background: rgba(13,13,15,.94); border-color: var(--line-dark); box-shadow: 0 12px 32px rgba(0,0,0,.22); }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font: 800 1rem var(--display); letter-spacing: -.035em; white-space: nowrap; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; background: var(--orange); color: #111; border-radius: 10px 10px 10px 3px; font: 900 1.05rem var(--display); }
+    .nav-links { display: flex; align-items: center; gap: clamp(16px,2.2vw,34px); list-style: none; }
+    .nav-links a { color: #c9c7c4; font-size: .82rem; font-weight: 500; position: relative; transition: color .25s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 100%; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { display: flex; align-items: center; gap: 10px; }
+    .nav-cv { padding: 10px 17px; border: 1px solid var(--line-dark); border-radius: 999px; color: var(--white); font-size: .78rem; font-weight: 600; transition: .25s; }
+    .nav-cv:hover { border-color: var(--orange); color: var(--orange); }
+    .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line-dark); background: transparent; color: var(--white); border-radius: 50%; cursor: pointer; }
+    .menu-toggle span { display: block; width: 17px; height: 1px; background: currentColor; margin: 5px auto; transition: .25s; }
+    .nav-progress { position: absolute; height: 2px; left: 0; bottom: -1px; width: 0; background: var(--orange); }
+
+    /* Hero */
+    .hero { min-height: 100svh; padding: calc(var(--nav-h) + 62px) 0 74px; position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 74% 44%, #2a211a 0%, #171516 28%, var(--ink) 72%); }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .19; z-index: -3; filter: saturate(.72) contrast(1.08); }
+    .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, rgba(16,16,18,.98) 0%, rgba(16,16,18,.83) 46%, rgba(16,16,18,.52) 100%), linear-gradient(0deg, var(--ink) 0%, transparent 35%); }
+    #particle-canvas { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; opacity: .8; pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(320px,.85fr); align-items: center; gap: 48px; position: relative; z-index: 1; }
+    .availability { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(237,110,3,.32); background: rgba(237,110,3,.09); color: #f3b17f; padding: 8px 14px; border-radius: 999px; font: 500 .7rem var(--mono); letter-spacing: .03em; margin-bottom: 28px; }
+    .availability i { width: 7px; height: 7px; border-radius: 50%; background: #7bd69d; box-shadow: 0 0 0 5px rgba(123,214,157,.10); }
+    .hero-kicker { color: var(--muted); font: 500 .78rem var(--mono); text-transform: uppercase; letter-spacing: .16em; margin-bottom: 15px; }
+    .hero h1 { font: 900 clamp(3.8rem, 8.4vw, 8.4rem)/.84 var(--display); letter-spacing: -.085em; max-width: 850px; }
+    .hero h1 span { display: block; color: var(--orange); }
+    .hero-role { margin-top: 24px; color: #e7e2dc; font: 600 clamp(.93rem,1.5vw,1.16rem) var(--display); letter-spacing: .015em; }
+    .hero-role b { color: var(--orange); font-weight: 700; padding: 0 9px; }
+    .hero-desc { color: #b6b1ad; max-width: 590px; margin-top: 18px; font-size: .96rem; }
+    .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 34px; }
+    .button { min-height: 48px; padding: 0 22px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; font: 700 .78rem var(--display); letter-spacing: .04em; text-transform: uppercase; border: 1px solid transparent; cursor: pointer; transition: transform .25s var(--ease), background .25s, color .25s, border-color .25s; }
+    .button:hover { transform: translateY(-3px); }
+    .button-primary { background: var(--orange); color: #111; box-shadow: 0 8px 28px rgba(237,110,3,.18); }
+    .button-primary:hover { background: #ff8528; }
+    .button-outline { color: var(--white); border-color: rgba(255,255,255,.23); background: rgba(255,255,255,.025); }
+    .button-outline:hover { border-color: var(--orange); color: var(--orange); }
+    .button svg { width: 16px; height: 16px; }
+    .hero-visual { min-height: 470px; position: relative; display: grid; place-items: center; }
+    .orbit { position: absolute; width: min(38vw,450px); aspect-ratio: 1; border: 1px solid rgba(237,110,3,.22); border-radius: 50%; transform: rotate(-24deg); }
+    .orbit::before, .orbit::after { content: ''; position: absolute; inset: 11%; border: 1px solid rgba(255,255,255,.11); border-radius: 50%; transform: rotate(52deg) scaleX(.72); }
+    .orbit::after { inset: 24%; transform: rotate(-38deg) scaleX(1.22); border-color: rgba(237,110,3,.2); }
+    .orbit-core { position: absolute; inset: 0; margin: auto; z-index: 1; width: min(25vw,285px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 42% 36%, rgba(237,110,3,.22), rgba(237,110,3,.035) 48%, transparent 70%); border: 1px solid rgba(237,110,3,.25); box-shadow: 0 0 100px rgba(237,110,3,.1), inset 0 0 60px rgba(237,110,3,.08); display: grid; place-items: center; animation: breathe 5s ease-in-out infinite; }
+    .orbit-core strong { font: 900 clamp(5rem,11vw,9rem)/1 var(--display); color: rgba(237,110,3,.82); letter-spacing: -.1em; text-shadow: 0 0 38px rgba(237,110,3,.24); }
+    .hero-shoe-wrap { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(100%, 440px); height: 350px; display: grid; place-items: center; }
+    .hero-shoe-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 28px 30px rgba(0,0,0,.5)); transform: rotate(-8deg); animation: shoeFloat 6s ease-in-out infinite; }
+    @keyframes shoeFloat { 0%,100% { transform: translateY(5px) rotate(-8deg); } 50% { transform: translateY(-10px) rotate(-5deg); } }
+    .hero-featured { position: absolute; z-index: 4; right: 0; bottom: 7%; display: grid; gap: 3px; padding: 12px 15px; background: rgba(13,13,15,.78); border: 1px solid rgba(237,110,3,.45); border-radius: 10px; backdrop-filter: blur(12px); box-shadow: 0 12px 28px rgba(0,0,0,.28); }
+    .hero-featured span { color: #a9a19a; font: 500 .56rem var(--mono); letter-spacing: .1em; }
+    .hero-featured strong { color: var(--orange); font: 700 .86rem var(--display); }
+    .orbit-label { position: absolute; font: 500 .64rem var(--mono); letter-spacing: .1em; color: #b7aea5; text-transform: uppercase; }
+    .orbit-label.one { top: 12%; right: 2%; }
+    .orbit-label.two { bottom: 13%; left: -1%; }
+    .orbit-label.three { bottom: 5%; right: 6%; color: var(--orange); }
+    .orbit-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 18px var(--orange); }
+    .orbit-dot.d1 { top: 18%; left: 21%; }.orbit-dot.d2 { right: 12%; top: 53%; width: 5px; height: 5px; }.orbit-dot.d3 { left: 30%; bottom: 12%; width: 4px; height: 4px; }
+    @keyframes breathe { 0%,100% { transform: scale(.97) rotate(-5deg); } 50% { transform: scale(1.03) rotate(4deg); } }
+    .hero-bottom { position: absolute; left: 0; right: 0; bottom: 23px; display: flex; justify-content: space-between; align-items: center; color: #77736f; font: 500 .65rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .scroll-cue { display: inline-flex; align-items: center; gap: 11px; color: #aaa39c; }
+    .scroll-cue i { width: 25px; height: 38px; border: 1px solid rgba(255,255,255,.3); border-radius: 30px; position: relative; }
+    .scroll-cue i::after { content: ''; position: absolute; width: 3px; height: 7px; border-radius: 3px; background: var(--orange); top: 7px; left: 10px; animation: scrollDot 1.6s infinite; }
+    @keyframes scrollDot { to { transform: translateY(13px); opacity: 0; } }
+
+    /* Ticker */
+    .ticker { overflow: hidden; background: var(--orange); color: #141414; padding: 17px 0; transform: rotate(-1deg) scale(1.02); position: relative; z-index: 2; }
+    .ticker-track { display: flex; gap: 34px; width: max-content; white-space: nowrap; animation: ticker 32s linear infinite; font: 800 .82rem var(--display); letter-spacing: .12em; text-transform: uppercase; }
+    .ticker-track span { display: flex; align-items: center; gap: 34px; }
+    .ticker-track b { font-size: 1.05rem; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    /* About */
+    #about { padding-top: 145px; }
+    .about-layout { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(280px,.75fr); gap: 90px; align-items: center; }
+    .about-copy h2 { font: 800 clamp(2.9rem,6vw,6rem)/.98 var(--display); letter-spacing: -.07em; margin: 17px 0 28px; max-width: 780px; }
+    .about-copy h2 em { color: var(--orange-deep); font-style: normal; }
+    .about-copy p { max-width: 720px; color: #55514c; font-size: .98rem; }
+    .about-copy p + p { margin-top: 17px; }
+    .about-copy strong { color: var(--ink); }
+    .facts-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; margin-top: 42px; background: var(--line-light); border: 1px solid var(--line-light); }
+    .fact { background: var(--paper); padding: 20px 16px; }
+    .fact strong { display: block; font: 900 clamp(1.9rem,3.5vw,3rem)/1 var(--display); letter-spacing: -.06em; color: var(--orange-deep); }
+    .fact span { display: block; color: #69635d; font: 500 .65rem/1.45 var(--mono); text-transform: uppercase; letter-spacing: .04em; margin-top: 9px; }
+    .about-side { position: relative; padding: 30px; min-height: 380px; background: #19191c; color: var(--white); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .about-side::before { content: ''; position: absolute; width: 300px; height: 300px; right: -80px; top: -100px; border: 1px solid rgba(237,110,3,.4); border-radius: 50%; box-shadow: 0 0 0 30px rgba(237,110,3,.04), 0 0 0 65px rgba(237,110,3,.025); }
+    .about-side .side-index { position: relative; z-index: 1; color: var(--orange); font: 500 .68rem var(--mono); letter-spacing: .12em; }
+    .about-side .school { position: relative; z-index: 1; }
+    .school-mark { width: 72px; height: 72px; display: grid; place-items: center; background: #f4f1eb; border-radius: 14px; padding: 8px; margin-bottom: 22px; }
+    .school-mark img { width: 100%; height: 100%; object-fit: contain; }
+    .school h3 { font: 800 1.6rem/1.1 var(--display); letter-spacing: -.04em; max-width: 260px; }
+    .school p { color: #aaa5a0; font-size: .8rem; margin-top: 8px; }
+    .school-meta { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 20px; }
+    .school-meta span { border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 10px; color: #c6c0b9; font: 500 .63rem var(--mono); }
+
+    /* College project */
+    .college-section { background: var(--ink-2); }
+    .college-section .section-head p { color: #aaa5a0; }
+    .college-feature { display: grid; grid-template-columns: 1.1fr .9fr; background: #202024; border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; }
+    .college-image { min-height: 430px; background: var(--orange); display: grid; place-items: center; padding: 24px; overflow: hidden; }
+    .college-image img { width: 100%; height: 100%; max-height: 500px; object-fit: contain; transition: transform .7s var(--ease); }
+    .college-feature:hover .college-image img { transform: scale(1.035); }
+    .college-content { padding: clamp(28px,5vw,62px); display: flex; flex-direction: column; justify-content: center; }
+    .college-content .project-no { color: var(--orange); font: 500 .72rem var(--mono); letter-spacing: .12em; }
+    .college-content h3 { font: 800 clamp(2rem,4vw,3.7rem)/.98 var(--display); letter-spacing: -.06em; margin: 16px 0 19px; }
+    .college-content p { color: #b5b0ac; font-size: .91rem; }
+    .college-content .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 22px 0; }
+    .tag { border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #cfc9c2; padding: 6px 11px; font: 500 .64rem var(--mono); }
+    .college-video { margin-top: 24px; border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; background: #080809; }
+    .video-frame { position: relative; aspect-ratio: 16 / 7; }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-caption { display: flex; justify-content: space-between; padding: 13px 17px; color: #96918b; font: 500 .65rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+
+    /* Footwear archive */
+    .projects-section { background: var(--paper); color: var(--ink); }
+    .projects-section .section-head p { color: var(--muted-dark); }
+    .project-tools { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: -18px 0 28px; flex-wrap: wrap; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { padding: 9px 14px; border: 1px solid rgba(16,16,18,.2); background: transparent; color: #5d5852; border-radius: 999px; font: 600 .68rem var(--mono); cursor: pointer; transition: .25s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+    .project-count { color: #7c756d; font: 500 .7rem var(--mono); }
+    .project-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; }
+    .project-card { position: relative; background: #fffdfa; border: 1px solid rgba(16,16,18,.1); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
+    .project-card:hover { transform: translateY(-8px); border-color: rgba(237,110,3,.5); box-shadow: 0 22px 50px rgba(40,31,23,.12); }
+    .project-card[hidden] { display: none; }
+    .project-art { height: 265px; padding: 22px; background: var(--orange); position: relative; overflow: hidden; display: grid; place-items: center; }
+    .project-art::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(15,15,15,.13); pointer-events: none; }
+    .project-art img { width: 100%; height: 100%; object-fit: contain; transition: transform .65s var(--ease); position: relative; z-index: 1; }
+    .project-card:hover .project-art img { transform: scale(1.07) rotate(-1deg); }
+    .project-number { position: absolute; top: 17px; left: 19px; z-index: 2; color: rgba(15,15,15,.72); font: 600 .67rem var(--mono); }
+    .project-badge { position: absolute; right: 17px; top: 15px; z-index: 2; color: #111; background: var(--white); padding: 5px 9px; border-radius: 999px; font: 700 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+    .project-info { padding: 23px 23px 22px; display: flex; flex-direction: column; flex: 1; }
+    .project-category { color: var(--orange-deep); font: 600 .62rem var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+    .project-info h3 { font: 800 1.45rem/1.05 var(--display); letter-spacing: -.045em; margin: 9px 0 12px; }
+    .project-info p { color: #6a655f; font-size: .82rem; line-height: 1.65; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 17px; }
+    .project-tags span { color: #69635e; background: #f1eee8; border: 1px solid rgba(16,16,18,.08); border-radius: 999px; padding: 5px 8px; font: 500 .59rem var(--mono); }
+    .project-note { color: #8a8178; margin-top: 15px; font-size: .7rem; font-style: italic; }
+    .project-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid rgba(16,16,18,.1); margin-top: auto; padding-top: 17px; color: var(--ink); font: 700 .68rem var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+    .project-link span:last-child { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; background: var(--ink); color: white; transition: .25s; }
+    .project-link:hover { color: var(--orange-deep); }
+    .project-link:hover span:last-child { background: var(--orange); color: #111; transform: rotate(45deg); }
+
+    /* 3D / technical */
+    .technical-section { background: #121214; }
+    .technical-section .section-head p { color: #aaa5a0; }
+    .technical-layout { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(270px,.7fr); gap: 20px; }
+    .model-panel { position: relative; min-height: 560px; border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; background: radial-gradient(circle at 50% 45%, #34302b, #1a1919 52%, #101012 100%); }
+    .model-panel model-viewer { display: block; width: 100%; height: 560px; background: transparent; --poster-color: transparent; }
+    .model-panel model-viewer::part(default-progress-bar) { background: var(--orange); height: 3px; }
+    .model-topline { position: absolute; inset: 18px 18px auto; z-index: 3; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+    .model-label { color: var(--orange); font: 600 .65rem var(--mono); letter-spacing: .1em; text-transform: uppercase; background: rgba(10,10,10,.68); border: 1px solid rgba(237,110,3,.33); padding: 8px 11px; border-radius: 999px; backdrop-filter: blur(10px); }
+    .fullscreen-btn { pointer-events: auto; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line-dark); color: white; background: rgba(10,10,10,.55); border-radius: 10px; cursor: pointer; }
+    .fullscreen-btn:hover { background: var(--orange); color: #111; }
+    .model-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); border: 1px solid rgba(255,255,255,.15); background: rgba(8,8,9,.7); color: #c8c2bb; border-radius: 999px; padding: 9px 15px; font: 500 .62rem var(--mono); white-space: nowrap; backdrop-filter: blur(10px); }
+    .model-sidebar { border: 1px solid var(--line-dark); border-radius: var(--radius); background: #1b1b1e; padding: 25px; display: flex; flex-direction: column; }
+    .sidebar-kicker { color: var(--orange); font: 600 .65rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .model-sidebar h3 { font: 800 2rem/1 var(--display); letter-spacing: -.06em; margin: 13px 0; }
+    .model-sidebar > p { color: #a7a19a; font-size: .81rem; }
+    .model-tabs { display: grid; gap: 9px; margin: 26px 0; }
+    .model-tab { display: flex; align-items: flex-start; gap: 13px; padding: 15px; color: #c2bcb5; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.025); text-align: left; cursor: pointer; transition: .25s; }
+    .model-tab:hover, .model-tab.active { border-color: rgba(237,110,3,.62); background: rgba(237,110,3,.1); color: white; }
+    .model-tab b { color: var(--orange); font: 600 .76rem var(--mono); }
+    .model-tab strong { display: block; font: 700 .92rem var(--display); }
+    .model-tab small { display: block; color: #918b84; font-size: .68rem; margin-top: 4px; }
+    .model-meta { border-top: 1px solid var(--line-dark); padding-top: 18px; margin-top: auto; }
+    .model-meta span { display: block; color: #8e8983; font: 500 .62rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+    .model-meta strong { display: block; color: #e7e1da; font-size: .83rem; margin-top: 5px; }
+    .coming-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 42px; margin-top: 23px; padding: 32px; background: #1b1b1e; border: 1px solid var(--line-dark); border-radius: var(--radius); }
+    .coming-copy h3 { font: 800 clamp(1.7rem,3vw,2.6rem)/1 var(--display); letter-spacing: -.055em; margin: 11px 0; }
+    .coming-copy p { color: #9e9891; font-size: .84rem; }
+    .coming-model { height: 260px; border-radius: 13px; overflow: hidden; background: radial-gradient(circle at 50% 48%, #39332c, #171719 70%); position: relative; }
+    .coming-model model-viewer { width: 100%; height: 100%; --poster-color: transparent; }
+
+    /* Process */
+    .process-section { background: var(--paper); color: var(--ink); }
+    .process-section .section-head p { color: var(--muted-dark); }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }
+    .process-step { padding: 27px 24px 34px 0; position: relative; }
+    .process-step + .process-step { border-left: 1px solid var(--line-light); padding-left: 24px; }
+    .process-step .num { color: var(--orange-deep); font: 600 .72rem var(--mono); }
+    .process-step h3 { font: 800 1.28rem var(--display); letter-spacing: -.03em; margin: 32px 0 10px; }
+    .process-step p { color: #6d6760; font-size: .8rem; max-width: 245px; }
+    .process-line { height: 2px; width: 100%; background: rgba(16,16,18,.11); margin-top: 25px; position: relative; }
+    .process-line::before { content: ''; position: absolute; left: 0; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(237,110,3,.13); }
+
+    /* Skills */
+    .skills-section { background: #18181b; }
+    .skills-section .section-head p { color: #aaa5a0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
+    .skill-card { min-height: 245px; padding: 27px; background: #202024; border: 1px solid var(--line-dark); border-radius: 14px; position: relative; overflow: hidden; transition: transform .35s var(--ease), border-color .35s; }
+    .skill-card::after { content: ''; position: absolute; width: 170px; height: 170px; right: -65px; bottom: -95px; border: 1px solid rgba(237,110,3,.25); border-radius: 50%; box-shadow: 0 0 0 18px rgba(237,110,3,.035), 0 0 0 40px rgba(237,110,3,.025); }
+    .skill-card:hover { transform: translateY(-6px); border-color: rgba(237,110,3,.5); }
+    .skill-index { color: var(--orange); font: 600 .7rem var(--mono); }
+    .skill-card h3 { font: 800 1.45rem var(--display); margin: 24px 0 18px; letter-spacing: -.04em; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .chips span { padding: 7px 10px; color: #c2bcb5; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; font: 500 .65rem var(--mono); }
+
+    /* Contact + footer */
+    .contact-section { background: var(--orange); color: #111; padding: 100px 0 92px; overflow: hidden; }
+    .contact-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 50px; align-items: end; }
+    .contact-section .eyebrow { color: #2a190d; }
+    .contact-section .eyebrow::before { background: #111; box-shadow: none; }
+    .contact-section h2 { font: 900 clamp(3rem,8vw,8rem)/.84 var(--display); letter-spacing: -.085em; max-width: 850px; margin-top: 22px; }
+    .contact-section h2 span { color: #fff2e8; }
+    .contact-copy { max-width: 440px; color: rgba(17,17,17,.78); font-size: .9rem; margin-bottom: 27px; }
+    .contact-actions { display: flex; flex-direction: column; gap: 10px; }
+    .contact-action { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(17,17,17,.28); font: 700 .8rem var(--mono); text-transform: uppercase; letter-spacing: .06em; transition: padding .25s; }
+    .contact-action:hover { padding-left: 8px; }
+    .contact-action span:last-child { font-size: 1.1rem; }
+    .footer { background: #0b0b0d; color: #88837d; padding: 30px 0 0; overflow: hidden; }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 25px; border-bottom: 1px solid var(--line-dark); }
+    .footer-links { display: flex; gap: 22px; flex-wrap: wrap; font: 500 .68rem var(--mono); text-transform: uppercase; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 18px 0 12px; font: 500 .62rem var(--mono); }
+    .footer-wordmark { color: rgba(237,110,3,.86); font: 900 clamp(4rem,16.5vw,16rem)/.76 var(--display); letter-spacing: -.105em; text-align: center; white-space: nowrap; margin: 38px 0 -1.4vw; user-select: none; }
+
+    /* Utility / reveal */
+    [data-reveal] { opacity: 0; transform: translateY(28px); filter: blur(7px); transition: opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .delay-1 { transition-delay: .08s; }.delay-2 { transition-delay: .16s; }.delay-3 { transition-delay: .24s; }
+    .back-top { position: fixed; z-index: 500; right: 24px; bottom: 24px; width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: #111; border: 0; font-size: 1.1rem; cursor: pointer; box-shadow: 0 8px 22px rgba(0,0,0,.25); opacity: 0; visibility: hidden; transform: translateY(10px); transition: .3s; }
+    .back-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .skip-link { position: absolute; left: -9999px; top: 0; z-index: 2000; background: var(--orange); color: #111; padding: 10px 16px; }
+    .skip-link:focus { left: 0; }
+
+    @media (max-width: 1050px) {
+      .nav-links { gap: 15px; }.nav-links a { font-size: .75rem; }
+      .hero-grid { grid-template-columns: 1fr .75fr; gap: 20px; }
+      .about-layout { gap: 42px; }
+      .project-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .technical-layout { grid-template-columns: 1fr; }
+      .model-sidebar { display: grid; grid-template-columns: 1fr 1.4fr; gap: 20px; }
+      .model-tabs { margin: 0; }.model-meta { grid-column: 1 / -1; }
+    }
+    @media (max-width: 760px) {
+      :root { --nav-h: 66px; }
+      .wrap { width: min(100% - 38px, var(--max)); }
+      .section { padding: 78px 0; }
+      .section-head { display: block; margin-bottom: 35px; }
+      .section-head p { margin-top: 17px; }
+      .site-nav { padding: 0 19px; }
+      .nav-links, .nav-cta { display: none; }
+      .menu-toggle { display: block; }
+      .mobile-panel { position: fixed; z-index: 999; inset: var(--nav-h) 0 auto; padding: 17px 22px 26px; background: rgba(13,13,15,.98); border-bottom: 1px solid var(--line-dark); transform: translateY(-120%); opacity: 0; visibility: hidden; transition: .38s var(--ease); max-height: calc(100svh - var(--nav-h)); overflow-y: auto; }
+      .mobile-panel.open { transform: translateY(0); opacity: 1; visibility: visible; }
+      .mobile-panel a { display: flex; justify-content: space-between; padding: 14px 2px; border-bottom: 1px solid var(--line-dark); color: #e6e1db; font-size: .92rem; }
+      .mobile-panel a span { color: var(--orange); font: 500 .67rem var(--mono); }
+      .mobile-panel .mobile-cv { display: inline-flex; margin-top: 18px; border: 1px solid rgba(237,110,3,.5); border-radius: 999px; padding: 11px 17px; color: var(--orange); }
+      .hero { min-height: 850px; padding-top: calc(var(--nav-h) + 62px); padding-bottom: 100px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 5px; }
+      .hero h1 { font-size: clamp(3.7rem,17vw,6.7rem); }
+      .hero-desc { max-width: 520px; }
+      .hero-visual { min-height: 300px; margin-top: 5px; }
+      .hero-shoe-wrap { height: 285px; width: min(100%, 365px); }
+      .hero-featured { right: 2%; bottom: 1%; }
+      .orbit { width: min(65vw,300px); }.orbit-core { width: min(43vw,200px); }
+      .orbit-core strong { font-size: 6rem; }
+      .orbit-label.one { right: 8%; }.orbit-label.two { left: 6%; }
+      .hero-bottom { bottom: 18px; }.hero-bottom > span:last-child { display: none; }
+      .ticker { padding: 13px 0; }
+      #about { padding-top: 100px; }
+      .about-layout { grid-template-columns: 1fr; gap: 27px; }
+      .about-copy h2 { font-size: clamp(2.8rem,12vw,5rem); }
+      .facts-grid { grid-template-columns: repeat(2,1fr); }
+      .about-side { min-height: 320px; }
+      .college-feature { grid-template-columns: 1fr; }
+      .college-image { min-height: 290px; }.college-content { padding: 28px; }
+      .video-frame { aspect-ratio: 16/9; }
+      .project-tools { margin-top: -8px; }
+      .project-grid { grid-template-columns: 1fr; gap: 17px; }
+      .project-art { height: 290px; }
+      .technical-layout { grid-template-columns: 1fr; }
+      .model-panel { min-height: 420px; }.model-panel model-viewer { height: 420px; }
+      .model-sidebar { display: flex; }.model-tabs { margin: 20px 0; }
+      .coming-grid { grid-template-columns: 1fr; padding: 24px; gap: 18px; }
+      .coming-model { height: 240px; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-step { padding: 22px 16px 25px 0; }.process-step + .process-step { padding-left: 16px; }
+      .process-step:nth-child(3) { border-left: 0; border-top: 1px solid var(--line-light); }.process-step:nth-child(4) { border-top: 1px solid var(--line-light); }
+      .process-step h3 { margin-top: 20px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { min-height: 205px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-section h2 { font-size: clamp(3.5rem,16vw,6.8rem); }
+      .footer-top, .footer-bottom { align-items: flex-start; flex-direction: column; }
+      .footer-wordmark { font-size: 19vw; margin-top: 50px; }
+      .back-top { right: 15px; bottom: 15px; }
+    }
+    @media (max-width: 420px) {
+      .hero { min-height: 810px; }
+      .hero-role { line-height: 1.6; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .button { width: 100%; }
+      .hero-visual { min-height: 230px; }
+      .project-art { height: 245px; }
+      .filters { gap: 6px; }.filter-btn { font-size: .6rem; padding: 8px 10px; }
+      .process-step p { font-size: .73rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      [data-reveal] { opacity: 1; transform: none; filter: none; }
+    }
+
+
+    /* Global ambient particle field: adaptive across the full page */
+    :root { --particle-rgb: 237,110,3; --particle-alt-rgb: 255,232,207; }
+    .light, .projects-section, .process-section { --particle-rgb: 185,78,0; --particle-alt-rgb: 92,115,83; }
+    .college-section, .technical-section, .skills-section { --particle-rgb: 237,110,3; --particle-alt-rgb: 228,218,205; }
+    .contact-section { --particle-rgb: 56,28,10; --particle-alt-rgb: 255,244,229; }
+    .ambient-particles { position: fixed; inset: 0; z-index: 4; width: 100%; height: 100%; pointer-events: none; opacity: .57; mix-blend-mode: screen; }
+    .hero-shoe-wrap { width: min(100%, 500px); height: 450px; }
+
+    /* Consistent micro-interactions */
+    a, button { -webkit-tap-highlight-color: transparent; }
+    .button, .nav-cv, .filter-btn, .model-tab, .project-link, .contact-action, .footer-links a, .mobile-panel a, .tag, .chips span { transition-timing-function: var(--ease); }
+    .button:active, .filter-btn:active, .model-tab:active, .fullscreen-btn:active, .menu-toggle:active { transform: scale(.97); }
+    .button-primary:hover { box-shadow: 0 12px 34px rgba(237,110,3,.32), 0 0 0 4px rgba(237,110,3,.09); }
+    .button-outline:hover, .nav-cv:hover { box-shadow: 0 0 22px rgba(237,110,3,.12); }
+    .tag, .chips span { transition: color .25s, border-color .25s, background .25s, transform .25s; }
+    .tag:hover, .chips span:hover { color: var(--orange); border-color: rgba(237,110,3,.55); background: rgba(237,110,3,.07); transform: translateY(-2px); }
+    .project-card { transform-style: preserve-3d; }
+    .project-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(237,110,3,.09), transparent 62%); transition: opacity .35s; }
+    .project-card:hover::after { opacity: 1; }
+    .project-info, .project-art { position: relative; z-index: 1; }
+    .project-card:hover .project-info h3 { color: var(--orange-deep); }
+    .footer-links a, .contact-action { transition: color .25s, padding .25s, border-color .25s; }
+    .scroll-cue { position: relative; padding: 9px 14px 9px 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; background: rgba(10,10,12,.58); color: #fff; font: 700 .68rem var(--mono); letter-spacing: .08em; box-shadow: 0 0 0 4px rgba(237,110,3,.08), 0 8px 24px rgba(0,0,0,.25); transition: border-color .25s, background .25s, transform .25s, box-shadow .25s; }
+    .scroll-cue:hover { color: #fff; border-color: var(--orange); background: rgba(237,110,3,.19); transform: translateY(-3px); box-shadow: 0 0 0 5px rgba(237,110,3,.11), 0 12px 30px rgba(0,0,0,.3); }
+    .scroll-cue i { width: 22px; height: 32px; flex: 0 0 22px; border: 1.7px solid rgba(255,255,255,.8); }
+    .scroll-cue i::after { left: 8px; width: 4px; height: 7px; }
+    .scroll-cue b { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; color: #111; background: var(--orange); font: 900 1rem var(--display); animation: scrollArrow 1.4s ease-in-out infinite; }
+    @keyframes scrollArrow { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+
+    /* Full-screen interactive 3D viewers */
+    .model-panel:fullscreen, .coming-model:fullscreen { width: 100vw; height: 100dvh; min-height: 100dvh; max-width: none; border: 0; border-radius: 0; background: radial-gradient(circle at 50% 42%, #302b25, #111113 70%); }
+    .model-panel:fullscreen model-viewer, .coming-model:fullscreen model-viewer { width: 100%; height: 100%; min-height: 100%; }
+    .model-panel:fullscreen .model-topline, .coming-model:fullscreen .coming-model-topline { inset: 22px 24px auto; }
+    .coming-model { isolation: isolate; }
+    .coming-model-topline { position: absolute; z-index: 5; inset: 15px 15px auto; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+    .coming-model-topline .fullscreen-btn { pointer-events: auto; }
+    .fullscreen-btn { transition: color .25s, background .25s, border-color .25s, transform .25s, box-shadow .25s; }
+    .fullscreen-btn:hover { border-color: var(--orange); box-shadow: 0 0 24px rgba(237,110,3,.28); transform: translateY(-2px); }
+
+    /* Interactive animated Design Approach */
+    .approach-layout { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(320px,.8fr); gap: 22px; align-items: stretch; }
+    .approach-visual { min-height: 490px; position: relative; overflow: hidden; padding: 23px 24px 17px; border-radius: var(--radius); background: radial-gradient(circle at 48% 48%, #29251f 0%, #19191b 62%, #131315 100%); color: #e9e4dc; border: 1px solid rgba(237,110,3,.26); box-shadow: inset 0 0 75px rgba(237,110,3,.045); }
+    .approach-visual::before { content: ''; position: absolute; width: 330px; height: 330px; border-radius: 50%; border: 1px solid rgba(237,110,3,.12); left: 50%; top: 52%; transform: translate(-50%,-50%); box-shadow: 0 0 0 42px rgba(237,110,3,.025), 0 0 0 84px rgba(237,110,3,.018); pointer-events: none; }
+    .viz-topline, .viz-caption { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 15px; color: #a79d91; font: 500 .61rem var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+    .viz-topline span:last-child { color: var(--orange); }
+    .approach-svg { display: block; width: 100%; height: 390px; margin-top: 12px; overflow: visible; color: #e7dfd4; }
+    .viz-form { transform-origin: center; animation: formBreathe 6s ease-in-out infinite; }
+    .viz-form-detail { animation: dashFlow 13s linear infinite; }
+    .viz-route { opacity: .7; animation: dashFlow 15s linear infinite; }
+    @keyframes dashFlow { to { stroke-dashoffset: -180; } }
+    @keyframes formBreathe { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.01); } }
+    .viz-node { cursor: default; transition: opacity .4s, filter .4s; opacity: .55; }
+    .viz-node > circle:first-child { fill: rgba(237,110,3,.08); stroke: #ed6e03; stroke-width: 1.5; transition: r .35s, fill .35s, stroke-width .35s; }
+    .viz-node .node-core { fill: #f8bb82; filter: url(#vizGlow); }
+    .viz-node text { fill: #b9b1a7; font: 600 10px 'IBM Plex Mono', monospace; letter-spacing: 1px; }
+    .viz-node.is-active { opacity: 1; filter: url(#vizGlow); }
+    .viz-node.is-active > circle:first-child { r: 19px; fill: rgba(237,110,3,.2); stroke-width: 2.2; }
+    .viz-node.is-active text { fill: #ffb579; }
+    .viz-runner { fill: #fff1df; filter: url(#vizGlow); }
+    .viz-center-label text:first-child { fill: #fff2e8; font: 800 13px 'Archivo', sans-serif; letter-spacing: 1.6px; }
+    .viz-center-label text:last-child { fill: #aaa096; font: 500 8px 'IBM Plex Mono', monospace; letter-spacing: 1.2px; }
+    .viz-caption { padding-top: 7px; border-top: 1px solid rgba(255,255,255,.1); color: #8f8880; }
+    .approach-controls { display: flex; flex-direction: column; gap: 15px; }
+    .approach-step-list { display: grid; gap: 8px; }
+    .approach-step { display: grid; grid-template-columns: 34px 1fr 22px; align-items: center; gap: 12px; width: 100%; min-height: 67px; padding: 12px 14px; text-align: left; border: 1px solid rgba(16,16,18,.13); border-radius: 12px; background: rgba(255,255,255,.42); color: var(--ink); cursor: pointer; transition: transform .3s var(--ease), border-color .3s, background .3s, box-shadow .3s; }
+    .approach-step:hover { transform: translateX(4px); border-color: rgba(185,78,0,.42); background: #fffaf3; }
+    .approach-step.active { border-color: rgba(185,78,0,.65); background: #fffdfa; box-shadow: 0 10px 28px rgba(87,60,33,.09), inset 3px 0 0 var(--orange-deep); }
+    .approach-step-no { color: var(--orange-deep); font: 600 .73rem var(--mono); }
+    .approach-step-copy strong { display: block; font: 800 .98rem var(--display); letter-spacing: -.02em; }
+    .approach-step-copy small { display: block; margin-top: 3px; color: #777068; font: 500 .6rem var(--mono); letter-spacing: .035em; }
+    .approach-step-arrow { color: #8b8176; font-size: 1rem; transition: transform .3s, color .3s; }
+    .approach-step.active .approach-step-arrow, .approach-step:hover .approach-step-arrow { color: var(--orange-deep); transform: translate(2px,-2px); }
+    .approach-detail { flex: 1; padding: 22px 23px; border: 1px solid rgba(185,78,0,.19); border-radius: 13px; background: rgba(255,255,255,.28); transition: background .35s, border-color .35s; }
+    .approach-detail-index { color: var(--orange-deep); font: 600 .64rem var(--mono); letter-spacing: .1em; }
+    .approach-detail h3 { margin: 9px 0 7px; font: 800 1.42rem/1.05 var(--display); letter-spacing: -.04em; }
+    .approach-detail p { color: #625c55; font-size: .78rem; line-height: 1.7; }
+
+    /* Embedded Google Drive document modal */
+    .document-viewer { width: min(1180px, calc(100vw - 34px)); height: min(88dvh, 900px); max-width: none; max-height: none; margin: auto; padding: 0; border: 1px solid rgba(237,110,3,.4); border-radius: 18px; color: var(--white); background: #121214; box-shadow: 0 32px 100px rgba(0,0,0,.62); overflow: hidden; }
+    .document-viewer::backdrop { background: rgba(5,5,6,.82); backdrop-filter: blur(12px); }
+    .document-viewer[open] { animation: viewerIn .35s var(--ease) both; }
+    @keyframes viewerIn { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .document-viewer-head { min-height: 76px; padding: 15px 19px 14px 23px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line-dark); background: rgba(27,27,30,.96); }
+    .document-kicker { color: var(--orange); font: 500 .59rem var(--mono); letter-spacing: .12em; }
+    .document-viewer-head h2 { margin-top: 4px; font: 800 1.18rem/1.1 var(--display); letter-spacing: -.025em; }
+    .document-close { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.17); border-radius: 50%; color: white; background: transparent; cursor: pointer; font: 300 1.7rem/1 var(--body); transition: color .25s, background .25s, transform .25s, border-color .25s; }
+    .document-close:hover { color: #111; background: var(--orange); border-color: var(--orange); transform: rotate(90deg); }
+    .document-frame-wrap { height: calc(100% - 126px); background: #080809; }
+    .document-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; background: #080809; }
+    .document-viewer-foot { height: 50px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; color: #8d8881; font: 500 .62rem var(--mono); border-top: 1px solid var(--line-dark); }
+    .document-viewer-foot a { color: var(--orange); white-space: nowrap; transition: color .2s; }
+    .document-viewer-foot a:hover { color: #ffb579; }
+
+    @media (max-width: 900px) {
+      .approach-layout { grid-template-columns: 1fr; }
+      .approach-visual { min-height: 420px; }
+      .approach-svg { height: 330px; }
+      .approach-controls { display: grid; grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .ambient-particles { opacity: .42; }
+      .approach-visual { min-height: 350px; padding: 18px 14px 14px; }
+      .approach-svg { height: 265px; margin-top: 14px; }
+      .viz-topline, .viz-caption { font-size: .53rem; }
+      .approach-step { min-height: 62px; }
+      .document-viewer { width: calc(100vw - 14px); height: calc(100dvh - 18px); border-radius: 12px; }
+      .document-viewer-head { min-height: 67px; padding: 12px 12px 12px 16px; }
+      .document-viewer-head h2 { font-size: 1rem; }
+      .document-frame-wrap { height: calc(100% - 119px); }
+      .document-viewer-foot { height: 52px; padding: 0 12px; font-size: .52rem; }
+      .scroll-cue { gap: 8px; font-size: .58rem; }
+      .hero-shoe-wrap { width: min(100%, 370px); height: 350px; }
+    }
+    @media (max-width: 420px) {
+      .approach-svg { height: 220px; }
+      .viz-node text { font-size: 8px; }
+      .document-viewer-foot span { max-width: 56%; line-height: 1.35; }
+      .scroll-cue { padding: 8px 10px 8px 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-particles { opacity: .2; }
+      .viz-form, .viz-form-detail, .viz-route, .scroll-cue b { animation: none !important; }
+      .document-viewer[open] { animation: none; }
+    }
+
+  
+
+    /* My Journey — compact, interactive experience cards */
+    .journey-section { margin-top: clamp(64px, 8vw, 108px); }
+    .journey-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 27px; }
+    .journey-heading h3 { margin-top: 13px; color: var(--ink); font: 800 clamp(2.45rem, 5.5vw, 4.7rem)/.94 var(--display); letter-spacing: -.07em; }
+    .journey-heading h3 em { color: var(--orange-deep); font-style: normal; }
+    .journey-heading > p { max-width: 380px; color: #686159; font-size: .88rem; }
+    .journey-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+    .journey-card { --spot-x: 50%; --spot-y: 0%; position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; min-width: 0; min-height: 390px; padding: clamp(21px, 2.7vw, 30px); border: 1px solid rgba(16,16,18,.12); border-radius: 18px; color: var(--white); background: radial-gradient(ellipse at 100% 0%, rgba(237,110,3,.10), transparent 46%), #19191c; box-shadow: 0 12px 34px rgba(34,27,20,.07); transition: transform .42s var(--ease), border-color .35s, box-shadow .4s; }
+    .journey-card::before { content: ''; position: absolute; z-index: -1; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(420px circle at var(--spot-x) var(--spot-y), rgba(237,110,3,.16), transparent 58%); transition: opacity .35s; }
+    .journey-card:hover { transform: translateY(-6px); border-color: rgba(237,110,3,.52); box-shadow: 0 22px 54px rgba(34,27,20,.14), 0 0 0 1px rgba(237,110,3,.08); }
+    .journey-card:hover::before { opacity: 1; }
+    .journey-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 25px; }
+    .journey-index, .journey-status { color: #f18a39; font: 600 .62rem var(--mono); letter-spacing: .1em; }
+    .journey-status { padding: 6px 9px; border: 1px solid rgba(237,110,3,.28); border-radius: 999px; color: #c9beb2; font-size: .56rem; white-space: nowrap; }
+    .journey-status.is-current { display: inline-flex; align-items: center; gap: 7px; color: #a8d8b6; border-color: rgba(123,214,157,.25); }
+    .journey-status i { width: 6px; height: 6px; border-radius: 50%; background: #7bd69d; box-shadow: 0 0 0 4px rgba(123,214,157,.1); }
+    .journey-company { display: flex; align-items: center; gap: 15px; min-width: 0; }
+    .journey-logo-frame { position: relative; flex: 0 0 68px; width: 68px; height: 68px; display: grid; place-items: center; padding: 9px; overflow: hidden; border-radius: 13px; background: #f5f2ec; box-shadow: 0 5px 18px rgba(0,0,0,.16); }
+    .journey-logo-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .journey-logo-frame.logo-missing::after, .journey-brand-frame.logo-missing::after { content: attr(data-fallback); color: #292725; font: 800 .68rem var(--display); letter-spacing: .02em; text-align: center; }
+    .journey-company-info { flex: 1; min-width: 0; }
+    .journey-company-info h4 { color: #f8f6f1; font: 800 clamp(1.05rem, 1.65vw, 1.38rem)/1.04 var(--display); letter-spacing: -.04em; overflow-wrap: anywhere; }
+    .journey-company-info p { margin-top: 7px; color: #aaa39b; font-size: .73rem; }
+    .journey-company-mark { align-self: flex-start; color: rgba(237,110,3,.65); font-size: 1.1rem; transition: transform .3s, color .3s; }
+    .journey-card:hover .journey-company-mark { color: #ff9a4d; transform: translate(3px,-3px); }
+    .journey-summary { margin: 23px 0 19px; max-width: 540px; color: #c3bdb5; font-size: .82rem; line-height: 1.7; }
+    .journey-brand-row { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.11); }
+    .journey-brand-group { display: grid; gap: 8px; min-width: 0; }
+    .journey-mini-label, .journey-detail-label { color: #8f887f; font: 600 .55rem var(--mono); letter-spacing: .11em; }
+    .journey-brand-frame { width: 104px; height: 49px; display: grid; place-items: center; padding: 8px 12px; border-radius: 9px; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,.16); }
+    .journey-brand-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .journey-brand-frame.ardiles-frame { width: 116px; height: 52px; padding: 8px 12px; background: #fff; }
+    .journey-brand-pair { display: flex; flex-wrap: wrap; gap: 9px; }
+    .journey-brand-pair .journey-brand-frame { width: 92px; height: 47px; }
+    .journey-brand-pair .converse-frame { width: 105px; }
+    .journey-context { color: #9a9289; text-align: right; font: 500 .56rem/1.65 var(--mono); letter-spacing: .06em; }
+    .journey-roles { display: flex; flex-wrap: wrap; gap: 7px; margin: -3px 0 16px; }
+    .journey-roles span { display: inline-flex; padding: 6px 9px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: #c9c1b7; background: rgba(255,255,255,.035); font: 500 .57rem var(--mono); line-height: 1.35; }
+    .journey-brand-row-wide { margin-top: auto; }
+    .journey-detail { max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-5px); transition: max-height .42s var(--ease), opacity .28s ease, transform .35s var(--ease), visibility .35s; }
+    .journey-card.is-expanded .journey-detail { max-height: 260px; margin-top: 20px; padding-top: 17px; border-top: 1px solid rgba(255,255,255,.1); opacity: 1; visibility: visible; transform: translateY(0); }
+    .journey-detail ul { display: grid; gap: 8px; margin: 11px 0 0; padding: 0; list-style: none; }
+    .journey-detail li { position: relative; padding-left: 15px; color: #bcb5ac; font-size: .72rem; line-height: 1.55; }
+    .journey-detail li::before { content: ''; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 9px rgba(237,110,3,.45); }
+    .journey-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; margin-top: 19px; padding: 13px 0 0; border: 0; border-top: 1px solid rgba(255,255,255,.1); background: transparent; color: #f2eee8; text-align: left; cursor: pointer; font: 700 .68rem var(--mono); letter-spacing: .025em; transition: color .25s; }
+    .journey-toggle:hover, .journey-toggle:focus-visible { color: #ff9a4d; }
+    .journey-toggle-icon { display: grid; place-items: center; width: 27px; height: 27px; border: 1px solid rgba(237,110,3,.35); border-radius: 50%; color: var(--orange); font-size: 1rem; transition: transform .35s var(--ease), background .25s, color .25s; }
+    .journey-card.is-expanded .journey-toggle-icon { transform: rotate(45deg); background: var(--orange); color: #111; }
+    @media (max-width: 900px) {
+      .journey-grid { grid-template-columns: 1fr; }
+      .journey-card { min-height: auto; }
+      .journey-company-info h4 { font-size: clamp(1.12rem, 3vw, 1.45rem); }
+    }
+    @media (max-width: 760px) {
+      .journey-heading { display: block; margin-bottom: 22px; }
+      .journey-heading > p { margin-top: 13px; }
+      .journey-section { margin-top: 66px; }
+      .journey-card { padding: 22px; }
+      .journey-company { gap: 12px; }
+      .journey-logo-frame { flex-basis: 60px; width: 60px; height: 60px; }
+      .journey-company-info h4 { font-size: 1.12rem; }
+    }
+    @media (max-width: 420px) {
+      .journey-card-top { align-items: flex-start; }
+      .journey-index { font-size: .56rem; }
+      .journey-status { font-size: .51rem; }
+      .journey-brand-row { align-items: flex-start; }
+      .journey-context { padding-top: 24px; }
+      .journey-brand-pair .journey-brand-frame { width: 82px; }
+      .journey-brand-pair .converse-frame { width: 96px; }
+    }
+
+
+
+    /* Two-stage opening: footwear first, designer introduction on scroll */
+    #siteNav .brand { gap: 0; }
+    #siteNav .brand-name {
+      display: inline-block;
+      max-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(-7px);
+      transition: max-width .45s var(--ease), opacity .3s ease, transform .45s var(--ease), margin .35s var(--ease);
+      white-space: nowrap;
+    }
+    #siteNav.scrolled .brand { gap: 11px; }
+    #siteNav.scrolled .brand-name { max-width: 220px; opacity: 1; transform: translateX(0); }
+
+    .hero-product-stage {
+      height: 100svh;
+      min-height: 650px;
+      padding: calc(var(--nav-h) + 18px) 0 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at 50% 48%, #29231e 0%, #171516 39%, var(--ink) 78%);
+    }
+    .hero-product-stage .hero-shade {
+      background: linear-gradient(180deg, rgba(11,11,13,.18) 0%, rgba(11,11,13,.28) 58%, rgba(11,11,13,.88) 100%);
+    }
+    .hero-stage {
+      position: relative;
+      isolation: isolate;
+      width: min(100%, 1240px);
+      height: min(82svh, 790px);
+      margin-inline: auto;
+      display: grid;
+      place-items: center;
+      z-index: 1;
+    }
+    .hero-stage .orbit {
+      z-index: 0;
+      width: min(72vw, 700px);
+      border-color: rgba(237,110,3,.2);
+      box-shadow: 0 0 90px rgba(237,110,3,.035);
+    }
+    .hero-product-glow {
+      position: absolute;
+      z-index: 1;
+      width: min(54vw, 540px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(237,110,3,.13) 0%, rgba(85,93,48,.10) 34%, transparent 72%);
+      filter: blur(13px);
+      pointer-events: none;
+      animation: productGlow 6s ease-in-out infinite;
+    }
+    @keyframes productGlow {
+      0%,100% { opacity: .55; transform: scale(.94); }
+      50% { opacity: .95; transform: scale(1.05); }
+    }
+    .hero-product-stage .hero-shoe-wrap {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 49%;
+      width: min(88vw, 690px);
+      height: min(80svh, 735px);
+      transform: translate(-50%,-50%);
+      display: grid;
+      place-items: center;
+      animation: shoeStageReveal 1.15s var(--ease) both;
+    }
+    @keyframes shoeStageReveal {
+      from { opacity: 0; transform: translate(-50%,-46%) scale(.88); filter: blur(10px); }
+      to { opacity: 1; transform: translate(-50%,-50%) scale(1); filter: blur(0); }
+    }
+    .hero-product-stage .hero-shoe-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 34px 42px rgba(0,0,0,.58));
+      transform: rotate(-7deg);
+      animation: shoeFloat 6.5s ease-in-out 1.1s infinite;
+    }
+    @keyframes shoeFloat {
+      0%,100% { transform: translateY(5px) rotate(-7deg); }
+      50% { transform: translateY(-11px) rotate(-5deg); }
+    }
+    .hero-product-stage .hero-featured {
+      right: clamp(18px, 8vw, 110px);
+      bottom: 12%;
+      z-index: 4;
+    }
+    .hero-product-stage .orbit-label.one { top: 12%; right: 13%; }
+    .hero-product-stage .orbit-label.two { bottom: 17%; left: 10%; }
+    .hero-product-stage .orbit-label.three { bottom: 9%; right: 17%; }
+    .hero-product-stage .hero-bottom {
+      left: 50%;
+      right: auto;
+      width: min(var(--max), calc(100% - 64px));
+      transform: translateX(-50%);
+      justify-content: center;
+      z-index: 5;
+    }
+    .hero-product-stage .hero-bottom > span:last-child { display: none; }
+    .hero-product-stage .scroll-cue { color: #f7f4ef; }
+
+    .hero-intro {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      min-height: 82svh;
+      padding: clamp(88px, 11vh, 132px) 0 clamp(82px, 10vh, 116px);
+      overflow: hidden;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 46%, rgba(70,48,31,.32) 0%, rgba(27,25,24,.55) 35%, #101012 76%);
+      --particle-rgb: 237,110,3;
+      --particle-alt-rgb: 255,232,207;
+    }
+    .hero-intro::before, .hero-intro::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      top: 50%;
+      width: min(78vw, 850px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(237,110,3,.10);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-intro::after { width: min(59vw, 630px); border-color: rgba(255,255,255,.055); }
+    .hero-intro-wrap { position: relative; z-index: 1; }
+    .hero-intro-copy { max-width: 1040px; margin-inline: auto; }
+    .hero-intro .availability { margin: 0 auto 28px; }
+    .hero-intro h1 {
+      max-width: 100%;
+      margin: 0 auto;
+      color: var(--white);
+      font: 900 clamp(4.3rem, 10.4vw, 9.5rem)/.86 var(--display);
+      letter-spacing: -.085em;
+      text-wrap: balance;
+    }
+    .hero-intro h1 span { display: block; color: var(--orange); }
+    .hero-intro .hero-role {
+      margin: 27px auto 0;
+      color: #e7e2dc;
+      font: 700 clamp(1rem, 2vw, 1.35rem)/1.4 var(--display);
+      letter-spacing: .005em;
+    }
+    .hero-intro .hero-role b { color: var(--orange); padding: 0 10px; }
+    .hero-intro .hero-desc {
+      max-width: 790px;
+      margin: 18px auto 0;
+      color: #b6b1ad;
+      font-size: clamp(.88rem, 1.25vw, 1.02rem);
+      line-height: 1.8;
+      text-wrap: pretty;
+    }
+    .hero-intro .hero-actions { justify-content: center; margin-top: 32px; }
+
+    @media (max-width: 760px) {
+      #siteNav.scrolled .brand-name { max-width: 180px; }
+      .hero-product-stage { height: 100svh; min-height: 620px; padding: calc(var(--nav-h) + 18px) 0 75px; }
+      .hero-stage { height: 77svh; width: 100%; }
+      .hero-stage .orbit { width: min(88vw, 470px); }
+      .hero-product-glow { width: min(78vw, 390px); }
+      .hero-product-stage .hero-shoe-wrap { width: min(96vw, 520px); height: min(75svh, 610px); top: 47%; }
+      .hero-product-stage .hero-featured { right: 3%; bottom: 5%; padding: 10px 12px; }
+      .hero-product-stage .orbit-label.one { top: 9%; right: 3%; }
+      .hero-product-stage .orbit-label.two { bottom: 12%; left: 2%; }
+      .hero-product-stage .orbit-label.three { bottom: 3%; right: 8%; }
+      .hero-product-stage .hero-bottom { width: calc(100% - 38px); bottom: 15px; }
+      .hero-intro { min-height: 82svh; padding: 96px 0 78px; }
+      .hero-intro h1 { font-size: clamp(3.65rem, 15.8vw, 6.4rem); }
+      .hero-intro .hero-role { max-width: 520px; margin-top: 24px; }
+      .hero-intro .hero-role b { padding: 0 5px; }
+      .hero-intro .hero-desc { max-width: 560px; margin-top: 16px; font-size: .88rem; }
+      .hero-intro .hero-actions { max-width: 440px; margin: 27px auto 0; }
+    }
+    @media (max-width: 420px) {
+      .hero-product-stage { min-height: 590px; }
+      .hero-product-stage .hero-shoe-wrap { width: 100vw; height: 68svh; }
+      .hero-product-stage .hero-featured { right: 2%; bottom: 4%; }
+      .hero-product-stage .orbit-label { font-size: .49rem; }
+      .hero-intro h1 { font-size: clamp(3.25rem, 15.6vw, 4.7rem); }
+      .hero-intro .hero-role { font-size: .98rem; }
+      .hero-intro .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-intro .button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-product-glow, .hero-product-stage .hero-shoe-wrap, .hero-product-stage .hero-shoe-wrap img { animation: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas class="ambient-particles" id="ambientParticles" aria-hidden="true"></canvas>
+
+  <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+    <a class="brand" href="#home" aria-label="Garin Nata Kusuma home"><span class="brand-mark">G</span><span class="brand-name">GARIN NATA KUSUMA</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#college">College</a></li>
+      <li><a href="#footwear">Footwear</a></li>
+      <li><a href="#technical">Technical</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta"><a class="nav-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel"><span></span><span></span></button>
+    <span class="nav-progress" id="navProgress"></span>
+  </nav>
+
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#about">About <span>01</span></a>
+    <a href="#college">College project <span>02</span></a>
+    <a href="#footwear">Footwear archive <span>03</span></a>
+    <a href="#technical">Technical showcase <span>04</span></a>
+    <a href="#process">Design process <span>05</span></a>
+    <a href="#skills">Skills & tools <span>06</span></a>
+    <a href="#contact">Contact <span>07</span></a>
+    <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+  </div>
+
+  <main id="main">
+    <header class="hero hero-product-stage" id="home" aria-label="Featured footwear design">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="2t2tf2t.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-shade"></div>
+      <div class="hero-stage" data-reveal>
+        <div class="orbit" aria-hidden="true">
+          <span class="orbit-dot d1"></span><span class="orbit-dot d2"></span><span class="orbit-dot d3"></span>
+        </div>
+        <div class="hero-product-glow" aria-hidden="true"></div>
+        <div class="hero-shoe-wrap">
+          <img src="HERO_IFCC.png" alt="IFCC trail footwear concept — olive green upper, orange details and rugged black outsole" fetchpriority="high" />
+        </div>
+        <div class="hero-featured"><span>IFCC 2026 / FEATURED ENTRY</span><strong>SCAR FLOW × REISEN</strong></div>
+        <span class="orbit-label one">Concept / 3D / Form</span>
+        <span class="orbit-label two">Narrative to object</span>
+        <span class="orbit-label three">ID — 2026</span>
+      </div>
+      <div class="wrap hero-bottom">
+        <a class="scroll-cue" href="#intro" aria-label="Scroll down to reveal the designer introduction">
+          <i aria-hidden="true"></i><span>SCROLL TO REVEAL</span><b aria-hidden="true">↓</b>
+        </a>
+        <span>INDEPENDENT DESIGN PRACTICE · INDONESIA</span>
+      </div>
+    </header>
+
+    <section class="hero-intro" id="intro" aria-labelledby="heroName">
+      <div class="wrap hero-intro-wrap">
+        <div class="hero-intro-copy" data-reveal>
+          <div class="availability"><i></i> OPEN TO FULL-TIME ROLES</div>
+          <h1 id="heroName">Garin Nata <span>Kusuma.</span></h1>
+          <p class="hero-role">Footwear Designer <b>/</b> Technical Design Drafter</p>
+          <p class="hero-desc">I turn narratives into functional, high-performance footwear, connecting concept development and storytelling with technical drawing, pattern making, and manufacturing tooling.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#footwear">Explore my work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="button button-outline" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="Areas of practice">
+      <div class="ticker-track" aria-hidden="true">
+        <span>CONCEPT DEVELOPMENT <b>✳</b> FOOTWEAR DESIGN <b>✳</b> TECHNICAL DRAWING <b>✳</b> 3D CONSTRUCTION <b>✳</b> PATTERN MAKING <b>✳</b> MANUFACTURING TOOLING <b>✳</b></span>
+        <span>CONCEPT DEVELOPMENT <b>✳</b> FOOTWEAR DESIGN <b>✳</b> TECHNICAL DRAWING <b>✳</b> 3D CONSTRUCTION <b>✳</b> PATTERN MAKING <b>✳</b> MANUFACTURING TOOLING <b>✳</b></span>
+      </div>
+    </div>
+
+    <section class="section light" id="about">
+      <div class="wrap about-layout">
+        <div class="about-copy" data-reveal>
+          <span class="eyebrow">01 / About the designer</span>
+          <h2>Curiosity is where <em>the concept</em> begins.</h2>
+          <p>Hi, I'm <strong>Garin Kusuma</strong>. I've been designing footwear for the past four years, mostly because I'm a curious person who likes to observe how we live in Indonesia. I often collect seemingly unrelated things — unique objects, unusual stories, and everyday experiences — then connect them into a design narrative.</p>
+          <p>What you see here is a collection of those narratives translated into footwear concepts. Alongside concept development, I also work as a <strong>Design Drafter for automated manufacturing</strong>, focusing on pallet design and computer stitching processes. That combination allows me to explore both the expressive side of design and the technical details required to make products.</p>
+          <div class="facts-grid" aria-label="Portfolio facts">
+            <div class="fact"><strong>4+</strong><span>Years designing footwear</span></div>
+            <div class="fact"><strong>09</strong><span>Documented projects</span></div>
+            <div class="fact"><strong>3D</strong><span>Rhino · NanoCAD · Delcam</span></div>
+            <div class="fact"><strong>2024</strong><span>Politeknik ATK graduate</span></div>
+          </div>
+        </div>
+        <aside class="about-side" data-reveal>
+          <span class="side-index">EDUCATION / 01</span>
+          <div class="school">
+            <div class="school-mark"><img src="LOGO POLTEK.png" alt="Politeknik ATK Yogyakarta logo" loading="lazy" /></div>
+            <h3>Politeknik ATK Yogyakarta</h3>
+            <p>Footwear Product Design</p>
+            <div class="school-meta"><span>GRADUATED 2024</span><span>GPA 3.40</span></div>
+          </div>
+          <span class="side-index">YOGYAKARTA · INDONESIA</span>
+        </aside>
+      </div>
+
+      <div class="wrap journey-section" aria-labelledby="journeyTitle">
+        <div class="journey-heading" data-reveal>
+          <div>
+            <span class="eyebrow">CAREER TIMELINE / 02—03</span>
+            <h3 id="journeyTitle">My <em>Journey.</em></h3>
+          </div>
+          <p>From my first exposure to footwear manufacturing to developing products and stitching processes in the industry.</p>
+        </div>
+
+        <div class="journey-grid">
+          <article class="journey-card" data-reveal data-journey-card>
+            <div class="journey-card-top">
+              <span class="journey-index">02 / INTERNSHIP</span>
+              <span class="journey-status">6 MONTHS</span>
+            </div>
+            <div class="journey-company">
+              <div class="journey-logo-frame" data-fallback="SS">
+                <img src="SS_LOGO.jpeg" alt="PT SS Utama logo" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('logo-missing')" />
+              </div>
+              <div class="journey-company-info">
+                <h4>PT SS UTAMA</h4>
+                <p>Surabaya, Indonesia</p>
+              </div>
+              <span class="journey-company-mark" aria-hidden="true">↗</span>
+            </div>
+            <p class="journey-summary">My first hands-on footwear-manufacturing experience during my studies at Politeknik ATK Yogyakarta, at the factory producing Ardiles footwear.</p>
+            <div class="journey-brand-row">
+              <div class="journey-brand-group">
+                <span class="journey-mini-label">PRODUCED BRAND</span>
+                <div class="journey-brand-frame ardiles-frame" data-fallback="ARDILES">
+                  <img src="ARDILES_LOGO.jpeg" alt="Ardiles footwear brand logo" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('logo-missing')" />
+                </div>
+              </div>
+              <span class="journey-context">INTERNSHIP<br />DURING STUDY</span>
+            </div>
+            <div class="journey-detail" id="journeyDetailSs" aria-hidden="true" inert>
+              <span class="journey-detail-label">KEY TAKEAWAYS</span>
+              <ul>
+                <li>Gained first practical exposure to footwear manufacturing workflows.</li>
+                <li>Learned the production process for vulcanized footwear.</li>
+                <li>Connected the factory experience with my final project for graduation from Politeknik ATK.</li>
+              </ul>
+            </div>
+            <button class="journey-toggle" type="button" aria-expanded="false" aria-controls="journeyDetailSs">
+              <span class="journey-toggle-label">Explore experience</span><span class="journey-toggle-icon" aria-hidden="true">＋</span>
+            </button>
+          </article>
+
+          <article class="journey-card" data-reveal data-journey-card>
+            <div class="journey-card-top">
+              <span class="journey-index">03 / CURRENT EXPERIENCE</span>
+              <span class="journey-status is-current"><i></i> CURRENT</span>
+            </div>
+            <div class="journey-company">
+              <div class="journey-logo-frame" data-fallback="SCI">
+                <img src="SCI_LOGO.jpeg" alt="PT Selalu Cinta Indonesia logo" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('logo-missing')" />
+              </div>
+              <div class="journey-company-info">
+                <h4>PT SELALU CINTA INDONESIA</h4>
+                <p>Salatiga, Indonesia</p>
+              </div>
+              <span class="journey-company-mark" aria-hidden="true">↗</span>
+            </div>
+            <p class="journey-summary">Currently working across footwear development and fiber computer-stitching design for international footwear brands.</p>
+            <div class="journey-roles" aria-label="Current roles">
+              <span>Management Trainee</span>
+              <span>Footwear Developer</span>
+              <span>Fiber Computer Stitching Designer</span>
+            </div>
+            <div class="journey-brand-row journey-brand-row-wide">
+              <div class="journey-brand-group">
+                <span class="journey-mini-label">BRANDS</span>
+                <div class="journey-brand-pair">
+                  <div class="journey-brand-frame" data-fallback="NIKE">
+                    <img src="NIKE_LOGO.jpeg" alt="Nike brand logo" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('logo-missing')" />
+                  </div>
+                  <div class="journey-brand-frame converse-frame" data-fallback="CONVERSE">
+                    <img src="CONVERSE_LOGO.jpeg" alt="Converse brand logo" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('logo-missing')" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="journey-detail" id="journeyDetailSci" aria-hidden="true" inert>
+              <span class="journey-detail-label">ROLE FOCUS</span>
+              <ul>
+                <li>Management Trainee — developing professional and cross-functional experience.</li>
+                <li>Footwear Developer — contributing to footwear product development.</li>
+                <li>Fiber Computer Stitching Designer — working with fiber-based computer stitching design.</li>
+              </ul>
+            </div>
+            <button class="journey-toggle" type="button" aria-expanded="false" aria-controls="journeyDetailSci">
+              <span class="journey-toggle-label">Explore experience</span><span class="journey-toggle-icon" aria-hidden="true">＋</span>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section college-section" id="college">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">02 / Selected academic work</span><h2>Beyond footwear.<br /><em>Material & culture.</em></h2></div>
+          <p>An academic project selected for exhibition, exploring the relationship between Javanese cultural heritage, contemporary street style, and apparel construction.</p>
+        </div>
+        <article class="college-feature" data-reveal>
+          <div class="college-image"><img src="TOPAN2.jpg" alt="Smooth Criminal Jacket — leather and traditional woven fabric project" loading="lazy" onerror="this.style.opacity='.15'" /></div>
+          <div class="college-content">
+            <span class="project-no">ACADEMIC PROJECT / 2023</span>
+            <h3>Smooth Criminal Jacket</h3>
+            <p>A jacket concept that blends Javanese cultural heritage with the iconic visual language of Michael Jackson. The project explores premium lambskin leather and traditional Sorjan-patterned woven fabric (Tenun) to create a distinctive garment with a refined, luxurious character.</p>
+            <div class="tags"><span class="tag">Classic</span><span class="tag">Street culture</span><span class="tag">Leather technology</span><span class="tag">Tenun</span></div>
+            <p>Documentation includes story writing, moodboard development, technical pattern making for leather and woven fabric, and the full production workflow. Selected for a fashion show at the PDIN (National Industrial Design Center) building.</p>
+            <div style="margin-top:25px"><a class="button button-primary" href="https://drive.google.com/file/d/1ayRnCYfWdU4qhIyEZn7vexYHYVdrLDAZ/view?usp=drive_link" target="_blank" rel="noopener">View project details ↗</a></div>
+          </div>
+        </article>
+        <div class="college-video" data-reveal>
+          <div class="video-frame"><iframe class="youtube-autoplay" data-youtube-id="snPK9X9Hn5M" src="about:blank" title="Politeknik ATK Yogyakarta fashion show 2023" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+          <div class="video-caption"><span>POLITEKNIK ATK YOGYAKARTA</span><span>FASHION SHOW / 2023</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects-section" id="footwear">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">03 / Footwear concept archive</span><h2>Nine ideas.<br /><em>Nine different narratives.</em></h2></div>
+          <p>Each project begins with a point of view and develops into a footwear concept supported by visual exploration, technical drawings, and material considerations.</p>
+        </div>
+        <div class="project-tools" data-reveal>
+          <div class="filters" role="group" aria-label="Filter footwear projects">
+            <button class="filter-btn active" data-filter="all" aria-pressed="true">All projects</button>
+            <button class="filter-btn" data-filter="performance" aria-pressed="false">Performance</button>
+            <button class="filter-btn" data-filter="lifestyle" aria-pressed="false">Lifestyle</button>
+            <button class="filter-btn" data-filter="concept" aria-pressed="false">Conceptual</button>
+            <button class="filter-btn" data-filter="competition" aria-pressed="false">Competition</button>
+          </div>
+          <span class="project-count" id="projectCount">09 PROJECTS / 09</span>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+          <article class="project-card" data-category="concept">
+            <div class="project-art"><span class="project-number">01 / 09</span><img src="20260218_221106_0000 (1).png" alt="Reverve footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="performance">
+            <div class="project-art"><span class="project-number">02 / 09</span><img src="20260218_221106_0000 (2).png" alt="Muscle Memory skateboarding footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="lifestyle concept">
+            <div class="project-art"><span class="project-number">03 / 09</span><img src="porto 3.png" alt="Dark System lifestyle footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3><p><strong>Lifestyle defiance & social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards & meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="performance concept">
+            <div class="project-art"><span class="project-number">04 / 09</span><img src="SPIC.png" alt="Spice Bloom running footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development & technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="performance competition">
+            <div class="project-art"><span class="project-number">05 / 09</span><span class="project-badge">IFCC 2026</span><img src="SCAR FLOW.png" alt="Scar Flow x Reisen trail footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications & Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" target="_blank" rel="noopener"><span>View competition entry</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="lifestyle concept">
+            <div class="project-art"><span class="project-number">06 / 09</span><img src="BLAKRAKAN.png" alt="Blakraan casual footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications & colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="lifestyle concept">
+            <div class="project-art"><span class="project-number">07 / 09</span><img src="TERRA.png" alt="Terra Nullius experimental slip-on concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials & visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="performance">
+            <div class="project-art"><span class="project-number">08 / 09</span><img src="NETT.png" alt="Nett tennis footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Tennis / Performance</span><h3>Nett</h3><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs & visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+          <article class="project-card" data-category="lifestyle concept">
+            <div class="project-art"><span class="project-number">09 / 09</span><span class="project-badge">New project</span><img src="NOTHING.png" alt="Nothing structural nihilism footwear concept" loading="lazy" /></div>
+            <div class="project-info"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing & structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section technical-section" id="technical">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">04 / Technical design & manufacturing</span><h2>From visual form<br />to <em>real construction.</em></h2></div>
+          <p>Technical drafting and manufacturing tooling for automated production lines — modelled, exploded, and documented.</p>
+        </div>
+        <div class="technical-layout" data-reveal>
+          <div class="model-panel" id="modelPanel">
+            <div class="model-topline"><span class="model-label" id="modelLabel">3D MODEL / SOLID VIEW</span><button class="fullscreen-btn" id="fullscreenModel" data-fullscreen-target="modelPanel" aria-label="Open 3D model in fullscreen" title="Fullscreen 3D viewer">⛶</button></div>
+            <model-viewer id="marinaViewer" src="MARINA3D.glb" alt="Marina heel peg pallet — solid 3D model" camera-controls enable-pan shadow-intensity="1.2" exposure="1" environment-image="neutral" loading="lazy" interaction-prompt="none"></model-viewer>
+            <span class="model-hint">DRAG TO ROTATE · SCROLL TO ZOOM</span>
+          </div>
+          <aside class="model-sidebar">
+            <span class="sidebar-kicker">Technical index / 01</span>
+            <h3>Marina</h3>
+            <p>A technical tooling study presented through a solid model and an exploded assembly view. Use the controls below to switch the 3D presentation.</p>
+            <div class="model-tabs" role="group" aria-label="Choose Marina 3D view">
+              <button class="model-tab active" data-model="MARINA3D.glb" data-label="3D MODEL / SOLID VIEW" aria-pressed="true"><b>01</b><span><strong>Solid model</strong><small>Complete assembly view</small></span></button>
+              <button class="model-tab" data-model="MARINA3DEXP.glb" data-label="3D MODEL / EXPLODED VIEW" aria-pressed="false"><b>02</b><span><strong>Exploded view</strong><small>Component relationship</small></span></button>
+            </div>
+            <div class="model-meta"><span>Tools</span><strong>NanoCAD · Rhino 3D</strong></div>
+            <div style="margin-top:17px"><a class="button button-primary" style="width:100%" href="https://drive.google.com/file/d/1wZpW4rh-BPwwWckIPN_IR2xSggUw1wv4/view?usp=drive_link" target="_blank" rel="noopener">View technical specs ↗</a></div>
+          </aside>
+        </div>
+        <div class="coming-grid" data-reveal>
+          <div class="coming-copy"><span class="sidebar-kicker">On the drawing board / 02</span><h3>Next chapter.<br /><span style="color:var(--orange)">In development.</span></h3><p>A preview of an upcoming footwear prototype. The 3D model can be rotated to inspect its shape from different angles.</p></div>
+          <div class="coming-model" id="comingModelPanel"><div class="coming-model-topline"><span class="model-label">3D PREVIEW / USER CONTROL</span><button class="fullscreen-btn" data-fullscreen-target="comingModelPanel" aria-label="Open upcoming 3D model in fullscreen" title="Fullscreen 3D viewer">⛶</button></div><model-viewer id="upcomingViewer" src="GIRRAFEE.glb" alt="Upcoming clog footwear prototype" camera-controls enable-pan shadow-intensity="1.4" exposure="1" environment-image="neutral" loading="lazy" interaction-prompt="none"></model-viewer></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process-section" id="process">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">05 / Design approach</span><h2>A narrative becomes<br /><em>a product system.</em></h2></div>
+          <p>The portfolio connects the conceptual and technical sides of footwear development. Each stage gives the next one a clear direction.</p>
+        </div>
+        <div class="approach-layout" data-reveal>
+          <figure class="approach-visual" id="approachVisual" data-stage="research" aria-label="Interactive animated visualization of the footwear design process">
+            <div class="viz-topline"><span>DESIGN SYSTEM / 4 PHASES</span><span id="vizState">01 — RESEARCH INPUT</span></div>
+            <svg class="approach-svg" viewBox="0 0 760 430" role="img" aria-label="A connected footwear form diagram with moving nodes and material pathways">
+              <defs>
+                <pattern id="vizGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="currentColor" stroke-opacity=".09" stroke-width="1"/></pattern>
+                <linearGradient id="vizStroke" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ed6e03"/><stop offset="1" stop-color="#b94e00"/></linearGradient>
+                <filter id="vizGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <rect x="0" y="0" width="760" height="430" fill="url(#vizGrid)"/>
+              <g class="viz-guides" fill="none" stroke="currentColor" stroke-opacity=".18">
+                <circle cx="380" cy="214" r="160" stroke-dasharray="3 8"/>
+                <circle cx="380" cy="214" r="112" stroke-dasharray="2 7"/>
+                <path d="M55 214H705M380 35V395" stroke-dasharray="2 9"/>
+              </g>
+              <path class="viz-route" id="approachRoute" d="M94 270 C155 75 260 65 380 214 S610 350 666 145" fill="none" stroke="url(#vizStroke)" stroke-width="2" stroke-linecap="round" stroke-dasharray="7 10"/>
+              <path class="viz-form" d="M168 255 C205 250 223 225 254 196 C281 171 305 157 335 165 L430 189 C470 198 495 223 525 244 L584 276 C603 287 614 302 607 313 C599 325 570 328 536 327 L250 327 C215 327 185 316 168 297 C157 285 155 267 168 255Z" fill="rgba(237,110,3,.055)" stroke="currentColor" stroke-opacity=".78" stroke-width="2.2"/>
+              <path class="viz-form-detail" d="M254 196 C289 206 326 231 356 259 C380 280 407 291 440 294 M335 165 C350 192 374 219 407 244 M184 287 C260 300 379 306 532 303" fill="none" stroke="#ed6e03" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 6"/>
+              <g class="viz-node" data-node="research"><circle cx="94" cy="270" r="13"/><circle class="node-core" cx="94" cy="270" r="4"/><text x="70" y="302">RESEARCH</text></g>
+              <g class="viz-node" data-node="concept"><circle cx="262" cy="102" r="13"/><circle class="node-core" cx="262" cy="102" r="4"/><text x="236" y="75">CONCEPT</text></g>
+              <g class="viz-node" data-node="development"><circle cx="500" cy="306" r="13"/><circle class="node-core" cx="500" cy="306" r="4"/><text x="466" y="341">DEVELOPMENT</text></g>
+              <g class="viz-node" data-node="engineering"><circle cx="666" cy="145" r="13"/><circle class="node-core" cx="666" cy="145" r="4"/><text x="624" y="117">ENGINEERING</text></g>
+              <circle class="viz-runner runner-one" r="4"><animateMotion dur="8s" repeatCount="indefinite"><mpath href="#approachRoute"/></animateMotion></circle>
+              <circle class="viz-runner runner-two" r="2.8"><animateMotion dur="11s" begin="-4s" repeatCount="indefinite"><mpath href="#approachRoute"/></animateMotion></circle>
+              <g class="viz-center-label"><text x="380" y="206" text-anchor="middle">FORM / FUNCTION</text><text x="380" y="226" text-anchor="middle">FOOTWEAR DEVELOPMENT</text></g>
+            </svg>
+            <figcaption class="viz-caption"><span>SELECT A PHASE TO EXPLORE THE SYSTEM</span><span>INTERACTIVE / 01—04</span></figcaption>
+          </figure>
+          <div class="approach-controls">
+            <div class="approach-step-list" role="group" aria-label="Explore the four design approach phases">
+              <button class="approach-step active" type="button" data-stage="research" aria-pressed="true"><span class="approach-step-no">01</span><span class="approach-step-copy"><strong>Observe & collect</strong><small>Research / Inspiration / Inputs</small></span><span class="approach-step-arrow">↗</span></button>
+              <button class="approach-step" type="button" data-stage="concept" aria-pressed="false"><span class="approach-step-no">02</span><span class="approach-step-copy"><strong>Build the narrative</strong><small>Story / Moodboard / Identity</small></span><span class="approach-step-arrow">↗</span></button>
+              <button class="approach-step" type="button" data-stage="development" aria-pressed="false"><span class="approach-step-no">03</span><span class="approach-step-copy"><strong>Develop the form</strong><small>Proportion / Material / 3D</small></span><span class="approach-step-arrow">↗</span></button>
+              <button class="approach-step" type="button" data-stage="engineering" aria-pressed="false"><span class="approach-step-no">04</span><span class="approach-step-copy"><strong>Prepare to make</strong><small>Pattern / Tooling / Production</small></span><span class="approach-step-arrow">↗</span></button>
+            </div>
+            <div class="approach-detail" id="approachDetail" aria-live="polite" aria-atomic="true">
+              <span class="approach-detail-index">01 / RESEARCH</span>
+              <h3>Observe & collect</h3>
+              <p>Look for references in culture, objects, environments, movement, and everyday experiences. The strongest product narratives often begin with details that seem unrelated.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills-section" id="skills">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">06 / Capabilities & tools</span><h2>Design thinking.<br /><em>Technical execution.</em></h2></div>
+          <p>Tools and practical capabilities used across the workflow, from the first visual exploration to production-oriented documentation.</p>
+        </div>
+        <div class="skills-grid" data-reveal>
+          <article class="skill-card"><span class="skill-index">01 / DESIGN</span><h3>Visual development</h3><div class="chips"><span>Adobe Illustrator</span><span>CorelDRAW</span><span>Photoshop</span><span>Footwear sketching</span></div></article>
+          <article class="skill-card"><span class="skill-index">02 / TECHNICAL CAD</span><h3>Digital construction</h3><div class="chips"><span>Rhinoceros</span><span>AutoCAD</span><span>NanoCAD</span><span>Delcam Shoemaker</span></div></article>
+          <article class="skill-card"><span class="skill-index">03 / MANUFACTURING</span><h3>Production workflow</h3><div class="chips"><span>Pattern making</span><span>Vulcanization</span><span>Computer stitching</span><span>Operational excellence</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="wrap contact-layout">
+        <div data-reveal><span class="eyebrow">07 / Start a conversation</span><h2>Let's make<br /><span>something</span><br />meaningful.</h2></div>
+        <div data-reveal class="delay-1"><p class="contact-copy">I'm open to opportunities in footwear product development, technical design, and manufacturing automation. For a role, collaboration, or a project that fits, feel free to get in touch.</p><div class="contact-actions">
+          <a class="contact-action" href="mailto:garinkusuma.design@gmail.com"><span>Email / garinkusuma.design@gmail.com</span><span>↗</span></a>
+          <a class="contact-action" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener"><span>Download CV</span><span>↗</span></a>
+          <a class="contact-action" href="https://www.linkedin.com/in/garinkusuma" target="_blank" rel="noopener"><span>LinkedIn</span><span>↗</span></a>
+          <a class="contact-action" href="https://www.instagram.com/voidtostar?igsh=MTFjYzlpeWtsMnpubA==" target="_blank" rel="noopener"><span>Instagram / @voidtostar</span><span>↗</span></a>
+        </div></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="document-viewer" id="documentViewer" aria-labelledby="documentViewerTitle">
+    <div class="document-viewer-head">
+      <div><span class="document-kicker">PORTFOLIO DOCUMENT / INLINE VIEWER</span><h2 id="documentViewerTitle">Project documentation</h2></div>
+      <button class="document-close" id="closeDocumentViewer" type="button" aria-label="Close document viewer">×</button>
+    </div>
+    <div class="document-frame-wrap"><iframe id="documentFrame" src="about:blank" title="Embedded portfolio document preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="document-viewer-foot"><span>Document preview is displayed inside this portfolio.</span><a id="documentExternalLink" href="#" target="_blank" rel="noopener">Open original file ↗</a></div>
+  </dialog>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top"><a class="brand" href="#home"><span class="brand-mark">G</span><span>GARIN NATA KUSUMA</span></a><nav class="footer-links" aria-label="Footer navigation"><a href="#about">About</a><a href="#footwear">Footwear</a><a href="#technical">Technical</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></div>
+      <div class="footer-bottom"><span>© <span id="year"></span> GARIN NATA KUSUMA. ALL RIGHTS RESERVED.</span><span>FOOTWEAR DESIGN / TECHNICAL DEVELOPMENT · INDONESIA</span></div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">GARIN.</div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const nav = $('#siteNav');
+      const progress = $('#navProgress');
+      const backTop = $('#backTop');
+      const menuToggle = $('#menuToggle');
+      const mobilePanel = $('#mobilePanel');
+
+      $('#year').textContent = new Date().getFullYear();
+
+      // Mobile navigation
+      const setMenu = (open) => {
+        mobilePanel.classList.toggle('open', open);
+        document.body.classList.toggle('menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      };
+      menuToggle.addEventListener('click', () => setMenu(!mobilePanel.classList.contains('open')));
+      $$('.mobile-panel a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
+
+      // Scroll progress, sticky navigation, and back-to-top state
+      let previousScrollY = window.scrollY;
+      let scrollMomentum = 0;
+      const onScroll = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+        progress.style.width = `${Math.min(100, ratio * 100)}%`;
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+        backTop.classList.toggle('show', window.scrollY > 650);
+        scrollMomentum += Math.max(-24, Math.min(24, window.scrollY - previousScrollY));
+        previousScrollY = window.scrollY;
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' }));
+
+      // Scroll reveal
+      const revealItems = $$('[data-reveal]');
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        revealItems.forEach(item => item.classList.add('visible'));
+      } else {
+        const revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => revealObserver.observe(item));
+      }
+
+      // Active navigation section marker
+      const sectionLinks = $$('.nav-links a');
+      const navSections = $$('main > section[id], main > header[id]');
+      if ('IntersectionObserver' in window) {
+        const sectionObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            sectionLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+          });
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+        navSections.forEach(section => sectionObserver.observe(section));
+      }
+
+      // Portfolio project filters
+      const filterButtons = $$('.filter-btn');
+      const projectCards = $$('.project-card');
+      const projectCount = $('#projectCount');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.filter;
+          filterButtons.forEach(item => {
+            const active = item === button;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+          let visible = 0;
+          projectCards.forEach(card => {
+            const categories = card.dataset.category.split(' ');
+            const show = filter === 'all' || categories.includes(filter);
+            card.hidden = !show;
+            if (show) visible++;
+          });
+          projectCount.textContent = `${String(visible).padStart(2, '0')} PROJECTS / 09`;
+        });
+      });
+
+      // Subtle cursor-following light on project cards
+      projectCards.forEach(card => {
+        card.addEventListener('pointermove', event => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+          card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+        }, { passive: true });
+      });
+
+      // Marina model: switch between solid and exploded GLB assets
+      const marinaViewer = $('#marinaViewer');
+      const modelLabel = $('#modelLabel');
+      const modelTabs = $$('.model-tab');
+      modelTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          if (marinaViewer.getAttribute('src') !== tab.dataset.model) marinaViewer.setAttribute('src', tab.dataset.model);
+          modelLabel.textContent = tab.dataset.label;
+          modelTabs.forEach(item => {
+            const active = item === tab;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-pressed', String(active));
+          });
+        });
+      });
+
+      // Every 3D asset can enter fullscreen independently. model-viewer keeps orbit, pan and zoom controls.
+      $$('[data-fullscreen-target]').forEach(button => {
+        button.addEventListener('click', async () => {
+          const panel = document.getElementById(button.dataset.fullscreenTarget);
+          if (!panel) return;
+          try {
+            if (document.fullscreenElement === panel) await document.exitFullscreen();
+            else {
+              if (document.fullscreenElement) await document.exitFullscreen();
+              await panel.requestFullscreen();
+            }
+          } catch (error) {
+            console.warn('Fullscreen is not available in this browser.', error);
+          }
+        });
+      });
+
+      // Open Google Drive files in an in-page preview dialog instead of navigating away.
+      const docDialog = $('#documentViewer');
+      const docFrame = $('#documentFrame');
+      const docTitle = $('#documentViewerTitle');
+      const docExternal = $('#documentExternalLink');
+      const closeDocButton = $('#closeDocumentViewer');
+      const getDriveFileId = url => {
+        try {
+          const parsed = new URL(url, window.location.href);
+          const pathMatch = parsed.pathname.match(/\/file\/d\/([^/]+)/);
+          return pathMatch ? pathMatch[1] : parsed.searchParams.get('id');
+        } catch { return null; }
+      };
+      const openDocument = (link) => {
+        const fileId = getDriveFileId(link.href);
+        if (!fileId) return false;
+        const cardTitle = link.closest('.project-card')?.querySelector('.project-info h3')?.textContent.trim();
+        const localTitle = link.closest('.college-content')?.querySelector('h3')?.textContent.trim();
+        const label = cardTitle || localTitle || link.textContent.trim() || 'Portfolio document';
+        docTitle.textContent = label;
+        docExternal.href = link.href;
+        docFrame.src = `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`;
+        if (typeof docDialog.showModal === 'function') docDialog.showModal();
+        else window.open(link.href, '_blank', 'noopener');
+        return true;
+      };
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a[href*="drive.google.com/file/d/"]');
+        if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (openDocument(link)) event.preventDefault();
+      });
+      const closeDocument = () => {
+        if (docDialog.open) docDialog.close();
+      };
+      closeDocButton.addEventListener('click', closeDocument);
+      docDialog.addEventListener('click', event => {
+        if (event.target === docDialog) closeDocument();
+      });
+      docDialog.addEventListener('close', () => { docFrame.src = 'about:blank'; });
+
+      // Play the YouTube video muted when its section enters view; pause it when the visitor scrolls away.
+      const youtubeFrame = $('.youtube-autoplay');
+      if (youtubeFrame) {
+        const videoId = youtubeFrame.dataset.youtubeId;
+        const youtubeUrl = `https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&playsinline=1&controls=1&rel=0`;
+        const sendYouTubeCommand = command => {
+          youtubeFrame.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: command, args: [] }), '*');
+        };
+        let youtubeStarted = false;
+        if ('IntersectionObserver' in window) {
+          const youtubeObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && entry.intersectionRatio >= .35) {
+                if (!youtubeStarted) {
+                  youtubeFrame.src = reducedMotion ? youtubeUrl.replace('autoplay=1', 'autoplay=0') : youtubeUrl;
+                  youtubeStarted = true;
+                } else if (!reducedMotion) sendYouTubeCommand('playVideo');
+              } else if (youtubeStarted) sendYouTubeCommand('pauseVideo');
+            });
+          }, { threshold: [0, .35, .6] });
+          youtubeObserver.observe(youtubeFrame);
+        } else {
+          youtubeFrame.src = youtubeUrl;
+        }
+      }
+
+      // Interactive Design Approach: selecting a phase changes the animated system and its explanation.
+      const approachVisual = $('#approachVisual');
+      const approachDetail = $('#approachDetail');
+      const vizState = $('#vizState');
+      const approachSteps = $$('.approach-step');
+      const approachContent = {
+        research: {
+          index: '01 / RESEARCH', state: '01 — RESEARCH INPUT', title: 'Observe & collect',
+          body: 'Look for references in culture, objects, environments, movement, and everyday experiences. The strongest product narratives often begin with details that seem unrelated.'
+        },
+        concept: {
+          index: '02 / CONCEPT', state: '02 — NARRATIVE BUILD', title: 'Build the narrative',
+          body: 'Translate observations into a design story, moodboard, silhouette direction, and product identity. The narrative becomes a clear visual and functional brief.'
+        },
+        development: {
+          index: '03 / DEVELOPMENT', state: '03 — FORM EXPLORATION', title: 'Develop the form',
+          body: 'Explore proportions, materials, construction, 2D drawings, and 3D footwear models. Test how each design decision supports the intended use and visual language.'
+        },
+        engineering: {
+          index: '04 / ENGINEERING', state: '04 — PRODUCTION LOGIC', title: 'Prepare to make',
+          body: 'Develop technical drawings, patterns, tooling concepts, and manufacturing documentation. Translate the approved product form into production-oriented information.'
+        }
+      };
+      const setApproachStage = stage => {
+        const content = approachContent[stage];
+        if (!content) return;
+        approachVisual.dataset.stage = stage;
+        vizState.textContent = content.state;
+        $('.approach-detail-index', approachDetail).textContent = content.index;
+        $('h3', approachDetail).textContent = content.title;
+        $('p', approachDetail).textContent = content.body;
+        $$('.viz-node', approachVisual).forEach(node => node.classList.toggle('is-active', node.dataset.node === stage));
+        approachSteps.forEach(button => {
+          const active = button.dataset.stage === stage;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+      };
+      approachSteps.forEach(button => button.addEventListener('click', () => setApproachStage(button.dataset.stage)));
+      setApproachStage('research');
+
+      // My Journey cards: keyboard-accessible details toggles and subtle pointer spotlight.
+      $$('.journey-toggle').forEach(button => {
+        const card = button.closest('.journey-card');
+        const detail = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', () => {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          card.classList.toggle('is-expanded', !expanded);
+          detail.setAttribute('aria-hidden', String(expanded));
+          detail.inert = expanded;
+          $('.journey-toggle-label', button).textContent = expanded ? 'Explore experience' : 'Close details';
+        });
+      });
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        $$('[data-journey-card]').forEach(card => {
+          card.addEventListener('pointermove', event => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+            card.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+          }, { passive: true });
+          card.addEventListener('pointerleave', () => {
+            card.style.setProperty('--spot-x', '50%');
+            card.style.setProperty('--spot-y', '0%');
+          }, { passive: true });
+        });
+      }
+
+      // Full-page particle field with flowing paths, section-aware colors, scroll response and pointer interaction.
+      const particleCanvas = $('#ambientParticles');
+      const particleContext = particleCanvas?.getContext('2d');
+      if (particleCanvas && particleContext) {
+        let width = 0;
+        let height = 0;
+        let dpr = 1;
+        let particles = [];
+        let frameId = 0;
+        let frameCount = 0;
+        let activeSectionIndex = 0;
+        let ambientRgb = '237,110,3';
+        let alternateRgb = '255,232,207';
+        let pointer = { x: -1000, y: -1000 };
+        const toneSections = $$('header.hero, main > section, .ticker');
+        const lerp = (a, b, amount) => a + (b - a) * amount;
+
+        const readSectionTone = () => {
+          const focusLine = window.innerHeight * .48;
+          let selected = 0;
+          let closest = Infinity;
+          toneSections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            const distance = focusLine < rect.top ? rect.top - focusLine : focusLine > rect.bottom ? focusLine - rect.bottom : 0;
+            if (distance < closest) { closest = distance; selected = index; }
+          });
+          if (selected !== activeSectionIndex) activeSectionIndex = selected;
+          const source = toneSections[selected] || document.body;
+          const style = getComputedStyle(source);
+          const nextMain = style.getPropertyValue('--particle-rgb').trim() || '237,110,3';
+          const nextAlt = style.getPropertyValue('--particle-alt-rgb').trim() || '255,232,207';
+          ambientRgb = nextMain;
+          alternateRgb = nextAlt;
+        };
+
+        const resizeParticles = () => {
+          const oldCount = particles.length;
+          width = window.innerWidth;
+          height = window.innerHeight;
+          dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+          particleCanvas.width = Math.round(width * dpr);
+          particleCanvas.height = Math.round(height * dpr);
+          particleContext.setTransform(dpr, 0, 0, dpr, 0, 0);
+          const count = Math.max(42, Math.min(112, Math.round(width / 12)));
+          particles = Array.from({ length: count }, (_, index) => {
+            const prior = particles[index];
+            return prior || {
+              x: Math.random() * width, y: Math.random() * height,
+              vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28,
+              seed: Math.random(), phase: Math.random() * Math.PI * 2,
+              size: .55 + Math.random() * 1.55,
+              lane: Math.random(), shimmer: Math.random() * Math.PI * 2
+            };
+          });
+          readSectionTone();
+        };
+
+        const drawParticles = time => {
+          particleContext.clearRect(0, 0, width, height);
+          const mode = activeSectionIndex % 4;
+          const scrollFlow = Math.max(-1, Math.min(1, scrollMomentum / 30));
+          const centerX = width * (.5 + Math.sin(time * .00012) * .12);
+          const centerY = height * (.5 + Math.cos(time * .00015) * .12);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            const phase = p.phase + time * .00018 + window.scrollY * .0007;
+            let targetX, targetY;
+
+            if (mode === 1) {
+              const angle = p.seed * Math.PI * 2 + time * .00012;
+              const radius = Math.min(width, height) * (.12 + p.lane * .24);
+              targetX = centerX + Math.cos(angle) * radius;
+              targetY = centerY + Math.sin(angle) * radius * .72;
+            } else if (mode === 2) {
+              const columns = Math.max(7, Math.round(width / 115));
+              const rows = Math.max(4, Math.round(height / 125));
+              const column = i % columns;
+              const row = Math.floor(i / columns) % rows;
+              targetX = (column + .5) * width / columns + Math.sin(phase) * 17;
+              targetY = (row + .5) * height / rows + Math.cos(phase * .8) * 16;
+            } else if (mode === 3) {
+              targetX = ((p.seed + time * .000018 + 1) % 1) * width;
+              targetY = height * (.18 + p.lane * .64) + Math.sin(targetX * .006 + phase) * height * .12;
+            } else {
+              targetX = ((p.seed + time * .000012 + 1) % 1) * width;
+              targetY = height * (.2 + p.lane * .6) + Math.sin(targetX * .0055 + phase) * height * .15 + Math.cos(phase * .7) * 18;
+            }
+
+            const attraction = .0015 + Math.min(.002, Math.abs(scrollFlow) * .0012);
+            p.vx += (targetX - p.x) * attraction;
+            p.vy += (targetY - p.y) * attraction;
+            p.vx += scrollFlow * (p.lane - .5) * .045;
+
+            const dxPointer = p.x - pointer.x;
+            const dyPointer = p.y - pointer.y;
+            const pointerDistance = Math.hypot(dxPointer, dyPointer);
+            if (pointerDistance < 145 && pointerDistance > 0) {
+              const force = (1 - pointerDistance / 145) * .14;
+              p.vx += (dxPointer / pointerDistance) * force - (dyPointer / pointerDistance) * force * .32;
+              p.vy += (dyPointer / pointerDistance) * force + (dxPointer / pointerDistance) * force * .32;
+            }
+
+            p.vx *= .972;
+            p.vy *= .972;
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < -30) p.x = width + 30;
+            if (p.x > width + 30) p.x = -30;
+            if (p.y < -30) p.y = height + 30;
+            if (p.y > height + 30) p.y = -30;
+
+            const twinkle = .45 + (Math.sin(time * .002 + p.shimmer) + 1) * .22;
+            particleContext.beginPath();
+            particleContext.fillStyle = `rgba(${i % 5 === 0 ? alternateRgb : ambientRgb},${twinkle})`;
+            particleContext.shadowColor = `rgba(${i % 5 === 0 ? alternateRgb : ambientRgb},.72)`;
+            particleContext.shadowBlur = p.size > 1.5 ? 8 : 4;
+            particleContext.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            particleContext.fill();
+            particleContext.shadowBlur = 0;
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const q = particles[j];
+              const dx = p.x - q.x;
+              const dy = p.y - q.y;
+              const distance = Math.hypot(dx, dy);
+              if (distance < 100) {
+                const alpha = (1 - distance / 100) * .14;
+                particleContext.beginPath();
+                particleContext.strokeStyle = `rgba(${ambientRgb},${alpha})`;
+                particleContext.lineWidth = .65;
+                particleContext.moveTo(p.x, p.y);
+                particleContext.lineTo(q.x, q.y);
+                particleContext.stroke();
+              }
+            }
+          }
+          scrollMomentum *= .88;
+          frameCount++;
+          if (!reducedMotion && !document.hidden) frameId = requestAnimationFrame(drawParticles);
+        };
+
+        resizeParticles();
+        if (reducedMotion) drawParticles(0);
+        else frameId = requestAnimationFrame(drawParticles);
+        window.addEventListener('resize', resizeParticles, { passive: true });
+        window.addEventListener('pointermove', event => { pointer.x = event.clientX; pointer.y = event.clientY; }, { passive: true });
+        window.addEventListener('pointerleave', () => { pointer.x = -1000; pointer.y = -1000; });
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) cancelAnimationFrame(frameId);
+          else if (!reducedMotion) {
+            readSectionTone();
+            frameId = requestAnimationFrame(drawParticles);
+          }
+        });
+        let toneCheck = 0;
+        const updateParticleTone = () => {
+          if (++toneCheck % 24 === 0) readSectionTone();
+          if (!reducedMotion && !document.hidden) requestAnimationFrame(updateParticleTone);
+        };
+        if (!reducedMotion) requestAnimationFrame(updateParticleTone);
+      }
+    })();
+  </script>
+</body>
+</html>
