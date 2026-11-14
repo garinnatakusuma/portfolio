@@ -914,6 +914,38 @@
       .hero-product-glow, .hero-product-stage .hero-shoe-wrap, .hero-product-stage .hero-shoe-wrap img { animation: none !important; }
     }
 
+  
+
+    /* TACTILE INDUSTRIAL AUDIO ENGINE — master sound toggle */
+    :root { --sound-accent: #ff6b00; }
+    .sound-toggle {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 38px; padding: 8px 11px; border: 1px solid rgba(255,107,0,.38);
+      border-radius: 999px; background: rgba(255,107,0,.075); color: #f4eee7;
+      cursor: pointer; white-space: nowrap; font: 600 .59rem var(--mono);
+      letter-spacing: .075em; line-height: 1; transition: background .25s, border-color .25s,
+      color .25s, transform .25s, box-shadow .25s;
+    }
+    .sound-toggle:hover { border-color: var(--sound-accent); background: rgba(255,107,0,.15); box-shadow: 0 0 18px rgba(255,107,0,.12); }
+    .sound-toggle:active { transform: scale(.97); }
+    .sound-bars { height: 14px; display: inline-flex; align-items: center; gap: 2px; }
+    .sound-bars i { display: block; width: 2px; height: 5px; border-radius: 2px; background: var(--sound-accent); transform-origin: center; }
+    .sound-toggle[aria-pressed="true"] .sound-bars i { animation: soundWave .72s ease-in-out infinite alternate; }
+    .sound-toggle[aria-pressed="true"] .sound-bars i:nth-child(2) { animation-delay: -.38s; }
+    .sound-toggle[aria-pressed="true"] .sound-bars i:nth-child(3) { animation-delay: -.19s; }
+    .sound-toggle[aria-pressed="true"] .sound-bars i:nth-child(4) { animation-delay: -.52s; }
+    .sound-toggle[aria-pressed="false"] .sound-bars i { height: 2px; animation: none; opacity: .65; }
+    .sound-toggle[aria-pressed="false"] .sound-bars { position: relative; }
+    .sound-toggle[aria-pressed="false"] .sound-bars::after { content: ''; position: absolute; left: -2px; right: -2px; top: 6px; height: 1.5px; background: #aaa39b; transform: rotate(-42deg); }
+    @keyframes soundWave { from { height: 3px; opacity: .65; } to { height: 13px; opacity: 1; } }
+    .sound-toggle-mobile { display: inline-flex; width: fit-content; min-height: 40px; margin: 17px 0 3px; padding-inline: 14px; }
+    @media (max-width: 760px) {
+      .sound-toggle-mobile { display: inline-flex; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sound-toggle[aria-pressed="true"] .sound-bars i { animation: none; height: 8px; }
+    }
+
   </style>
 </head>
 <body>
@@ -931,7 +963,12 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="nav-cta"><a class="nav-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a></div>
+    <div class="nav-cta">
+      <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
+      </button>
+      <a class="nav-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+    </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel"><span></span><span></span></button>
     <span class="nav-progress" id="navProgress"></span>
   </nav>
@@ -944,6 +981,9 @@
     <a href="#process">Design process <span>05</span></a>
     <a href="#skills">Skills & tools <span>06</span></a>
     <a href="#contact">Contact <span>07</span></a>
+    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
+      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
+    </button>
     <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
   </div>
 
@@ -2246,5 +2286,265 @@
       }
     })();
   </script>
+
+
+  <script>
+    /* ================================================================
+       TACTILE INDUSTRIAL AUDIO ENGINE
+       Sound files are expected beside index.html in the repository root.
+       ================================================================ */
+    (() => {
+      'use strict';
+
+      const SOUND_FILES = {
+        opening: 'SoundOpening.mp3',
+        primary: 'PrimaryCTA.mp3',
+        modalOpen: 'ModalOpen.mp3',
+        modalClose: 'ModalClose.mp3',
+        rollover: 'RolloverTick.mp3',
+        threeDOpen: '3DOPEN.mp3',
+        threeDClose: '3DCLOSE.mp3',
+        sliderFlip: 'SliderFlip.mp3',
+        navigation: 'NavigasiLompat.mp3'
+      };
+
+      const SOUND_VOLUMES = {
+        opening: 0.60,
+        primary: 0.65,
+        modalOpen: 0.55,
+        modalClose: 0.45,
+        rollover: 0.18,
+        threeDOpen: 0.60,
+        threeDClose: 0.55,
+        sliderFlip: 0.38,
+        navigation: 0.35
+      };
+
+      const STORAGE_KEY = 'garinPortfolioSoundEnabled';
+      const OPENING_SESSION_KEY = 'garinPortfolioOpeningPlayed';
+      const safeStorage = {
+        get(storageName, key) { try { return window[storageName].getItem(key); } catch (_) { return null; } },
+        set(storageName, key, value) { try { window[storageName].setItem(key, value); } catch (_) {} }
+      };
+
+      let soundEnabled = safeStorage.get('localStorage', STORAGE_KEY) !== 'off';
+      const tracks = Object.create(null);
+
+      // Preload all nine sound files from the root directory (no sub-folder paths).
+      Object.entries(SOUND_FILES).forEach(([key, filename]) => {
+        const audio = new Audio(filename);
+        audio.preload = 'auto';
+        audio.volume = SOUND_VOLUMES[key];
+        audio.muted = !soundEnabled;
+        audio.addEventListener('error', () => {}); // Missing files stay silent until uploaded.
+        tracks[key] = audio;
+        try { audio.load(); } catch (_) {}
+      });
+
+      const soundButtons = Array.from(document.querySelectorAll('[data-sound-toggle]'));
+      const updateSoundToggleUI = () => {
+        soundButtons.forEach(button => {
+          button.setAttribute('aria-pressed', String(soundEnabled));
+          button.setAttribute('aria-label', soundEnabled ? 'Turn interface sound off' : 'Turn interface sound on');
+          const label = button.querySelector('.sound-toggle-label');
+          if (label) label.textContent = soundEnabled ? 'SOUND ON' : 'SOUND OFF';
+        });
+      };
+
+      const stopAllSounds = () => {
+        Object.values(tracks).forEach(audio => {
+          audio.pause();
+          try { audio.currentTime = 0; } catch (_) {}
+          audio.muted = true;
+        });
+      };
+
+      const playTactileSound = (key, options = {}) => {
+        if (!soundEnabled) return;
+        const audio = tracks[key];
+        if (!audio) return;
+        audio.pause();
+        try { audio.currentTime = 0; } catch (_) {}
+        audio.volume = options.volume ?? SOUND_VOLUMES[key];
+        audio.playbackRate = options.rate ?? 1;
+        audio.muted = false;
+        const playRequest = audio.play();
+        if (playRequest && typeof playRequest.catch === 'function') playRequest.catch(() => {});
+      };
+
+      const randomRate = (min, max) => min + Math.random() * (max - min);
+      let lastPrimarySoundAt = -Infinity;
+      const playPrimaryOnce = () => {
+        const now = performance.now();
+        if (now - lastPrimarySoundAt < 260) return;
+        lastPrimarySoundAt = now;
+        playTactileSound('primary');
+      };
+      updateSoundToggleUI();
+
+      // First eligible user gesture unlocks the one-time opening cue for this tab session.
+      let openingHandled = safeStorage.get('sessionStorage', OPENING_SESSION_KEY) === '1';
+      const firstInteractionUnlock = event => {
+        if (openingHandled) {
+          document.removeEventListener('pointerdown', firstInteractionUnlock, true);
+          document.removeEventListener('keydown', firstInteractionUnlock, true);
+          return;
+        }
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        const clickedMasterToggle = !!target?.closest('[data-sound-toggle]');
+        openingHandled = true;
+        safeStorage.set('sessionStorage', OPENING_SESSION_KEY, '1');
+        document.removeEventListener('pointerdown', firstInteractionUnlock, true);
+        document.removeEventListener('keydown', firstInteractionUnlock, true);
+        if (!clickedMasterToggle) playTactileSound('opening');
+      };
+      if (!openingHandled) {
+        document.addEventListener('pointerdown', firstInteractionUnlock, true);
+        document.addEventListener('keydown', firstInteractionUnlock, true);
+      }
+
+      soundButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          soundEnabled = !soundEnabled;
+          safeStorage.set('localStorage', STORAGE_KEY, soundEnabled ? 'on' : 'off');
+          if (!soundEnabled) {
+            stopAllSounds();
+          } else {
+            Object.values(tracks).forEach(audio => { audio.muted = false; });
+            playTactileSound('rollover', { volume: 0.18, rate: randomRate(0.96, 1.04) });
+          }
+          updateSoundToggleUI();
+        });
+      });
+
+      // Modal open/close sounds are tied to the native dialog lifecycle, including ESC/backdrop.
+      let lastModalOpenTime = -Infinity;
+      document.querySelectorAll('dialog').forEach(dialog => {
+        if (typeof dialog.showModal === 'function') {
+          const nativeShowModal = dialog.showModal.bind(dialog);
+          try {
+            dialog.showModal = function (...args) {
+              const wasOpen = this.open;
+              const result = nativeShowModal(...args);
+              if (!wasOpen) {
+                lastModalOpenTime = performance.now();
+                playTactileSound('modalOpen');
+              }
+              return result;
+            };
+          } catch (_) {
+            // Native dialog methods remain untouched if a browser does not allow wrapping.
+          }
+        }
+        dialog.addEventListener('close', () => playTactileSound('modalClose'));
+      });
+
+      // 3D mode changes: exploded = open, solid = close.
+      document.querySelectorAll('.model-tab').forEach(button => {
+        button.addEventListener('click', () => {
+          const isExploded = /EXP/i.test(button.dataset.model || '') || /EXPLODED/i.test(button.dataset.label || '');
+          playTactileSound(isExploded ? 'threeDOpen' : 'threeDClose');
+        });
+      });
+
+      // Also catch fullscreen entry/exit initiated by the button, ESC, or browser UI.
+      const isTechnical3DFullscreen = element => !!(
+        element && element.matches?.('.model-panel, .coming-model') && element.closest('#technical')
+      );
+      let wasTechnical3DFullscreen = isTechnical3DFullscreen(document.fullscreenElement);
+      document.addEventListener('fullscreenchange', () => {
+        const isNowTechnical3D = isTechnical3DFullscreen(document.fullscreenElement);
+        if (isNowTechnical3D && !wasTechnical3DFullscreen) playTactileSound('threeDOpen');
+        else if (!isNowTechnical3D && wasTechnical3DFullscreen) playTactileSound('threeDClose');
+        wasTechnical3DFullscreen = isNowTechnical3D;
+      });
+
+      // Desktop-only micro hover. One global cooldown prevents rapid cursor audio spam.
+      const finePointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false;
+      if (finePointer) {
+        const hoverTargets = [
+          '.nav-links a', '#mobilePanel a', '.project-card', '.college-feature',
+          '.model-tab', '.fullscreen-btn', '.button', '.nav-cv', '.mobile-cv', '.sound-toggle', '.document-close',
+          '.contact-action', '.filter-btn', '.journey-toggle', '.journey-card',
+          '.about-side', '.model-explainer-trigger', '.approach-step', '.skill-card',
+          '.process-step', '.tag', '.project-tags span', '.chips span',
+          '.project-badge', '.availability', '.back-top', '#menuToggle',
+          '.shoe-preview-zoom', '.shoe-preview-close', '[data-gallery-next]',
+          '[data-gallery-prev]', '[data-gallery-thumb]', '.gallery-next',
+          '.gallery-prev', '.gallery-thumb'
+        ].join(',');
+        let lastHoverSoundAt = -Infinity;
+        document.querySelectorAll(hoverTargets).forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            const now = performance.now();
+            if (now - lastHoverSoundAt < 65) return;
+            lastHoverSoundAt = now;
+            playTactileSound('rollover', { rate: randomRate(0.96, 1.04) });
+          }, { passive: true });
+        });
+      }
+
+      // Sound map for section jumps, tactile cards/tabs, gallery controls and primary actions.
+      document.addEventListener('click', event => {
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        if (!target || target.closest('[data-sound-toggle]')) return;
+
+        const navJump = target.closest(
+          '#siteNav .nav-links a[href^="#"], #siteNav .brand[href^="#"], #mobilePanel a[href^="#"], .scroll-cue[href^="#"]'
+        );
+        if (navJump) {
+          playTactileSound('navigation');
+          return;
+        }
+        if (target.closest('#backTop')) {
+          playTactileSound('navigation');
+          return;
+        }
+
+        const modelTab = target.closest('.model-tab');
+        if (modelTab) return; // The dedicated 3D mode handler above owns this sound.
+
+        const galleryControl = target.closest(
+          '[data-gallery-next], [data-gallery-prev], [data-gallery-thumb], .gallery-next, .gallery-prev, .gallery-thumb, .shoe-preview-zoom, [data-slide-control]'
+        );
+        if (galleryControl) {
+          playTactileSound('sliderFlip', { rate: randomRate(0.97, 1.03) });
+          return;
+        }
+
+        const careerOrProcess = target.closest(
+          '.journey-toggle, .journey-card, .about-side, .approach-step, .process-step, .skill-card'
+        );
+        if (careerOrProcess) {
+          playTactileSound('sliderFlip', { rate: randomRate(0.97, 1.03) });
+          return;
+        }
+
+        const primaryAction = target.closest(
+          '.button-primary, .button-outline, .nav-cv, .mobile-cv, .contact-action, button[type="submit"], input[type="submit"], [data-primary-cta]'
+        );
+        if (primaryAction) {
+          // A dialog opened by this same click has priority over a generic CTA cue.
+          if (performance.now() - lastModalOpenTime < 140) return;
+          playPrimaryOnce();
+        }
+      });
+
+      // Keyboard/form submissions should receive the same primary confirmation as CTA clicks.
+      document.addEventListener('submit', event => {
+        if (event.defaultPrevented) return;
+        if (performance.now() - lastModalOpenTime < 140) return;
+        playPrimaryOnce();
+      }, true);
+
+      // Expose a tiny read-only debug surface for testing without changing the page UI.
+      window.portfolioTactileAudio = Object.freeze({
+        enabled: () => soundEnabled,
+        play: key => playTactileSound(key),
+        files: Object.freeze({ ...SOUND_FILES })
+      });
+    })();
+  </script>
+
 </body>
 </html>
