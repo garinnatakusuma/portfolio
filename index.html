@@ -231,6 +231,94 @@
     .shoe-preview-stage.is-zoomed { cursor: zoom-out; }
     .shoe-preview-stage.is-zoomed img { cursor: zoom-out; }
     .shoe-preview-hint { justify-self: center; max-width: 100%; padding: 7px 11px; border: 1px solid rgba(255,255,255,.13); border-radius: 999px; color: rgba(248,247,244,.72); background: rgba(255,255,255,.055); font: 500 .53rem var(--mono); letter-spacing: .055em; text-align: center; white-space: nowrap; }
+
+    /* Unified, contrast-aware loading treatment for assets, embeds and interactive models */
+    .portfolio-loading {
+      --loader-ink: #f8f7f4;
+      --loader-muted: rgba(248,247,244,.7);
+      --loader-panel: rgba(15,15,17,.78);
+      --loader-border: rgba(255,255,255,.2);
+      --loader-track: rgba(255,255,255,.16);
+      position: absolute;
+      z-index: 30;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      color: var(--loader-ink);
+      background: rgba(10,10,12,.22);
+      backdrop-filter: blur(8px) saturate(1.08);
+      -webkit-backdrop-filter: blur(8px) saturate(1.08);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: none;
+      transition: opacity .24s ease, visibility .24s ease;
+    }
+    .portfolio-loading.is-light {
+      --loader-ink: #171719;
+      --loader-muted: rgba(23,23,25,.66);
+      --loader-panel: rgba(255,253,250,.88);
+      --loader-border: rgba(16,16,18,.14);
+      --loader-track: rgba(16,16,18,.12);
+      background: rgba(255,255,255,.28);
+    }
+    .portfolio-loading.is-hidden { opacity: 0; visibility: hidden; }
+    .portfolio-loading-panel {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: min(100%, 310px);
+      padding: 12px 14px;
+      border: 1px solid var(--loader-border);
+      border-radius: 15px;
+      color: var(--loader-ink);
+      background: var(--loader-panel);
+      box-shadow: 0 12px 32px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    }
+    .portfolio-loading-spinner {
+      position: relative;
+      flex: 0 0 29px;
+      width: 29px;
+      height: 29px;
+      border: 3px solid var(--loader-track);
+      border-top-color: var(--orange);
+      border-right-color: var(--orange);
+      border-radius: 50%;
+      animation: portfolioLoaderSpin .78s linear infinite;
+      filter: drop-shadow(0 0 7px rgba(237,110,3,.3));
+    }
+    @keyframes portfolioLoaderSpin { to { transform: rotate(360deg); } }
+    .portfolio-loading-copy { flex: 1; min-width: 0; display: grid; gap: 6px; }
+    .portfolio-loading-label { overflow: hidden; color: var(--loader-muted); font: 600 .54rem var(--mono); letter-spacing: .085em; text-overflow: ellipsis; white-space: nowrap; }
+    .portfolio-loading-track { display: block; height: 4px; overflow: hidden; border-radius: 999px; background: var(--loader-track); }
+    .portfolio-loading-fill { display: block; width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--orange-deep), var(--orange), #ffb16b); box-shadow: 0 0 12px rgba(237,110,3,.4); transition: width .13s linear; }
+    .portfolio-loading-percent { min-width: 36px; color: var(--loader-ink); font: 700 .67rem var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+    .portfolio-loading.is-complete .portfolio-loading-spinner { border-color: rgba(123,214,157,.35); border-top-color: #54bd81; border-right-color: #54bd81; animation: none; }
+    .portfolio-loading.is-complete .portfolio-loading-spinner::after { content: '✓'; position: absolute; inset: 0; display: grid; place-items: center; color: #54bd81; font: 800 15px var(--body); }
+    .portfolio-loading.is-error .portfolio-loading-spinner { border-color: rgba(237,110,3,.35); border-top-color: var(--orange); border-right-color: var(--orange); animation: none; }
+    .portfolio-loading.is-error .portfolio-loading-spinner::after { content: '!'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--orange); font: 800 15px var(--body); }
+    .shoe-preview-stage { isolation: isolate; }
+    #shoePreviewImage { opacity:  0; visibility: hidden; transition: opacity .2s ease; }
+    .shoe-preview-stage.is-ready #shoePreviewImage { opacity: 1; visibility: visible; }
+    .shoe-preview-stage.is-loading #shoePreviewImage { opacity: 0; visibility: hidden; }
+    .model-panel, .coming-model, .video-frame, .document-frame-wrap { isolation: isolate; }
+    .model-panel .portfolio-loading, .coming-model .portfolio-loading { z-index: 2; }
+    .model-panel .model-topline, .coming-model .coming-model-topline, .model-panel .model-hint { z-index: 35; }
+    .video-frame .portfolio-loading, .document-frame-wrap .portfolio-loading { z-index: 5; }
+    .image-loading-host { isolation: isolate; }
+    .image-loading-host > .portfolio-loading { z-index: 8; }
+    .school-mark > .portfolio-loading, .journey-logo-frame > .portfolio-loading, .journey-brand-frame > .portfolio-loading { padding: 4px; }
+    .school-mark > .portfolio-loading .portfolio-loading-panel, .journey-logo-frame > .portfolio-loading .portfolio-loading-panel, .journey-brand-frame > .portfolio-loading .portfolio-loading-panel { width: 100%; flex-direction: column; gap: 4px; padding: 5px; border-radius: 10px; }
+    .school-mark > .portfolio-loading .portfolio-loading-spinner, .journey-logo-frame > .portfolio-loading .portfolio-loading-spinner, .journey-brand-frame > .portfolio-loading .portfolio-loading-spinner { width: 19px; height: 19px; flex-basis: 19px; border-width: 2px; }
+    .school-mark > .portfolio-loading .portfolio-loading-label, .journey-logo-frame > .portfolio-loading .portfolio-loading-label, .journey-brand-frame > .portfolio-loading .portfolio-loading-label { display: none; }
+    .school-mark > .portfolio-loading .portfolio-loading-percent, .journey-logo-frame > .portfolio-loading .portfolio-loading-percent, .journey-brand-frame > .portfolio-loading .portfolio-loading-percent { min-width: 0; font-size: .5rem; text-align: center; }
+    .school-mark > .portfolio-loading .portfolio-loading-track, .journey-logo-frame > .portfolio-loading .portfolio-loading-track, .journey-brand-frame > .portfolio-loading .portfolio-loading-track { height: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .portfolio-loading-spinner { animation-duration: 1.8s; }
+      .portfolio-loading, .portfolio-loading-fill { transition-duration: .01ms; }
+    }
     @media (max-width: 760px) {
       .project-art img[data-preview-src] { cursor: default; }
       .shoe-preview { display: none !important; }
@@ -1332,8 +1420,187 @@
         }, { passive: true });
       });
 
-      // Desktop-only transparent shoe detail viewer. The preview opens on click, zooms on wheel/buttons,
-      // and closes automatically once the pointer leaves both the originating card and the preview panel.
+      // Shared loading component: real byte/model progress is used where available; otherwise the
+      // percentage is an estimate that pauses near 92% until the browser confirms the asset is ready.
+      const createPortfolioLoader = (host, initialLabel = 'LOADING ASSET', theme = 'dark') => {
+        if (!host) return null;
+        const computedPosition = window.getComputedStyle(host).position;
+        if (computedPosition === 'static') host.style.position = 'relative';
+        host.classList.add('image-loading-host');
+        const element = document.createElement('div');
+        element.className = `portfolio-loading is-hidden${theme === 'light' ? ' is-light' : ''}`;
+        element.setAttribute('role', 'status');
+        element.setAttribute('aria-live', 'polite');
+        element.innerHTML = '<div class="portfolio-loading-panel"><span class="portfolio-loading-spinner" aria-hidden="true"></span><span class="portfolio-loading-copy"><span class="portfolio-loading-label"></span><span class="portfolio-loading-track" role="progressbar" aria-label="Asset loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i class="portfolio-loading-fill"></i></span></span><strong class="portfolio-loading-percent">0%</strong></div>';
+        host.appendChild(element);
+        const labelNode = $('.portfolio-loading-label', element);
+        const trackNode = $('.portfolio-loading-track', element);
+        const fillNode = $('.portfolio-loading-fill', element);
+        const percentNode = $('.portfolio-loading-percent', element);
+        let percent = 0;
+        let estimateFrame = 0;
+        let estimating = false;
+        let hideTimer = 0;
+        let lastEstimateTime = 0;
+        const cancelEstimate = () => {
+          estimating = false;
+          if (estimateFrame) cancelAnimationFrame(estimateFrame);
+          estimateFrame = 0;
+        };
+        const paint = (value, measured = false) => {
+          const nextPercent = Math.max(0, Math.min(100, Math.round(value)));
+          percent = measured ? nextPercent : Math.max(percent, nextPercent);
+          fillNode.style.width = `${percent}%`;
+          percentNode.textContent = `${percent}%`;
+          trackNode.setAttribute('aria-valuenow', String(percent));
+        };
+        const startEstimate = () => {
+          cancelEstimate();
+          estimating = true;
+          lastEstimateTime = 0;
+          const tick = time => {
+            if (!estimating) return;
+            if (!lastEstimateTime) lastEstimateTime = time;
+            const elapsed = Math.min(50, time - lastEstimateTime);
+            lastEstimateTime = time;
+            if (percent < 92) paint(percent + Math.max(.08, (92 - percent) * elapsed * .00042));
+            estimateFrame = requestAnimationFrame(tick);
+          };
+          estimateFrame = requestAnimationFrame(tick);
+        };
+        return {
+          element,
+          start(label = initialLabel, estimate = true) {
+            window.clearTimeout(hideTimer);
+            cancelEstimate();
+            percent = 0;
+            element.classList.remove('is-hidden', 'is-complete', 'is-error');
+            labelNode.textContent = label;
+            percentNode.textContent = '0%';
+            fillNode.style.width = '0%';
+            trackNode.setAttribute('aria-valuenow', '0');
+            if (estimate) startEstimate();
+          },
+          setProgress(value, isMeasured = false) {
+            if (isMeasured) cancelEstimate();
+            paint(value, isMeasured);
+          },
+          finish(label = 'READY') {
+            cancelEstimate();
+            paint(100);
+            labelNode.textContent = label;
+            element.classList.remove('is-error');
+            element.classList.add('is-complete');
+            window.clearTimeout(hideTimer);
+            hideTimer = window.setTimeout(() => element.classList.add('is-hidden'), 420);
+          },
+          fail(label = 'ASSET COULD NOT BE LOADED') {
+            cancelEstimate();
+            labelNode.textContent = label;
+            percentNode.textContent = 'ERR';
+            trackNode.setAttribute('aria-valuenow', '0');
+            element.classList.remove('is-complete');
+            element.classList.add('is-error');
+            window.clearTimeout(hideTimer);
+          },
+          hide() {
+            cancelEstimate();
+            window.clearTimeout(hideTimer);
+            element.classList.add('is-hidden');
+          }
+        };
+      };
+
+      // Lazy/eager images use the same visual loader. Native <img> does not expose byte progress,
+      // so its percentage is explicitly an estimate until the load event confirms completion.
+      const imageLoadObserver = 'IntersectionObserver' in window
+        ? new IntersectionObserver(entries => entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            imageLoadObserver.unobserve(entry.target);
+            entry.target.dataset.loaderEntered = 'true';
+            entry.target.dispatchEvent(new Event('portfolio-image-near'));
+          }), { rootMargin: '180px 0px' })
+        : null;
+      $$('main img:not(#shoePreviewImage)').forEach(image => {
+        const host = image.parentElement;
+        if (!host || image.dataset.noLoader === 'true') return;
+        const lightHost = !!image.closest('.light, .projects-section, .process-section, .project-art, .college-image, .school-mark, .journey-logo-frame, .journey-brand-frame');
+        const loader = createPortfolioLoader(host, 'LOADING IMAGE', lightHost ? 'light' : 'dark');
+        let started = false;
+        const startImageLoading = () => {
+          if (started) return;
+          started = true;
+          if (image.complete) {
+            if (image.naturalWidth > 0) loader.hide();
+            else loader.fail('IMAGE UNAVAILABLE');
+            return;
+          }
+          loader.start('LOADING IMAGE');
+        };
+        image.addEventListener('portfolio-image-near', startImageLoading, { once: true });
+        image.addEventListener('load', () => loader.finish('IMAGE READY'), { once: true });
+        image.addEventListener('error', () => loader.fail('IMAGE UNAVAILABLE'));
+        if (image.complete) {
+          if (image.naturalWidth > 0) loader.hide();
+          else loader.fail('IMAGE UNAVAILABLE');
+        } else if (image.loading === 'lazy' && imageLoadObserver) {
+          imageLoadObserver.observe(image);
+        } else {
+          startImageLoading();
+        }
+      });
+
+      // 3D model-viewer exposes measured progress through its progress event.
+      const bindModelLoader = (viewer, host, label) => {
+        const loader = createPortfolioLoader(host, label, 'dark');
+        let started = false;
+        const start = nextLabel => {
+          started = true;
+          loader.start(nextLabel || label, true);
+        };
+        viewer.addEventListener('progress', event => {
+          const amount = Number(event.detail?.totalProgress);
+          if (Number.isFinite(amount)) loader.setProgress(amount * 98, true);
+        });
+        viewer.addEventListener('load', () => loader.finish('3D MODEL READY'));
+        viewer.addEventListener('error', () => loader.fail('3D MODEL UNAVAILABLE'));
+        const startWhenNear = () => {
+          if (viewer.loaded) loader.hide();
+          else start(label);
+        };
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.isIntersecting)) return;
+            observer.disconnect();
+            startWhenNear();
+          }, { rootMargin: '160px 0px' });
+          observer.observe(host);
+        } else {
+          startWhenNear();
+        }
+        return { start, loader };
+      };
+      const marinaViewerForLoader = $('#marinaViewer');
+      const marinaLoading = bindModelLoader(marinaViewerForLoader, $('#modelPanel'), 'LOADING MARINA 3D MODEL');
+      const upcomingLoading = bindModelLoader($('#upcomingViewer'), $('#comingModelPanel'), 'LOADING UPCOMING 3D MODEL');
+
+      // Embed loaders use the same visual language. Cross-origin iframe byte progress is not exposed
+      // by browsers, so the bar estimates progress and resolves to 100% on the iframe load event.
+      const youtubeFrameForLoader = $('.youtube-autoplay');
+      const youtubeLoading = youtubeFrameForLoader ? createPortfolioLoader(youtubeFrameForLoader.parentElement, 'LOADING VIDEO', 'dark') : null;
+      if (youtubeFrameForLoader && youtubeLoading) {
+        youtubeFrameForLoader.addEventListener('load', () => youtubeLoading.finish('VIDEO PLAYER READY'));
+        youtubeFrameForLoader.addEventListener('error', () => youtubeLoading.fail('VIDEO PLAYER UNAVAILABLE'));
+      }
+      const documentFrameForLoader = $('#documentFrame');
+      const documentLoading = documentFrameForLoader ? createPortfolioLoader(documentFrameForLoader.parentElement, 'LOADING DOCUMENT PREVIEW', 'dark') : null;
+      if (documentFrameForLoader && documentLoading) {
+        documentFrameForLoader.addEventListener('load', () => documentLoading.finish('DOCUMENT VIEW READY'));
+        documentFrameForLoader.addEventListener('error', () => documentLoading.fail('DOCUMENT PREVIEW UNAVAILABLE'));
+      }
+
+      // Desktop-only transparent shoe detail viewer. Each selection cancels the previous request,
+      // clears the old image immediately, and only reveals the new PNG after decoding is complete.
       const shoePreview = $('#shoePreview');
       const shoePreviewImage = $('#shoePreviewImage');
       const shoePreviewTitle = $('#shoePreviewTitle');
@@ -1343,9 +1610,13 @@
       const shoeZoomIn = $('#shoeZoomIn');
       const shoeZoomOut = $('#shoeZoomOut');
       const desktopShoePreview = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)');
+      const shoePreviewLoading = createPortfolioLoader(shoePreviewStage, 'DOWNLOADING TRANSPARENT PNG', 'dark');
       let activeShoeCard = null;
       let shoeZoom = 1;
       let pointerCloseFrame = 0;
+      let shoeRequestId = 0;
+      let activeShoeRequest = null;
+      let activeShoeObjectUrl = null;
 
       const updateShoeZoom = (nextZoom, originX = 50, originY = 50) => {
         shoeZoom = Math.max(1, Math.min(3.2, nextZoom));
@@ -1358,10 +1629,52 @@
         shoePreviewHint.textContent = `ZOOM ${Math.round(shoeZoom * 100)}% · SCROLL OR USE + / − · LEAVE CARD AND PREVIEW TO CLOSE`;
       };
 
-      const closeShoeDetail = () => {
-        if (shoePreview?.open) shoePreview.close();
-        activeShoeCard = null;
-        cancelAnimationFrame(pointerCloseFrame);
+      const cancelShoeRequest = () => {
+        shoeRequestId++;
+        if (activeShoeRequest) {
+          activeShoeRequest.onload = null;
+          activeShoeRequest.onerror = null;
+          activeShoeRequest.onprogress = null;
+          activeShoeRequest.onabort = null;
+          try { activeShoeRequest.abort(); } catch (_) {}
+          activeShoeRequest = null;
+        }
+        shoePreviewImage.onload = null;
+        shoePreviewImage.onerror = null;
+        shoePreviewImage.removeAttribute('src');
+        if (activeShoeObjectUrl) {
+          URL.revokeObjectURL(activeShoeObjectUrl);
+          activeShoeObjectUrl = null;
+        }
+        shoePreviewStage.classList.remove('is-ready', 'is-loading');
+        shoePreviewLoading.hide();
+        return shoeRequestId;
+      };
+
+      const failShoeRequest = (token, filename) => {
+        if (token !== shoeRequestId) return;
+        shoePreviewStage.classList.remove('is-loading', 'is-ready');
+        shoePreviewLoading.fail(`${filename} NOT FOUND — CHECK THE PNG FILE NAME`);
+        shoePreviewHint.textContent = `COULD NOT LOAD ${filename} · CHECK THE FILE BESIDE INDEX.HTML`;
+      };
+
+      const revealShoeImage = (token, source) => {
+        if (token !== shoeRequestId) {
+          if (source.startsWith('blob:')) URL.revokeObjectURL(source);
+          return;
+        }
+        shoePreviewImage.onload = () => {
+          if (token !== shoeRequestId) return;
+          shoePreviewStage.classList.remove('is-loading');
+          shoePreviewStage.classList.add('is-ready');
+          shoePreviewLoading.finish('TRANSPARENT PNG READY');
+          shoePreviewHint.textContent = 'SCROLL OR USE + / − TO ZOOM · LEAVE CARD AND PREVIEW TO CLOSE';
+        };
+        shoePreviewImage.onerror = () => failShoeRequest(token, activeShoeCard?.querySelector('img[data-preview-src]')?.dataset.previewSrc || source.split('/').pop());
+        shoePreviewImage.src = source;
+        if (shoePreviewImage.complete && shoePreviewImage.naturalWidth > 0) {
+          shoePreviewImage.onload();
+        }
       };
 
       const openShoePreview = (cardImage) => {
@@ -1371,17 +1684,68 @@
         const previewFile = cardImage.dataset.previewSrc;
         if (!previewFile || !shoePreview || !shoePreviewImage) return;
 
+        // Abort any previous card request and invalidate every callback from it.
+        const token = cancelShoeRequest();
         activeShoeCard = card;
         shoePreviewTitle.textContent = title;
-        shoePreviewImage.onerror = () => {
-          shoePreviewHint.textContent = `${previewFile} NOT FOUND — PLACE THE TRANSPARENT PNG BESIDE THIS HTML FILE`;
-          shoePreviewImage.onerror = null;
-          shoePreviewImage.src = cardImage.currentSrc || cardImage.src;
-        };
-        shoePreviewImage.src = previewFile;
         shoePreviewImage.alt = `${title} — transparent footwear render detail`;
+        shoePreviewStage.classList.add('is-loading');
+        shoePreviewLoading.start(`DOWNLOADING ${previewFile}`, true);
+        shoePreviewHint.textContent = 'PREPARING HIGH-RESOLUTION PNG…';
         updateShoeZoom(1);
         if (!shoePreview.open) shoePreview.showModal();
+
+        // Same-origin XHR provides real byte progress for large PNGs (including GitHub Pages assets).
+        // The fallback handles direct file:// previews and browsers that block local XHR.
+        const useNativeImageFallback = () => {
+          if (token !== shoeRequestId) return;
+          shoePreviewLoading.start(`LOADING ${previewFile}`, true);
+          revealShoeImage(token, previewFile);
+        };
+        try {
+          const request = new XMLHttpRequest();
+          activeShoeRequest = request;
+          request.open('GET', previewFile, true);
+          request.responseType = 'blob';
+          request.onprogress = event => {
+            if (token !== shoeRequestId) return;
+            if (event.lengthComputable && event.total > 0) {
+              shoePreviewLoading.setProgress(Math.min(98, event.loaded / event.total * 98), true);
+            }
+          };
+          request.onload = () => {
+            if (token !== shoeRequestId) return;
+            activeShoeRequest = null;
+            if (request.status >= 200 && request.status < 300 && request.response && request.response.size > 0) {
+              shoePreviewLoading.setProgress(98, true);
+              const pngBlob = request.response.type ? request.response : new Blob([request.response], { type: 'image/png' });
+              activeShoeObjectUrl = URL.createObjectURL(pngBlob);
+              revealShoeImage(token, activeShoeObjectUrl);
+            } else if (request.status === 0) {
+              useNativeImageFallback();
+            } else {
+              failShoeRequest(token, previewFile);
+            }
+          };
+          request.onerror = () => {
+            if (token !== shoeRequestId) return;
+            activeShoeRequest = null;
+            useNativeImageFallback();
+          };
+          request.onabort = () => {};
+          request.send();
+        } catch (_) {
+          activeShoeRequest = null;
+          useNativeImageFallback();
+        }
+      };
+
+      const closeShoeDetail = () => {
+        cancelShoeRequest();
+        activeShoeCard = null;
+        cancelAnimationFrame(pointerCloseFrame);
+        if (shoePreview?.open) shoePreview.close();
+        updateShoeZoom(1);
       };
 
       if (desktopShoePreview.matches) {
@@ -1411,7 +1775,7 @@
         }, { passive: true });
 
         shoePreviewStage.addEventListener('wheel', event => {
-          if (!shoePreview.open) return;
+          if (!shoePreview.open || !shoePreviewStage.classList.contains('is-ready')) return;
           event.preventDefault();
           const rect = shoePreviewStage.getBoundingClientRect();
           const originX = ((event.clientX - rect.left) / rect.width) * 100;
@@ -1420,6 +1784,7 @@
         }, { passive: false });
 
         shoePreviewImage.addEventListener('click', event => {
+          if (!shoePreviewStage.classList.contains('is-ready')) return;
           const rect = shoePreviewStage.getBoundingClientRect();
           const originX = ((event.clientX - rect.left) / rect.width) * 100;
           const originY = ((event.clientY - rect.top) / rect.height) * 100;
@@ -1434,6 +1799,9 @@
         if (event.target === shoePreview) closeShoeDetail();
       });
       shoePreview.addEventListener('close', () => {
+        if (shoePreview.open) return;
+        // Also cancel when the native dialog is dismissed with Escape or browser controls.
+        cancelShoeRequest();
         activeShoeCard = null;
         updateShoeZoom(1);
       });
@@ -1449,7 +1817,10 @@
       const modelTabs = $$('.model-tab');
       modelTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-          if (marinaViewer.getAttribute('src') !== tab.dataset.model) marinaViewer.setAttribute('src', tab.dataset.model);
+          if (marinaViewer.getAttribute('src') !== tab.dataset.model) {
+            marinaLoading.start(`LOADING ${tab.dataset.label}`);
+            marinaViewer.setAttribute('src', tab.dataset.model);
+          }
           modelLabel.textContent = tab.dataset.label;
           modelTabs.forEach(item => {
             const active = item === tab;
@@ -1497,6 +1868,7 @@
         const label = cardTitle || localTitle || link.textContent.trim() || 'Portfolio document';
         docTitle.textContent = label;
         docExternal.href = link.href;
+        documentLoading.start('LOADING DOCUMENT PREVIEW');
         docFrame.src = `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`;
         if (typeof docDialog.showModal === 'function') docDialog.showModal();
         else window.open(link.href, '_blank', 'noopener');
@@ -1514,7 +1886,7 @@
       docDialog.addEventListener('click', event => {
         if (event.target === docDialog) closeDocument();
       });
-      docDialog.addEventListener('close', () => { docFrame.src = 'about:blank'; });
+      docDialog.addEventListener('close', () => { docFrame.src = 'about:blank'; documentLoading.hide(); });
 
       // Play the YouTube video muted when its section enters view; pause it when the visitor scrolls away.
       const youtubeFrame = $('.youtube-autoplay');
@@ -1530,6 +1902,7 @@
             entries.forEach(entry => {
               if (entry.isIntersecting && entry.intersectionRatio >= .35) {
                 if (!youtubeStarted) {
+                  youtubeLoading?.start('LOADING FASHION SHOW VIDEO');
                   youtubeFrame.src = reducedMotion ? youtubeUrl.replace('autoplay=1', 'autoplay=0') : youtubeUrl;
                   youtubeStarted = true;
                 } else if (!reducedMotion) sendYouTubeCommand('playVideo');
@@ -1538,6 +1911,7 @@
           }, { threshold: [0, .35, .6] });
           youtubeObserver.observe(youtubeFrame);
         } else {
+          youtubeLoading?.start('LOADING FASHION SHOW VIDEO');
           youtubeFrame.src = youtubeUrl;
         }
       }
