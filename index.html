@@ -353,6 +353,36 @@
     .model-meta { border-top: 1px solid var(--line-dark); padding-top: 18px; margin-top: auto; }
     .model-meta span { display: block; color: #8e8983; font: 500 .62rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
     .model-meta strong { display: block; color: #e7e1da; font-size: .83rem; margin-top: 5px; }
+    .model-sidebar h3 { font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.02; }
+    .model-explainer { margin-top: 17px; padding: 15px; border: 1px solid rgba(237,110,3,.28); border-radius: 13px; background: linear-gradient(135deg, rgba(237,110,3,.13), rgba(255,255,255,.025)); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 24px rgba(0,0,0,.12); }
+    .model-explainer-kicker { display: block; color: #f19a55; font: 600 .55rem var(--mono); letter-spacing: .1em; }
+    .model-explainer p { margin: 8px 0 12px; color: #c3bdb5; font-size: .75rem; line-height: 1.6; }
+    .model-explainer-trigger { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 11px 13px; border: 1px solid rgba(237,110,3,.48); border-radius: 9px; background: rgba(237,110,3,.12); color: #fff5eb; text-align: left; cursor: pointer; font: 700 .72rem var(--display); transition: background .25s, border-color .25s, transform .25s, box-shadow .25s; }
+    .model-explainer-trigger span:last-child { color: var(--orange); font: 700 .9rem var(--mono); transition: transform .25s; }
+    .model-explainer-trigger:hover { background: rgba(237,110,3,.22); border-color: var(--orange); box-shadow: 0 8px 24px rgba(237,110,3,.12); transform: translateY(-2px); }
+    .model-explainer-trigger:hover span:last-child { transform: translate(2px,-2px); }
+    .stitching-explainer { position: fixed; width: min(940px, calc(100vw - 34px)); height: min(820px, calc(100dvh - 34px)); max-width: none; max-height: none; margin: auto; padding: 0; border: 1px solid rgba(237,110,3,.38); border-radius: 19px; overflow: hidden; color: var(--white); background: #141416; box-shadow: 0 32px 100px rgba(0,0,0,.68), inset 0 1px 0 rgba(255,255,255,.06); }
+    .stitching-explainer::backdrop { background: rgba(5,5,7,.84); backdrop-filter: blur(12px) saturate(1.08); -webkit-backdrop-filter: blur(12px) saturate(1.08); }
+    .stitching-explainer[open] { display: grid; grid-template-rows: auto auto minmax(0,1fr) auto auto; animation: viewerIn .32s var(--ease) both; }
+    .stitching-explainer-head { min-height: 72px; padding: 14px 18px 13px 22px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--line-dark); background: rgba(27,27,30,.96); }
+    .stitching-explainer-head h2 { margin-top: 4px; color: var(--white); font: 800 clamp(1.1rem, 2.5vw, 1.65rem)/1.05 var(--display); letter-spacing: -.04em; }
+    .stitching-explainer-copy { padding: 13px 22px 15px; color: #b5b0ac; font-size: .82rem; line-height: 1.6; }
+    .stitching-video-frame { position: relative; min-height: 0; margin: 0 20px 16px; overflow: hidden; border: 1px solid var(--line-dark); border-radius: 12px; background: #050506; }
+    .stitching-video-frame video { display: block; width: 100%; height: 100%; min-height: 220px; object-fit: contain; background: #050506; }
+    .stitching-explainer-foot { min-height: 56px; padding: 11px 21px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line-dark); color: #96918b; font: 500 .62rem var(--mono); }
+    .stitching-explainer-foot a { color: var(--orange); white-space: nowrap; transition: color .2s; }
+    .stitching-explainer-foot a:hover { color: #ffb579; }
+    .stitching-video-status { padding: 0 20px 12px; color: #f0a46a; font: 500 .62rem var(--mono); }
+    .stitching-video-frame .portfolio-loading { z-index: 4; }
+    @media (max-width: 760px) {
+      .stitching-explainer { width: calc(100vw - 18px); height: min(740px, calc(100dvh - 18px)); border-radius: 13px; }
+      .stitching-explainer-head { min-height: 64px; padding: 11px 12px 11px 16px; }
+      .stitching-explainer-copy { padding: 11px 16px 13px; font-size: .76rem; }
+      .stitching-video-frame { margin: 0 12px 12px; }
+      .stitching-video-frame video { min-height: 160px; }
+      .stitching-explainer-foot { min-height: 52px; padding: 10px 13px; font-size: .53rem; }
+      .model-explainer { margin-top: 15px; }
+    }
     .coming-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 42px; margin-top: 23px; padding: 32px; background: #1b1b1e; border: 1px solid var(--line-dark); border-radius: var(--radius); }
     .coming-copy h3 { font: 800 clamp(1.7rem,3vw,2.6rem)/1 var(--display); letter-spacing: -.055em; margin: 11px 0; }
     .coming-copy p { color: #9e9891; font-size: .84rem; }
@@ -1178,14 +1208,19 @@
         <div class="technical-layout" data-reveal>
           <div class="model-panel" id="modelPanel">
             <div class="model-topline"><span class="model-label" id="modelLabel">3D MODEL / SOLID VIEW</span><button class="fullscreen-btn" id="fullscreenModel" data-fullscreen-target="modelPanel" aria-label="Open 3D model in fullscreen" title="Fullscreen 3D viewer">⛶</button></div>
-            <model-viewer id="marinaViewer" src="MARINA3D.glb" alt="Marina heel peg pallet — solid 3D model" camera-controls enable-pan shadow-intensity="1.2" exposure="1" environment-image="neutral" loading="lazy" interaction-prompt="none"></model-viewer>
+            <model-viewer id="marinaViewer" src="MARINA3D.glb" alt="Fiber Pallet Nike Marina — solid 3D assembly model" camera-controls enable-pan shadow-intensity="1.2" exposure="1" environment-image="neutral" loading="lazy" interaction-prompt="none"></model-viewer>
             <span class="model-hint">DRAG TO ROTATE · SCROLL TO ZOOM</span>
           </div>
           <aside class="model-sidebar">
             <span class="sidebar-kicker">Technical index / 01</span>
-            <h3>Marina</h3>
+            <h3>FIBER PALLET<br />NIKE MARINA</h3>
             <p>A technical tooling study presented through a solid model and an exploded assembly view. Use the controls below to switch the 3D presentation.</p>
-            <div class="model-tabs" role="group" aria-label="Choose Marina 3D view">
+            <div class="model-explainer">
+              <span class="model-explainer-kicker">NEW TO COMPUTER STITCHING?</span>
+              <p>Not sure what this 3D pallet is for? Watch a short introduction to the computer-stitching setup behind this model.</p>
+              <button class="model-explainer-trigger" id="openStitchingExplainer" type="button" aria-haspopup="dialog" aria-controls="stitchingExplainer"><span>See how the stitching pallet works</span><span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="model-tabs" role="group" aria-label="Choose Fiber Pallet Nike Marina 3D view">
               <button class="model-tab active" data-model="MARINA3D.glb" data-label="3D MODEL / SOLID VIEW" aria-pressed="true"><b>01</b><span><strong>Solid model</strong><small>Complete assembly view</small></span></button>
               <button class="model-tab" data-model="MARINA3DEXP.glb" data-label="3D MODEL / EXPLODED VIEW" aria-pressed="false"><b>02</b><span><strong>Exploded view</strong><small>Component relationship</small></span></button>
             </div>
@@ -1285,6 +1320,22 @@
     </div>
     <div class="document-frame-wrap"><iframe id="documentFrame" src="about:blank" title="Embedded portfolio document preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <div class="document-viewer-foot"><span>Document preview is displayed inside this portfolio.</span><a id="documentExternalLink" href="#" target="_blank" rel="noopener">Open original file ↗</a></div>
+  </dialog>
+
+  <dialog class="stitching-explainer" id="stitchingExplainer" aria-labelledby="stitchingExplainerTitle" aria-describedby="stitchingExplainerCopy">
+    <div class="stitching-explainer-head">
+      <div><span class="document-kicker">PROCESS EXPLAINER / COMPUTER STITCHING</span><h2 id="stitchingExplainerTitle">What is a computer-stitching pallet?</h2></div>
+      <button class="document-close" id="closeStitchingExplainer" type="button" aria-label="Close computer-stitching explainer">×</button>
+    </div>
+    <p class="stitching-explainer-copy" id="stitchingExplainerCopy">Watch this short video for context on the machine and process behind the Fiber Pallet Nike Marina 3D model.</p>
+    <div class="stitching-video-frame" id="stitchingVideoFrame">
+      <video id="stitchingExplainerVideo" controls playsinline preload="none" aria-label="Computer stitching pallet explainer video">
+        <source src="CS_CONTOH.mp4" type="video/mp4" />
+        Your browser does not support HTML video.
+      </video>
+    </div>
+    <p class="stitching-video-status" id="stitchingVideoStatus" aria-live="polite">The video will start automatically when you open this explanation.</p>
+    <div class="stitching-explainer-foot"><span>VIDEO REFERENCE / ORIGINAL SOURCE</span><a href="https://www.tiktok.com/@shoe_machine/video/7254318365622226177" target="_blank" rel="noopener noreferrer">View source on TikTok ↗</a></div>
   </dialog>
 
   <footer class="footer">
@@ -1580,8 +1631,8 @@
         }
         return { start, loader };
       };
-      const marinaViewerForLoader = $('#marinaViewer');
-      const marinaLoading = bindModelLoader(marinaViewerForLoader, $('#modelPanel'), 'LOADING MARINA 3D MODEL');
+      const fiberPalletViewerForLoader = $('#marinaViewer');
+      const fiberPalletLoading = bindModelLoader(fiberPalletViewerForLoader, $('#modelPanel'), 'LOADING FIBER PALLET NIKE MARINA 3D MODEL');
       const upcomingLoading = bindModelLoader($('#upcomingViewer'), $('#comingModelPanel'), 'LOADING UPCOMING 3D MODEL');
 
       // Embed loaders use the same visual language. Cross-origin iframe byte progress is not exposed
@@ -1598,6 +1649,53 @@
         documentFrameForLoader.addEventListener('load', () => documentLoading.finish('DOCUMENT VIEW READY'));
         documentFrameForLoader.addEventListener('error', () => documentLoading.fail('DOCUMENT PREVIEW UNAVAILABLE'));
       }
+
+      // Local computer-stitching explainer: load and play only after the visitor explicitly opens it.
+      const stitchingDialog = $('#stitchingExplainer');
+      const stitchingVideo = $('#stitchingExplainerVideo');
+      const stitchingVideoStatus = $('#stitchingVideoStatus');
+      const stitchingVideoLoading = createPortfolioLoader($('#stitchingVideoFrame'), 'LOADING COMPUTER STITCHING VIDEO', 'dark');
+      const stopStitchingVideo = () => {
+        if (!stitchingVideo) return;
+        stitchingVideo.pause();
+        try { stitchingVideo.currentTime = 0; } catch (_) {}
+        stitchingVideoLoading?.hide();
+      };
+      if (stitchingVideo && stitchingVideoLoading) {
+        stitchingVideo.addEventListener('loadstart', () => stitchingVideoLoading.start('LOADING CS_CONTOH.MP4', true));
+        stitchingVideo.addEventListener('waiting', () => stitchingVideoLoading.start('BUFFERING COMPUTER STITCHING VIDEO', true));
+        stitchingVideo.addEventListener('canplay', () => stitchingVideoLoading.finish('VIDEO READY'));
+        stitchingVideo.addEventListener('playing', () => {
+          stitchingVideoLoading.finish('VIDEO PLAYING');
+          stitchingVideoStatus.textContent = 'Playing the computer-stitching explainer.';
+        });
+        stitchingVideo.addEventListener('error', () => {
+          stitchingVideoLoading.fail('CS_CONTOH.MP4 NOT FOUND — CHECK THE VIDEO FILE');
+          stitchingVideoStatus.textContent = 'Video unavailable. Place CS_CONTOH.mp4 in the same folder as index.html.';
+        });
+      }
+      $('#openStitchingExplainer')?.addEventListener('click', () => {
+        if (!stitchingDialog || !stitchingVideo) return;
+        if (!stitchingDialog.open) stitchingDialog.showModal();
+        stitchingVideoStatus.textContent = 'Loading the video and starting playback…';
+        stitchingVideoLoading?.start('LOADING CS_CONTOH.MP4', true);
+        try { stitchingVideo.currentTime = 0; } catch (_) {}
+        const playAttempt = stitchingVideo.play();
+        if (playAttempt && typeof playAttempt.catch === 'function') {
+          playAttempt.catch(() => {
+            stitchingVideoStatus.textContent = 'Playback did not start automatically. Press play in the video controls.';
+          });
+        }
+      });
+      const closeStitchingDialog = () => {
+        if (stitchingDialog?.open) stitchingDialog.close();
+        stopStitchingVideo();
+      };
+      $('#closeStitchingExplainer')?.addEventListener('click', closeStitchingDialog);
+      stitchingDialog?.addEventListener('click', event => {
+        if (event.target === stitchingDialog) closeStitchingDialog();
+      });
+      stitchingDialog?.addEventListener('close', stopStitchingVideo);
 
       // Desktop-only transparent shoe detail viewer. Each selection cancels the previous request,
       // clears the old image immediately, and only reveals the new PNG after decoding is complete.
@@ -1811,15 +1909,15 @@
         if (!event.matches) closeShoeDetail();
       });
 
-      // Marina model: switch between solid and exploded GLB assets
-      const marinaViewer = $('#marinaViewer');
+      // Fiber Pallet Nike Marina: switch between solid and exploded GLB assets
+      const fiberPalletViewer = $('#marinaViewer');
       const modelLabel = $('#modelLabel');
       const modelTabs = $$('.model-tab');
       modelTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-          if (marinaViewer.getAttribute('src') !== tab.dataset.model) {
-            marinaLoading.start(`LOADING ${tab.dataset.label}`);
-            marinaViewer.setAttribute('src', tab.dataset.model);
+          if (fiberPalletViewer.getAttribute('src') !== tab.dataset.model) {
+            fiberPalletLoading.start(`LOADING FIBER PALLET NIKE MARINA / ${tab.dataset.label}`);
+            fiberPalletViewer.setAttribute('src', tab.dataset.model);
           }
           modelLabel.textContent = tab.dataset.label;
           modelTabs.forEach(item => {
