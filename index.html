@@ -88,7 +88,6 @@
 
     /* Hero */
     .hero { min-height: 100svh; padding: calc(var(--nav-h) + 62px) 0 74px; position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 74% 44%, #2a211a 0%, #171516 28%, var(--ink) 72%); }
-    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .19; z-index: -3; filter: saturate(.72) contrast(1.08); }
     .hero-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, rgba(16,16,18,.98) 0%, rgba(16,16,18,.83) 46%, rgba(16,16,18,.52) 100%), linear-gradient(0deg, var(--ink) 0%, transparent 35%); }
     #particle-canvas { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; opacity: .8; pointer-events: none; }
     .hero-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(320px,.85fr); align-items: center; gap: 48px; position: relative; z-index: 1; }
@@ -167,8 +166,8 @@
     .college-section { background: var(--ink-2); }
     .college-section .section-head p { color: #aaa5a0; }
     .college-feature { display: grid; grid-template-columns: 1.1fr .9fr; background: #202024; border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; }
-    .college-image { min-height: 430px; background: var(--orange); display: grid; place-items: center; padding: 24px; overflow: hidden; }
-    .college-image img { width: 100%; height: 100%; max-height: 500px; object-fit: contain; transition: transform .7s var(--ease); }
+    .college-image { min-height: 520px; background: var(--orange); display: flex; align-items: center; justify-content: center; padding: clamp(28px, 4vw, 48px); overflow: hidden; }
+    .college-image img { display: block; width: 100%; max-width: 680px; height: auto; max-height: 620px; object-fit: contain; object-position: center; transition: transform .7s var(--ease); }
     .college-feature:hover .college-image img { transform: scale(1.035); }
     .college-content { padding: clamp(28px,5vw,62px); display: flex; flex-direction: column; justify-content: center; }
     .college-content .project-no { color: var(--orange); font: 500 .72rem var(--mono); letter-spacing: .12em; }
@@ -210,6 +209,33 @@
     .project-link span:last-child { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; background: var(--ink); color: white; transition: .25s; }
     .project-link:hover { color: var(--orange-deep); }
     .project-link:hover span:last-child { background: var(--orange); color: #111; transform: rotate(45deg); }
+
+    /* Full-screen frosted-glass transparent shoe previews */
+    .project-art img[data-preview-src] { cursor: zoom-in; }
+    .project-art img[data-preview-src]:focus-visible { outline: 3px solid var(--orange); outline-offset: -5px; border-radius: 8px; }
+    .shoe-preview { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: clamp(16px, 3vw, 34px); border: 0; overflow: hidden; color: var(--white); background: rgba(12,12,14,.24); }
+    .shoe-preview::backdrop { background: rgba(7,7,9,.48); backdrop-filter: blur(22px) saturate(1.2); -webkit-backdrop-filter: blur(22px) saturate(1.2); }
+    .shoe-preview[open] { display: grid; place-items: center; animation: shoePreviewIn .32s var(--ease) both; }
+    @keyframes shoePreviewIn { from { opacity: 0; } to { opacity: 1; } }
+    .shoe-preview-content { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+    .shoe-preview-head { position: absolute; z-index: 2; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 13px 15px 13px 19px; border: 1px solid rgba(255,255,255,.18); border-radius: 16px; background: rgba(27,27,30,.43); box-shadow: 0 12px 36px rgba(0,0,0,.14); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); pointer-events: auto; }
+    .shoe-preview-kicker { display: block; color: #e88b43; font: 600 .59rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .shoe-preview-head h2 { margin-top: 4px; color: #f8f7f4; font: 800 clamp(1.1rem, 2.2vw, 1.55rem)/1.05 var(--display); letter-spacing: -.045em; }
+    .shoe-preview-close { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; color: #fff; background: rgba(255,255,255,.06); cursor: pointer; font: 300 1.65rem/1 var(--body); transition: background .25s, color .25s, transform .3s, border-color .25s; pointer-events: auto; }
+    .shoe-preview-close:hover { color: #111; background: var(--orange); border-color: var(--orange); transform: rotate(90deg); }
+    .shoe-preview-stage { position: absolute; inset: 76px 1vw 40px; display: grid; place-items: center; pointer-events: none; }
+    .shoe-preview-stage img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; filter: drop-shadow(0 30px 48px rgba(0,0,0,.45)); pointer-events: auto; cursor: zoom-out; }
+    .shoe-preview-hint { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 32px); padding: 8px 13px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: rgba(248,247,244,.78); background: rgba(24,24,27,.38); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); font: 500 .57rem var(--mono); letter-spacing: .06em; text-align: center; white-space: nowrap; pointer-events: auto; }
+    @media (max-width: 760px) {
+      .shoe-preview { padding: 12px; }
+      .shoe-preview-head { padding: 11px 12px 11px 14px; border-radius: 13px; }
+      .shoe-preview-close { flex-basis: 40px; width: 40px; height: 40px; }
+      .shoe-preview-stage { inset: 76px 0 48px; }
+      .shoe-preview-hint { font-size: .49rem; white-space: normal; width: max-content; max-width: calc(100vw - 34px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shoe-preview[open] { animation: none; }
+    }
 
     /* 3D / technical */
     .technical-section { background: #121214; }
@@ -335,7 +361,7 @@
       .facts-grid { grid-template-columns: repeat(2,1fr); }
       .about-side { min-height: 320px; }
       .college-feature { grid-template-columns: 1fr; }
-      .college-image { min-height: 290px; }.college-content { padding: 28px; }
+      .college-image { min-height: 390px; padding: 24px; }.college-image img { max-height: 460px; }.college-content { padding: 28px; }
       .video-frame { aspect-ratio: 16/9; }
       .project-tools { margin-top: -8px; }
       .project-grid { grid-template-columns: 1fr; gap: 17px; }
@@ -517,8 +543,8 @@
     .journey-status.is-current { display: inline-flex; align-items: center; gap: 7px; color: #a8d8b6; border-color: rgba(123,214,157,.25); }
     .journey-status i { width: 6px; height: 6px; border-radius: 50%; background: #7bd69d; box-shadow: 0 0 0 4px rgba(123,214,157,.1); }
     .journey-company { display: flex; align-items: center; gap: 15px; min-width: 0; }
-    .journey-logo-frame { position: relative; flex: 0 0 68px; width: 68px; height: 68px; display: grid; place-items: center; padding: 9px; overflow: hidden; border-radius: 13px; background: #f5f2ec; box-shadow: 0 5px 18px rgba(0,0,0,.16); }
-    .journey-logo-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .journey-logo-frame { position: relative; flex: 0 0 76px; width: 76px; height: 68px; display: grid; place-items: center; padding: 5px; overflow: hidden; border-radius: 13px; background: #f5f2ec; box-shadow: 0 5px 18px rgba(0,0,0,.16); box-sizing: border-box; }
+    .journey-logo-frame img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; }
     .journey-logo-frame.logo-missing::after, .journey-brand-frame.logo-missing::after { content: attr(data-fallback); color: #292725; font: 800 .68rem var(--display); letter-spacing: .02em; text-align: center; }
     .journey-company-info { flex: 1; min-width: 0; }
     .journey-company-info h4 { color: #f8f6f1; font: 800 clamp(1.05rem, 1.65vw, 1.38rem)/1.04 var(--display); letter-spacing: -.04em; overflow-wrap: anywhere; }
@@ -526,15 +552,15 @@
     .journey-company-mark { align-self: flex-start; color: rgba(237,110,3,.65); font-size: 1.1rem; transition: transform .3s, color .3s; }
     .journey-card:hover .journey-company-mark { color: #ff9a4d; transform: translate(3px,-3px); }
     .journey-summary { margin: 23px 0 19px; max-width: 540px; color: #c3bdb5; font-size: .82rem; line-height: 1.7; }
-    .journey-brand-row { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.11); }
-    .journey-brand-group { display: grid; gap: 8px; min-width: 0; }
+    .journey-brand-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 108px; margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.11); }
+    .journey-brand-group { display: grid; align-content: center; gap: 9px; min-width: 0; }
     .journey-mini-label, .journey-detail-label { color: #8f887f; font: 600 .55rem var(--mono); letter-spacing: .11em; }
-    .journey-brand-frame { width: 104px; height: 49px; display: grid; place-items: center; padding: 8px 12px; border-radius: 9px; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,.16); }
-    .journey-brand-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
-    .journey-brand-frame.ardiles-frame { width: 116px; height: 52px; padding: 8px 12px; background: #fff; }
-    .journey-brand-pair { display: flex; flex-wrap: wrap; gap: 9px; }
-    .journey-brand-pair .journey-brand-frame { width: 92px; height: 47px; }
-    .journey-brand-pair .converse-frame { width: 105px; }
+    .journey-brand-frame { flex: 0 0 auto; width: 118px; height: 58px; display: grid; place-items: center; padding: 5px 8px; overflow: hidden; box-sizing: border-box; border-radius: 9px; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,.16); }
+    .journey-brand-frame img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; }
+    .journey-brand-frame.ardiles-frame { width: 118px; height: 58px; padding: 5px 8px; background: #fff; }
+    .journey-brand-pair { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+    .journey-brand-pair .journey-brand-frame { width: 98px; height: 54px; }
+    .journey-brand-pair .converse-frame { width: 108px; }
     .journey-context { color: #9a9289; text-align: right; font: 500 .56rem/1.65 var(--mono); letter-spacing: .06em; }
     .journey-roles { display: flex; flex-wrap: wrap; gap: 7px; margin: -3px 0 16px; }
     .journey-roles span { display: inline-flex; padding: 6px 9px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; color: #c9c1b7; background: rgba(255,255,255,.035); font: 500 .57rem var(--mono); line-height: 1.35; }
@@ -559,7 +585,7 @@
       .journey-section { margin-top: 66px; }
       .journey-card { padding: 22px; }
       .journey-company { gap: 12px; }
-      .journey-logo-frame { flex-basis: 60px; width: 60px; height: 60px; }
+      .journey-logo-frame { flex-basis: 68px; width: 68px; height: 60px; }
       .journey-company-info h4 { font-size: 1.12rem; }
     }
     @media (max-width: 420px) {
@@ -568,8 +594,10 @@
       .journey-status { font-size: .51rem; }
       .journey-brand-row { align-items: flex-start; }
       .journey-context { padding-top: 24px; }
-      .journey-brand-pair .journey-brand-frame { width: 82px; }
-      .journey-brand-pair .converse-frame { width: 96px; }
+      .journey-brand-row { min-height: 96px; }
+      .journey-brand-frame, .journey-brand-frame.ardiles-frame { width: 108px; height: 54px; }
+      .journey-brand-pair .journey-brand-frame { width: 82px; height: 50px; }
+      .journey-brand-pair .converse-frame { width: 94px; }
     }
 
 
@@ -802,9 +830,6 @@
 
   <main id="main">
     <header class="hero hero-product-stage" id="home" aria-label="Featured footwear design">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-        <source src="2t2tf2t.mp4" type="video/mp4" />
-      </video>
       <div class="hero-shade"></div>
       <div class="hero-stage" data-reveal>
         <div class="orbit" aria-hidden="true">
@@ -1016,39 +1041,39 @@
 
         <div class="project-grid" id="projectGrid">
           <article class="project-card" data-category="concept">
-            <div class="project-art"><span class="project-number">01 / 09</span><img src="20260218_221106_0000 (1).png" alt="Reverve footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">01 / 09</span><img src="20260218_221106_0000 (1).png" data-preview-src="REVERVETR.png" alt="Reverve footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Reverve full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance">
-            <div class="project-art"><span class="project-number">02 / 09</span><img src="20260218_221106_0000 (2).png" alt="Muscle Memory skateboarding footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">02 / 09</span><img src="20260218_221106_0000 (2).png" data-preview-src="MUSCLEMEMORYTR.png" alt="Muscle Memory skateboarding footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Muscle Memory full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">03 / 09</span><img src="porto 3.png" alt="Dark System lifestyle footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">03 / 09</span><img src="porto 3.png" data-preview-src="DARKSYSTEMTR.png" alt="Dark System lifestyle footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Dark System full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3><p><strong>Lifestyle defiance & social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards & meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance concept">
-            <div class="project-art"><span class="project-number">04 / 09</span><img src="SPIC.png" alt="Spice Bloom running footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">04 / 09</span><img src="SPIC.png" data-preview-src="SPICEBLOOMTR.png" alt="Spice Bloom running footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Spice Bloom full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development & technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance competition">
-            <div class="project-art"><span class="project-number">05 / 09</span><span class="project-badge">IFCC 2026</span><img src="SCAR FLOW.png" alt="Scar Flow x Reisen trail footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">05 / 09</span><span class="project-badge">IFCC 2026</span><img src="SCAR FLOW.png" data-preview-src="SCARFLOWXREISENTR.png" alt="Scar Flow x Reisen trail footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Scar Flow x Reisen full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications & Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" target="_blank" rel="noopener"><span>View competition entry</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">06 / 09</span><img src="BLAKRAKAN.png" alt="Blakraan casual footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">06 / 09</span><img src="BLAKRAKAN.png" data-preview-src="BLAKRAKANTR.png" alt="Blakraan casual footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Blakraan full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications & colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">07 / 09</span><img src="TERRA.png" alt="Terra Nullius experimental slip-on concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">07 / 09</span><img src="TERRA.png" data-preview-src="TERRANULLIUSTR.png" alt="Terra Nullius experimental slip-on concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Terra Nullius full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials & visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance">
-            <div class="project-art"><span class="project-number">08 / 09</span><img src="NETT.png" alt="Nett tennis footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">08 / 09</span><img src="NETT.png" data-preview-src="NETTTR.png" alt="Nett tennis footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nett full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Tennis / Performance</span><h3>Nett</h3><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs & visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">09 / 09</span><span class="project-badge">New project</span><img src="NOTHING.png" alt="Nothing structural nihilism footwear concept" loading="lazy" /></div>
+            <div class="project-art"><span class="project-number">09 / 09</span><span class="project-badge">New project</span><img src="NOTHING.png" data-preview-src="NOTHINGTR.png" alt="Nothing structural nihilism footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nothing full-screen shoe preview" /></div>
             <div class="project-info"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing & structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
         </div>
@@ -1183,6 +1208,22 @@
 
   <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
 
+  <dialog class="shoe-preview" id="shoePreview" aria-labelledby="shoePreviewTitle">
+    <div class="shoe-preview-content">
+      <div class="shoe-preview-head">
+        <div>
+          <span class="shoe-preview-kicker">FOOTWEAR CONCEPT / TRANSPARENT PNG</span>
+          <h2 id="shoePreviewTitle">Shoe preview</h2>
+        </div>
+        <button class="shoe-preview-close" id="closeShoePreview" type="button" aria-label="Close shoe preview">×</button>
+      </div>
+      <div class="shoe-preview-stage">
+        <img id="shoePreviewImage" alt="Full-screen transparent footwear render" />
+      </div>
+      <span class="shoe-preview-hint" id="shoePreviewHint">CLICK OUTSIDE THE SHOE OR PRESS ESC TO CLOSE</span>
+    </div>
+  </dialog>
+
   <script>
     (() => {
       'use strict';
@@ -1285,6 +1326,48 @@
           card.style.setProperty('--my', `${event.clientY - rect.top}px`);
         }, { passive: true });
       });
+
+      // Transparent shoe renders: open on hover (desktop) or tap / keyboard activation.
+      const shoePreview = $('#shoePreview');
+      const shoePreviewImage = $('#shoePreviewImage');
+      const shoePreviewTitle = $('#shoePreviewTitle');
+      const shoePreviewHint = $('#shoePreviewHint');
+      const closeShoePreview = $('#closeShoePreview');
+      const openShoePreview = (cardImage) => {
+        const card = cardImage.closest('.project-card');
+        const title = card?.querySelector('.project-info h3')?.textContent.replace(/\s+/g, ' ').trim() || 'Footwear concept';
+        const previewFile = cardImage.dataset.previewSrc;
+        if (!previewFile || !shoePreview || !shoePreviewImage) return;
+
+        shoePreviewTitle.textContent = title;
+        shoePreviewHint.textContent = `PNG PREVIEW · ${previewFile} · CLICK OUTSIDE OR PRESS ESC TO CLOSE`;
+        shoePreviewImage.onerror = () => {
+          shoePreviewHint.textContent = `${previewFile} NOT FOUND — PLACE THE TRANSPARENT PNG BESIDE THIS HTML FILE`;
+          shoePreviewImage.onerror = null;
+          shoePreviewImage.src = cardImage.currentSrc || cardImage.src;
+        };
+        shoePreviewImage.src = previewFile;
+        shoePreviewImage.alt = `${title} — full-screen transparent footwear render`;
+        if (!shoePreview.open) shoePreview.showModal();
+      };
+
+      $$('.project-art img[data-preview-src]').forEach(image => {
+        image.addEventListener('pointerenter', event => {
+          if (event.pointerType === 'mouse') openShoePreview(image);
+        });
+        image.addEventListener('click', () => openShoePreview(image));
+        image.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openShoePreview(image);
+          }
+        });
+      });
+      closeShoePreview.addEventListener('click', () => shoePreview.close());
+      shoePreview.addEventListener('click', event => {
+        if (event.target !== shoePreviewImage && shoePreview.open) shoePreview.close();
+      });
+      shoePreviewImage.addEventListener('click', event => event.stopPropagation());
 
       // Marina model: switch between solid and exploded GLB assets
       const marinaViewer = $('#marinaViewer');
