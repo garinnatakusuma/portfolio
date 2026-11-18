@@ -15,12 +15,41 @@
   <meta property="og:url" content="https://garinnatakusuma.github.io/PORTOFOLIO/" />
   <meta property="og:image" content="https://garinnatakusuma.github.io/PORTOFOLIO/HERO_IFCC.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preload" as="image" href="HERO_IFCC.png" fetchpriority="high" />
   <title>Garin Nata Kusuma — Footwear Design & Engineering</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <!-- Performance: load the 3D viewer library shortly before the technical section is visible. -->
+  <script>
+    (() => {
+      let modelViewerRequested = false;
+      const loadModelViewer = () => {
+        if (modelViewerRequested) return;
+        modelViewerRequested = true;
+        const moduleScript = document.createElement('script');
+        moduleScript.type = 'module';
+        moduleScript.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+        moduleScript.onerror = () => console.warn('The 3D viewer library could not be loaded.');
+        document.head.appendChild(moduleScript);
+      };
+      window.addEventListener('DOMContentLoaded', () => {
+        const technicalSection = document.getElementById('technical');
+        if (!technicalSection || !('IntersectionObserver' in window)) {
+          loadModelViewer();
+          return;
+        }
+        const modelLibraryObserver = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            modelLibraryObserver.disconnect();
+            loadModelViewer();
+          }
+        }, { rootMargin: '700px 0px' });
+        modelLibraryObserver.observe(technicalSection);
+      }, { once: true });
+    })();
+  </script>
 
   <style>
     :root {
@@ -636,7 +665,7 @@
     @media (max-width: 420px) {
       .approach-svg { height: 220px; }
       .viz-node text { font-size: 8px; }
-      .document-viewer-foot span { max-width: 56%; line-height: 1.35; }
+      .document-viewer-foot span { max-width: 100%; line-height: 1.35; }
       .scroll-cue { padding: 8px 10px 8px 8px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -946,6 +975,95 @@
       .sound-toggle[aria-pressed="true"] .sound-bars i { animation: none; height: 8px; }
     }
 
+  
+
+    /* Project software marks: fixed-size frames keep all 512px logo assets visually consistent. */
+    .project-info h3 { margin-bottom: 8px; }
+    .project-software {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      min-height: 36px;
+      margin: 0 0 13px;
+    }
+    .project-software-icon {
+      display: grid;
+      flex: 0 0 36px;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(16,16,18,.11);
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: 0 2px 7px rgba(16,16,18,.055), inset 0 1px 0 rgba(255,255,255,.95);
+      transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+    }
+    .project-software-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
+    }
+    .project-software-icon:hover {
+      transform: translateY(-3px);
+      border-color: rgba(237,110,3,.5);
+      box-shadow: 0 7px 17px rgba(237,110,3,.12), 0 0 0 2px rgba(237,110,3,.06);
+    }
+    .project-software-icon.is-missing { display: none; }
+
+    /* Direct download button inside the in-page document viewer. */
+    .document-viewer-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
+    .document-download {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      border: 1px solid rgba(237,110,3,.55);
+      border-radius: 999px;
+      color: #fff4e9;
+      background: rgba(237,110,3,.13);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      font: 700 .67rem var(--mono);
+      letter-spacing: .04em;
+      white-space: nowrap;
+      transition: transform .25s var(--ease), color .25s, background .25s, border-color .25s, box-shadow .25s;
+    }
+    .document-download::after { content: '↓'; color: var(--orange); font: 800 1rem var(--display); }
+    .document-download:hover {
+      transform: translateY(-2px);
+      color: #111;
+      background: var(--orange);
+      border-color: var(--orange);
+      box-shadow: 0 8px 24px rgba(237,110,3,.2);
+    }
+    .document-download:hover::after { color: #111; }
+    .document-viewer-foot { justify-content: flex-start; }
+    @media (max-width: 760px) {
+      .document-viewer-actions { gap: 7px; }
+      .document-download { min-height: 36px; padding: 0 10px; font-size: .57rem; }
+      .document-viewer-head { gap: 9px; }
+      .project-software { gap: 6px; }
+      .project-software-icon { flex-basis: 34px; width: 34px; height: 34px; }
+    }
+    @media (max-width: 420px) {
+      .document-kicker { font-size: .45rem; letter-spacing: .08em; }
+      .document-viewer-head > div:first-child { min-width: 0; flex: 1 1 auto; }
+      .document-viewer-head h2 { max-width: 128px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .84rem; }
+      .document-viewer-actions { gap: 5px; }
+      .document-download { min-height: 34px; padding: 0 8px; gap: 4px; font-size: .48rem; }
+      .document-close { flex-basis: 36px; width: 36px; height: 36px; }
+    }
+
   </style>
 </head>
 <body>
@@ -996,7 +1114,7 @@
         </div>
         <div class="hero-product-glow" aria-hidden="true"></div>
         <div class="hero-shoe-wrap">
-          <img src="HERO_IFCC.png" alt="IFCC trail footwear concept — olive green upper, orange details and rugged black outsole" fetchpriority="high" />
+          <img src="HERO_IFCC.png" alt="IFCC trail footwear concept — olive green upper, orange details and rugged black outsole" loading="eager" decoding="async" fetchpriority="high" />
         </div>
         <div class="hero-featured"><span>IFCC 2026 / FEATURED ENTRY</span><strong>SCAR FLOW × REISEN</strong></div>
         <span class="orbit-label one">Concept / 3D / Form</span>
@@ -1198,42 +1316,129 @@
           <span class="project-count" id="projectCount">09 PROJECTS / 09</span>
         </div>
 
+        <!--
+          FUTURE PORTFOLIO UPDATE NOTE FOR AI AGENTS / DEVELOPERS:
+          When adding a new footwear project card, ALWAYS ask Garin which design applications were used.
+          If the application list is missing or any logo file is unavailable, ask Garin before adding the card.
+          Do not guess the software stack and do not substitute unrelated logos.
+          Approved local logo filenames: corellogo.png, ilustrator.png, photoshop.png, vizcomlogo.png, canvalogo.png.
+          Keep all logo tiles at the shared .project-software-icon dimensions for visual consistency.
+        -->
         <div class="project-grid" id="projectGrid">
           <article class="project-card" data-category="concept">
             <div class="project-art"><span class="project-number">01 / 09</span><img src="20260218_221106_0000 (1).png" data-preview-src="REVERVETR.png" alt="Reverve footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Reverve full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance">
             <div class="project-art"><span class="project-number">02 / 09</span><img src="20260218_221106_0000 (2).png" data-preview-src="MUSCLEMEMORYTR.png" alt="Muscle Memory skateboarding footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Muscle Memory full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
             <div class="project-art"><span class="project-number">03 / 09</span><img src="porto 3.png" data-preview-src="DARKSYSTEMTR.png" alt="Dark System lifestyle footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Dark System full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3><p><strong>Lifestyle defiance & social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards & meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Lifestyle defiance & social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards & meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance concept">
             <div class="project-art"><span class="project-number">04 / 09</span><img src="SPIC.png" data-preview-src="SPICEBLOOMTR.png" alt="Spice Bloom running footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Spice Bloom full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development & technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3>
+                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
+                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development & technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance competition">
             <div class="project-art"><span class="project-number">05 / 09</span><span class="project-badge">IFCC 2026</span><img src="SCAR FLOW.png" data-preview-src="SCARFLOWXREISENTR.png" alt="Scar Flow x Reisen trail footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Scar Flow x Reisen full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications & Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" target="_blank" rel="noopener"><span>View competition entry</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3>
+                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, CorelDRAW, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
+                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications & Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" target="_blank" rel="noopener"><span>View competition entry</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
             <div class="project-art"><span class="project-number">06 / 09</span><img src="BLAKRAKAN.png" data-preview-src="BLAKRAKANTR.png" alt="Blakraan casual footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Blakraan full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications & colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications & colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
             <div class="project-art"><span class="project-number">07 / 09</span><img src="TERRA.png" data-preview-src="TERRANULLIUSTR.png" alt="Terra Nullius experimental slip-on concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Terra Nullius full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials & visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials & visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="performance">
             <div class="project-art"><span class="project-number">08 / 09</span><img src="NETT.png" data-preview-src="NETTTR.png" alt="Nett tennis footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nett full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Tennis / Performance</span><h3>Nett</h3><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs & visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Tennis / Performance</span><h3>Nett</h3>
+                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
+                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
+                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
+                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs & visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
           <article class="project-card" data-category="lifestyle concept">
             <div class="project-art"><span class="project-number">09 / 09</span><span class="project-badge">New project</span><img src="NOTHING.png" data-preview-src="NOTHINGTR.png" alt="Nothing structural nihilism footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nothing full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing & structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+            <div class="project-info"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3>
+                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, Vizcom, Adobe Photoshop">
+                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
+                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
+                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span><span class="project-software-icon" role="listitem" aria-label="Adobe Photoshop" title="Adobe Photoshop">
+                    <img src="photoshop.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
+                  </span>
+                </div><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing & structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
           </article>
         </div>
       </div>
@@ -1356,10 +1561,13 @@
   <dialog class="document-viewer" id="documentViewer" aria-labelledby="documentViewerTitle">
     <div class="document-viewer-head">
       <div><span class="document-kicker">PORTFOLIO DOCUMENT / INLINE VIEWER</span><h2 id="documentViewerTitle">Project documentation</h2></div>
-      <button class="document-close" id="closeDocumentViewer" type="button" aria-label="Close document viewer">×</button>
+      <div class="document-viewer-actions">
+        <a class="document-download" id="documentDownloadLink" href="#" target="_blank" rel="noopener" aria-label="Download this document">Download document</a>
+        <button class="document-close" id="closeDocumentViewer" type="button" aria-label="Close document viewer">×</button>
+      </div>
     </div>
     <div class="document-frame-wrap"><iframe id="documentFrame" src="about:blank" title="Embedded portfolio document preview" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-    <div class="document-viewer-foot"><span>Document preview is displayed inside this portfolio.</span><a id="documentExternalLink" href="#" target="_blank" rel="noopener">Open original file ↗</a></div>
+    <div class="document-viewer-foot"><span>Document preview is displayed inside this portfolio. Use the download button above to save a copy.</span></div>
   </dialog>
 
   <dialog class="stitching-explainer" id="stitchingExplainer" aria-labelledby="stitchingExplainerTitle" aria-describedby="stitchingExplainerCopy">
@@ -1602,6 +1810,8 @@
         };
       };
 
+      // PERFORMANCE STRATEGY: keep the hero eager/high-priority; load below-the-fold images lazily.
+      // 3D models, YouTube and document previews are deferred until needed or near the viewport.
       // Lazy/eager images use the same visual loader. Native <img> does not expose byte progress,
       // so its percentage is explicitly an estimate until the load event confirms completion.
       const imageLoadObserver = 'IntersectionObserver' in window
@@ -1610,7 +1820,7 @@
             imageLoadObserver.unobserve(entry.target);
             entry.target.dataset.loaderEntered = 'true';
             entry.target.dispatchEvent(new Event('portfolio-image-near'));
-          }), { rootMargin: '180px 0px' })
+          }), { rootMargin: '420px 0px' })
         : null;
       $$('main img:not(#shoePreviewImage)').forEach(image => {
         const host = image.parentElement;
@@ -1989,8 +2199,9 @@
       const docDialog = $('#documentViewer');
       const docFrame = $('#documentFrame');
       const docTitle = $('#documentViewerTitle');
-      const docExternal = $('#documentExternalLink');
+      const docDownloadLink = $('#documentDownloadLink');
       const closeDocButton = $('#closeDocumentViewer');
+      const CV_DRIVE_FILE_ID = '1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0';
       const getDriveFileId = url => {
         try {
           const parsed = new URL(url, window.location.href);
@@ -2001,11 +2212,21 @@
       const openDocument = (link) => {
         const fileId = getDriveFileId(link.href);
         if (!fileId) return false;
-        const cardTitle = link.closest('.project-card')?.querySelector('.project-info h3')?.textContent.trim();
+        const cardTitle = link.closest('.project-card')?.querySelector('.project-info h3')?.textContent.replace(/\s+/g, ' ').trim();
         const localTitle = link.closest('.college-content')?.querySelector('h3')?.textContent.trim();
         const label = cardTitle || localTitle || link.textContent.trim() || 'Portfolio document';
-        docTitle.textContent = label;
-        docExternal.href = link.href;
+        const isCV = fileId === CV_DRIVE_FILE_ID;
+        docTitle.textContent = isCV ? 'Garin Nata Kusuma — CV' : label;
+        // Drive's /uc endpoint requests the file download directly; preserve resourcekey when the share URL includes one.
+        const sourceUrl = new URL(link.href, window.location.href);
+        const downloadParams = new URLSearchParams({ export: 'download', id: fileId });
+        const resourceKey = sourceUrl.searchParams.get('resourcekey');
+        if (resourceKey) downloadParams.set('resourcekey', resourceKey);
+        docDownloadLink.href = `https://drive.google.com/uc?${downloadParams.toString()}`;
+        docDownloadLink.textContent = isCV ? 'Download CV' : 'Download document';
+        docDownloadLink.setAttribute('aria-label', isCV ? 'Download Garin Nata Kusuma CV' : `Download ${label}`);
+        if (isCV) docDownloadLink.setAttribute('download', 'Garin_Nata_Kusuma_CV.pdf');
+        else docDownloadLink.removeAttribute('download');
         documentLoading.start('LOADING DOCUMENT PREVIEW');
         docFrame.src = `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`;
         if (typeof docDialog.showModal === 'function') docDialog.showModal();
