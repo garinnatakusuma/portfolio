@@ -1082,7 +1082,8 @@
     .approach-visual .viz-topline span:last-child { color: var(--orange-deep); }
     .approach-svg { height: 390px; margin-top: 22px; overflow: visible; color: #625a50; }
     .approach-scene { opacity: .5; transform-box: fill-box; transform-origin: center; transition: opacity .45s ease, transform .45s var(--ease), filter .45s ease; }
-    .approach-scene.is-active { opacity: 1; transform: translateY(-5px); filter: drop-shadow(0 7px 13px rgba(185,78,0,.13)); }
+    /* Keep each SVG group's original transform attribute; overriding it with CSS would make the active illustration jump to the SVG origin and overlap the other stages. */
+    .approach-scene.is-active { opacity: 1; filter: drop-shadow(0 7px 13px rgba(185,78,0,.13)); }
     .scene-kicker { fill: #a65317; font: 600 11px 'IBM Plex Mono', monospace; letter-spacing: 1.7px; }
     .scene-note { fill: #82786f; font: 500 8.5px 'IBM Plex Mono', monospace; letter-spacing: .8px; }
     .scene-center { fill: #9b4b12; font: 800 13px 'Archivo', sans-serif; letter-spacing: 1px; }
