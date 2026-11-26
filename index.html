@@ -306,7 +306,23 @@
       background: rgba(255,255,255,.28);
     }
     .portfolio-loading.is-hidden { opacity: 0; visibility: hidden; }
-    .portfolio-loading-panel {
+    /* Shared skeleton-shimmer treatment for image, model, video and document loaders. */
+    .portfolio-loading { overflow: hidden; }
+    .portfolio-loading::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(108deg, transparent 22%, rgba(255,255,255,.12) 42%, rgba(255,255,255,.3) 50%, rgba(255,255,255,.1) 58%, transparent 78%);
+      transform: translateX(-100%);
+      animation: portfolioLoadingShimmer 1.55s ease-in-out infinite;
+    }
+    .portfolio-loading.is-light::before {
+      background: linear-gradient(108deg, transparent 22%, rgba(255,255,255,.2) 42%, rgba(255,255,255,.72) 50%, rgba(255,255,255,.18) 58%, transparent 78%);
+    }
+    @keyframes portfolioLoadingShimmer { to { transform: translateX(100%); } }
+    .portfolio-loading-panel { position: relative; z-index: 1; }
       display: flex;
       align-items: center;
       gap: 11px;
@@ -1304,6 +1320,147 @@
       #footwear.projects-section .swatch-dot { transition-duration: .01ms !important; }
     }
 
+    /* Footwear preload: Motion-inspired shimmer skeletons, shown while all 34 colorways decode. */
+    .footwear-preload-overlay {
+      position: absolute;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      align-content: start;
+      gap: clamp(28px, 3.2vw, 42px) clamp(18px, 2.6vw, 34px);
+      padding: clamp(18px, 2.35vw, 34px);
+      overflow: hidden;
+      border-radius: inherit;
+      background: rgba(241,238,232,.94);
+      backdrop-filter: blur(15px) saturate(1.08);
+      -webkit-backdrop-filter: blur(15px) saturate(1.08);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .52s var(--ease), visibility .52s ease;
+    }
+    .footwear-preload-overlay.is-ready { opacity: 0; visibility: hidden; pointer-events: none; }
+    .footwear-preload-skeleton-card { min-width: 0; display: flex; flex-direction: column; }
+    .footwear-preload-skeleton-art {
+      position: relative;
+      height: clamp(226px, 22vw, 276px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .footwear-preload-skeleton-art::before {
+      content: '';
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      top: 21%;
+      height: 58%;
+      border-radius: 58% 34% 24% 28%;
+      clip-path: polygon(1% 66%, 13% 56%, 21% 34%, 34% 23%, 45% 48%, 66% 53%, 86% 63%, 99% 75%, 96% 91%, 7% 91%);
+      background: linear-gradient(105deg, rgba(198,191,180,.36) 20%, rgba(255,255,255,.92) 48%, rgba(198,191,180,.36) 76%);
+      background-size: 220% 100%;
+      animation: footwearSkeletonShimmer 1.45s ease-in-out infinite;
+      filter: drop-shadow(0 12px 12px rgba(16,16,18,.08));
+    }
+    .footwear-preload-skeleton-art::after {
+      content: '';
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 1px;
+      height: 17px;
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 4px 4px 12px 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(199,191,178,.7));
+      box-shadow: 0 8px 13px rgba(49,39,28,.08), inset 0 1px 0 white;
+    }
+    .footwear-preload-skeleton-details {
+      height: 42px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,255,255,.94);
+      border-radius: 13px;
+      background: linear-gradient(105deg, rgba(255,255,255,.58) 20%, rgba(255,255,255,.94) 48%, rgba(221,215,205,.45) 76%);
+      background-size: 220% 100%;
+      animation: footwearSkeletonShimmer 1.45s ease-in-out infinite;
+      box-shadow: 0 8px 18px rgba(68,54,37,.045), inset 0 1px 0 white;
+    }
+    @keyframes footwearSkeletonShimmer { to { background-position: 220% 0; } }
+    .footwear-preload-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 190px;
+      margin-left: auto;
+      color: var(--orange-deep);
+      font: 600 .56rem var(--mono);
+      letter-spacing: .055em;
+      white-space: nowrap;
+    }
+    .footwear-preload-status[hidden] { display: none; }
+    .footwear-preload-progress {
+      display: block;
+      width: 68px;
+      height: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(16,16,18,.12);
+    }
+    .footwear-preload-progress i {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--orange-deep), var(--orange), #ffb16b);
+      box-shadow: 0 0 9px rgba(237,110,3,.25);
+      transition: width .16s ease;
+    }
+    #footwear.projects-section .project-art img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: none;
+      max-height: none;
+      object-fit: fill;
+      object-position: center;
+      transform: translateY(0);
+      transform-origin: 50% 100%;
+      will-change: left, top, width, height;
+    }
+    #footwear.projects-section .project-art.is-colorway-loading::before {
+      content: 'LOADING COLORWAY';
+      position: absolute;
+      z-index: 4;
+      inset: 20% 10% 24%;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: rgba(89,79,67,.72);
+      background: linear-gradient(108deg, rgba(255,255,255,.18) 22%, rgba(255,255,255,.92) 50%, rgba(205,197,185,.24) 78%);
+      background-size: 220% 100%;
+      font: 600 .58rem var(--mono);
+      letter-spacing: .1em;
+      animation: footwearSkeletonShimmer 1.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @media (max-width: 1050px) {
+      .footwear-preload-overlay { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .footwear-preload-skeleton-art { height: clamp(220px, 29vw, 260px); }
+    }
+    @media (max-width: 760px) {
+      .footwear-preload-overlay { grid-template-columns: minmax(0,1fr); gap: 28px; padding: 17px 16px 21px; }
+      .footwear-preload-skeleton-art { height: clamp(218px, 59vw, 270px); }
+      .footwear-preload-status { min-width: 0; gap: 6px; font-size: .5rem; }
+      .footwear-preload-progress { width: 48px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .portfolio-loading::before,
+      .footwear-preload-skeleton-art::before,
+      .footwear-preload-skeleton-details,
+      #footwear.projects-section .project-art.is-colorway-loading::before { animation: none !important; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       #footwear.projects-section .project-card,
       #footwear.projects-section .project-art,
@@ -2262,6 +2419,7 @@
         const finishFilter = () => {
           if (run !== footwearFilterRun) return;
           distributeVisibleProjectCards(matches, true);
+          if (typeof refreshFootwearPlacements === 'function') requestAnimationFrame(refreshFootwearPlacements);
           entering.forEach(card => card.classList.add('is-filter-entering'));
           if (entering.length) {
             window.setTimeout(() => entering.forEach(card => card.classList.remove('is-filter-entering')), reducedMotion ? 0 : 650);
@@ -2293,11 +2451,203 @@
       };
       mobileFootwearColumns.addEventListener?.('change', onFootwearColumnModeChange);
 
-      // Colorway dots are persistent, accessible controls. Selecting one swaps only that shoe image.
+      // Preload and decode every footwear colorway once at page entry so subsequent swatch
+      // changes are cache-backed. Alpha bounds are measured to align every outsole to one shelf datum.
+      const footwearAssetCache = new Map();
+      const footwearResolvedAssets = new Map();
+      const projectTools = $('.project-tools', $('#footwear'));
+      const footwearPreloadStatus = document.createElement('div');
+      footwearPreloadStatus.className = 'footwear-preload-status';
+      footwearPreloadStatus.setAttribute('role', 'status');
+      footwearPreloadStatus.setAttribute('aria-live', 'polite');
+      footwearPreloadStatus.innerHTML = '<span class="footwear-preload-label">PRELOADING FOOTWEAR</span><span class="footwear-preload-fraction">0 / 34</span><span class="footwear-preload-progress" aria-hidden="true"><i></i></span>';
+      const footwearPreloadFraction = $('.footwear-preload-fraction', footwearPreloadStatus);
+      const footwearPreloadFill = $('.footwear-preload-progress i', footwearPreloadStatus);
+      if (projectTools) projectTools.insertBefore(footwearPreloadStatus, projectCount || null);
+
+      const footwearPreloadOverlay = document.createElement('div');
+      footwearPreloadOverlay.className = 'footwear-preload-overlay';
+      footwearPreloadOverlay.setAttribute('aria-hidden', 'true');
+      footwearPreloadOverlay.innerHTML = projectCards.map(() => '<div class="footwear-preload-skeleton-card"><div class="footwear-preload-skeleton-art"></div><div class="footwear-preload-skeleton-details"></div></div>').join('');
+      projectGrid.appendChild(footwearPreloadOverlay);
+
+      const footwearFiles = [...new Set($$('.swatch-dot[data-colorway-file]', projectGrid).map(swatch => swatch.dataset.colorwayFile).filter(Boolean))];
+      footwearPreloadStatus.querySelector('.footwear-preload-label').textContent = `PRELOADING ${footwearFiles.length} COLORWAYS`;
+      footwearPreloadFraction.textContent = `0 / ${footwearFiles.length}`;
+
+      // Main shelf images are controlled by the archive-level preload UI, not individual lazy overlays.
       projectCards.forEach(card => {
         const image = $('.project-art img', card);
+        if (!image) return;
+        image.dataset.noLoader = 'true';
+        image.loading = 'eager';
+        image.fetchPriority = 'low';
+      });
+
+      const measureFootwearAlphaBounds = sourceImage => {
+        const width = sourceImage.naturalWidth;
+        const height = sourceImage.naturalHeight;
+        if (!width || !height) return null;
+        const ratio = Math.min(1, 180 / width, 140 / height);
+        const scanWidth = Math.max(1, Math.round(width * ratio));
+        const scanHeight = Math.max(1, Math.round(height * ratio));
+        const canvas = document.createElement('canvas');
+        canvas.width = scanWidth;
+        canvas.height = scanHeight;
+        try {
+          const context = canvas.getContext('2d', { willReadFrequently: true });
+          if (!context) return { left: 0, top: 0, right: width, bottom: height, width, height };
+          context.drawImage(sourceImage, 0, 0, scanWidth, scanHeight);
+          const pixels = context.getImageData(0, 0, scanWidth, scanHeight).data;
+          let minX = scanWidth, minY = scanHeight, maxX = -1, maxY = -1;
+          for (let y = 0; y < scanHeight; y++) {
+            for (let x = 0; x < scanWidth; x++) {
+              if (pixels[(y * scanWidth + x) * 4 + 3] < 64) continue;
+              if (x < minX) minX = x;
+              if (x > maxX) maxX = x;
+              if (y < minY) minY = y;
+              if (y > maxY) maxY = y;
+            }
+          }
+          if (maxX < minX || maxY < minY) return { left: 0, top: 0, right: width, bottom: height, width, height };
+          const left = minX / ratio;
+          const top = minY / ratio;
+          const right = (maxX + 1) / ratio;
+          const bottom = (maxY + 1) / ratio;
+          return { left, top, right, bottom, width: right - left, height: bottom - top };
+        } catch (_) {
+          // If a host disables canvas readback, retain a safe full-image fallback.
+          return { left: 0, top: 0, right: width, bottom: height, width, height };
+        } finally {
+          canvas.width = 1;
+          canvas.height = 1;
+        }
+      };
+
+      const loadFootwearAsset = filename => {
+        if (footwearAssetCache.has(filename)) return footwearAssetCache.get(filename);
+        const promise = new Promise(resolve => {
+          const sourceImage = new Image();
+          const record = { image: sourceImage, bounds: null, ok: false };
+          let settled = false;
+          sourceImage.decoding = 'async';
+          sourceImage.loading = 'eager';
+          sourceImage.fetchPriority = 'low';
+          const finish = async succeeded => {
+            if (settled) return;
+            settled = true;
+            if (succeeded && sourceImage.naturalWidth > 0) {
+              try { await sourceImage.decode(); } catch (_) { /* load event still confirms usable pixels */ }
+              record.bounds = measureFootwearAlphaBounds(sourceImage);
+              record.ok = !!record.bounds;
+            }
+            footwearResolvedAssets.set(filename, record);
+            resolve(record);
+          };
+          sourceImage.addEventListener('load', () => finish(true), { once: true });
+          sourceImage.addEventListener('error', () => finish(false), { once: true });
+          sourceImage.src = filename;
+          if (sourceImage.complete) queueMicrotask(() => finish(sourceImage.naturalWidth > 0));
+        });
+        footwearAssetCache.set(filename, promise);
+        return promise;
+      };
+
+      const fitFootwearImageToShelf = image => {
+        if (!image) return;
+        const art = image.closest('.project-art');
+        const filename = image.dataset.colorwayFile || image.getAttribute('src')?.split('/').pop();
+        const cachedAssetPromise = footwearAssetCache.get(filename);
+        if (!art || !cachedAssetPromise || !art.clientWidth || !art.clientHeight || !image.naturalWidth) return;
+        cachedAssetPromise.then(asset => {
+          if (!asset.ok || !art.clientWidth || !art.clientHeight) return;
+          const bounds = asset.bounds;
+          const shelf = $('.project-shelf-edge', art);
+          const shelfHeight = shelf?.offsetHeight || 19;
+          const shelfBottom = shelf ? (Number.parseFloat(getComputedStyle(shelf).bottom) || 0) : -4;
+          const shelfTop = art.clientHeight - shelfBottom - shelfHeight;
+          const outsoleBaseline = shelfTop - 12;
+          const maxVisualWidth = art.clientWidth * .94;
+          const maxVisualHeight = Math.max(120, outsoleBaseline - 22);
+          const scale = Math.min(maxVisualWidth / bounds.width, maxVisualHeight / bounds.height);
+          const renderedWidth = image.naturalWidth * scale;
+          const renderedHeight = image.naturalHeight * scale;
+          const left = (art.clientWidth - (bounds.left + bounds.right) * scale) / 2;
+          const top = outsoleBaseline - bounds.bottom * scale;
+          image.style.width = `${renderedWidth}px`;
+          image.style.height = `${renderedHeight}px`;
+          image.style.left = `${left}px`;
+          image.style.top = `${top}px`;
+          image.dataset.shelfBaseline = `${outsoleBaseline.toFixed(2)}`;
+        });
+      };
+
+      const refreshFootwearPlacements = () => {
+        projectCards.forEach(card => fitFootwearImageToShelf($('.project-art img', card)));
+      };
+      if ('ResizeObserver' in window) {
+        const footwearFitObserver = new ResizeObserver(entries => entries.forEach(entry => {
+          const image = $('img', entry.target);
+          if (image) fitFootwearImageToShelf(image);
+        }));
+        projectCards.forEach(card => {
+          const art = $('.project-art', card);
+          if (art) footwearFitObserver.observe(art);
+        });
+      }
+      window.addEventListener('resize', refreshFootwearPlacements, { passive: true });
+
+      const preloadAllFootwearAssets = async () => {
+        let completed = 0;
+        let failed = 0;
+        let nextIndex = 0;
+        const worker = async () => {
+          while (nextIndex < footwearFiles.length) {
+            const filename = footwearFiles[nextIndex++];
+            const asset = await loadFootwearAsset(filename);
+            if (!asset.ok) failed++;
+            completed++;
+            footwearPreloadFraction.textContent = `${completed} / ${footwearFiles.length}`;
+            footwearPreloadFill.style.width = `${footwearFiles.length ? completed / footwearFiles.length * 100 : 100}%`;
+          }
+        };
+        const workerCount = Math.min(4, Math.max(1, footwearFiles.length));
+        await Promise.all(Array.from({ length: workerCount }, worker));
+
+        // Point visible <img> elements at already-decoded browser-cache entries, then anchor
+        // their visible alpha bounds to one common outsole baseline above the glass shelf.
+        await Promise.all(projectCards.map(async card => {
+          const image = $('.project-art img', card);
+          if (!image) return;
+          const filename = image.getAttribute('src')?.split('/').pop();
+          const asset = await loadFootwearAsset(filename);
+          if (!asset.ok) return;
+          image.src = asset.image.src;
+          image.dataset.colorwayFile = filename;
+          try { await image.decode(); } catch (_) {}
+          fitFootwearImageToShelf(image);
+        }));
+        refreshFootwearPlacements();
+
+        const preloadLabel = footwearPreloadStatus.querySelector('.footwear-preload-label');
+        preloadLabel.textContent = failed ? `READY · ${failed} VARIANT${failed === 1 ? '' : 'S'} UNAVAILABLE` : 'ALL COLORWAYS READY';
+        footwearPreloadStatus.classList.add('is-complete');
+        if (failed) footwearPreloadStatus.setAttribute('aria-label', `${completed - failed} of ${completed} colorways loaded; ${failed} unavailable`);
+        window.setTimeout(() => {
+          footwearPreloadOverlay.classList.add('is-ready');
+          footwearPreloadStatus.hidden = true;
+          window.setTimeout(() => footwearPreloadOverlay.remove(), 560);
+        }, 280);
+      };
+      preloadAllFootwearAssets();
+
+      // Colorway controls swap only their own image. Successfully preloaded images decode from cache;
+      // the local shimmer state is reserved for a missed/failed cache entry or an actual network wait.
+      projectCards.forEach(card => {
+        const image = $('.project-art img', card);
+        const art = image?.closest('.project-art');
         const swatches = $$('.swatch-dot', card);
-        if (!image || !swatches.length) return;
+        if (!image || !art || !swatches.length) return;
         const setActiveSwatch = selected => {
           swatches.forEach(swatch => {
             const active = swatch === selected;
@@ -2305,23 +2655,35 @@
             swatch.setAttribute('aria-pressed', String(active));
           });
         };
-        const initialFile = image.getAttribute('src');
+        const initialFile = image.getAttribute('src')?.split('/').pop();
         const initiallySelected = swatches.find(swatch => swatch.dataset.colorwayFile === initialFile) || swatches[0];
         setActiveSwatch(initiallySelected);
+        image.dataset.colorwayFile = initiallySelected?.dataset.colorwayFile || initialFile || '';
         swatches.forEach(swatch => {
-          swatch.addEventListener('click', () => {
+          swatch.addEventListener('click', async () => {
             const nextFile = swatch.dataset.colorwayFile;
-            if (!nextFile) return;
+            if (!nextFile || image.dataset.colorwayFile === nextFile) return;
+            const previousSwatch = swatches.find(item => item.getAttribute('aria-pressed') === 'true');
+            const alreadyLoaded = footwearResolvedAssets.get(nextFile);
+            const assetPromise = loadFootwearAsset(nextFile);
+            if (!alreadyLoaded?.ok) {
+              art.classList.add('is-colorway-loading');
+              art.setAttribute('aria-busy', 'true');
+            }
+            const asset = alreadyLoaded?.ok ? alreadyLoaded : await assetPromise;
+            if (!asset.ok) {
+              art.classList.remove('is-colorway-loading');
+              art.removeAttribute('aria-busy');
+              if (previousSwatch) setActiveSwatch(previousSwatch);
+              return;
+            }
+            image.src = asset.image.src;
+            try { await image.decode(); } catch (_) {}
+            image.dataset.colorwayFile = nextFile;
             setActiveSwatch(swatch);
-            if (image.getAttribute('src') === nextFile) return;
-            image.classList.add('is-changing');
-            const preload = new Image();
-            preload.onload = () => {
-              image.src = nextFile;
-              image.classList.remove('is-changing');
-            };
-            preload.onerror = () => image.classList.remove('is-changing');
-            preload.src = nextFile;
+            fitFootwearImageToShelf(image);
+            art.classList.remove('is-colorway-loading');
+            art.removeAttribute('aria-busy');
           });
         });
       });
