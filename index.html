@@ -210,56 +210,70 @@
     .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .video-caption { display: flex; justify-content: space-between; padding: 13px 17px; color: #96918b; font: 500 .65rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
 
-    /* Footwear archive */
+    /* Footwear archive — independent wall-mounted glass shelves */
     .projects-section { background: var(--paper); color: var(--ink); }
     .projects-section .section-head p { color: var(--muted-dark); }
-    .project-tools { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: -18px 0 28px; flex-wrap: wrap; }
+    .project-tools { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: -18px 0 34px; flex-wrap: wrap; }
     .filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn { padding: 9px 14px; border: 1px solid rgba(16,16,18,.2); background: transparent; color: #5d5852; border-radius: 999px; font: 600 .68rem var(--mono); cursor: pointer; transition: .25s; }
+    .filter-btn { padding: 9px 14px; border: 1px solid rgba(16,16,18,.2); background: rgba(255,255,255,.24); color: #5d5852; border-radius: 999px; font: 600 .66rem var(--mono); cursor: pointer; transition: color .25s, background .25s, border-color .25s, transform .3s var(--ease), box-shadow .25s; }
+    .filter-btn:hover { border-color: rgba(185,78,0,.55); color: var(--orange-deep); transform: translateY(-2px); }
     .filter-btn:hover, .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
-    .project-count { color: #7c756d; font: 500 .7rem var(--mono); }
-    .project-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; }
-    .project-card { position: relative; background: #fffdfa; border: 1px solid rgba(16,16,18,.1); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
-    .project-card:hover { transform: translateY(-8px); border-color: rgba(237,110,3,.5); box-shadow: 0 22px 50px rgba(40,31,23,.12); }
-    .project-card[hidden] { display: none; }
-    .project-art { height: 265px; padding: 22px; background: var(--orange); position: relative; overflow: hidden; display: grid; place-items: center; }
-    .project-art::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(15,15,15,.13); pointer-events: none; }
-    .project-art img { width: 100%; height: 100%; object-fit: contain; transition: transform .65s var(--ease); position: relative; z-index: 1; }
-    .project-card:hover .project-art img { transform: scale(1.07) rotate(-1deg); }
-    .project-number { position: absolute; top: 17px; left: 19px; z-index: 2; color: rgba(15,15,15,.72); font: 600 .67rem var(--mono); }
-    .project-badge { position: absolute; right: 17px; top: 15px; z-index: 2; color: #111; background: var(--white); padding: 5px 9px; border-radius: 999px; font: 700 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .project-info { padding: 23px 23px 22px; display: flex; flex-direction: column; flex: 1; }
-    .project-category { color: var(--orange-deep); font: 600 .62rem var(--mono); text-transform: uppercase; letter-spacing: .1em; }
-    .project-info h3 { font: 800 1.45rem/1.05 var(--display); letter-spacing: -.045em; margin: 9px 0 12px; }
-    .project-info p { color: #6a655f; font-size: .82rem; line-height: 1.65; }
-    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 17px; }
-    .project-tags span { color: #69635e; background: #f1eee8; border: 1px solid rgba(16,16,18,.08); border-radius: 999px; padding: 5px 8px; font: 500 .59rem var(--mono); }
-    .project-note { color: #8a8178; margin-top: 15px; font-size: .7rem; font-style: italic; }
-    .project-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid rgba(16,16,18,.1); margin-top: auto; padding-top: 17px; color: var(--ink); font: 700 .68rem var(--mono); text-transform: uppercase; letter-spacing: .07em; }
-    .project-link span:last-child { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; background: var(--ink); color: white; transition: .25s; }
+    .filter-btn.active { box-shadow: 0 7px 18px rgba(16,16,18,.12); }
+    .project-count { color: #7c756d; font: 500 .68rem var(--mono); white-space: nowrap; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); align-items: start; gap: clamp(18px, 2.6vw, 34px); }
+    .project-column { display: flex; flex-direction: column; align-items: stretch; gap: clamp(28px, 3.2vw, 42px); min-width: 0; }
+    .project-hidden-bin { display: none !important; }
+    .project-card { position: relative; display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; transform-style: preserve-3d; transition: opacity .32s ease, filter .32s ease, transform .32s var(--ease); }
+    .project-card::after { display: none; }
+    .project-card[hidden] { display: none !important; }
+    .project-card.is-filter-exiting { opacity: 0; filter: blur(3px); transform: translateY(16px) scale(.975); pointer-events: none; }
+    .project-card.is-filter-entering { animation: footwearShelfEnter .58s var(--ease) both; }
+    @keyframes footwearShelfEnter { from { opacity: 0; transform: translateY(18px) scale(.975); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+    .project-art { height: clamp(185px, 19vw, 238px); min-width: 0; padding: 18px 16px 27px; position: relative; display: flex; align-items: center; justify-content: center; overflow: visible; isolation: isolate; border: 1px solid rgba(255,255,255,.9); border-radius: 19px 19px 15px 15px; background: linear-gradient(145deg, rgba(255,255,255,.83), rgba(232,227,218,.67)); box-shadow: 0 16px 25px -17px rgba(16,16,18,.42), 0 4px 10px rgba(91,73,49,.05), inset 0 1px 0 rgba(255,255,255,.98), inset 0 -5px 10px rgba(112,96,76,.09); backdrop-filter: blur(23px) saturate(1.2); -webkit-backdrop-filter: blur(23px) saturate(1.2); transition: border-color .35s, box-shadow .35s, transform .45s var(--ease); }
+    .project-art::before { content: ''; position: absolute; inset: 1px; z-index: 1; border-radius: inherit; pointer-events: none; background: linear-gradient(118deg, rgba(255,255,255,.32), transparent 38%, rgba(185,78,0,.035) 100%); }
+    .project-art::after { content: ''; position: absolute; z-index: 0; left: 13%; right: 13%; bottom: -17px; height: 24px; border-radius: 50%; background: rgba(237,110,3,.55); filter: blur(18px); opacity: 0; transform: scaleX(.78); transition: opacity .4s ease, transform .55s var(--ease), filter .4s ease; pointer-events: none; }
+    .project-shelf-edge { position: absolute; z-index: 1; left: 7%; right: 7%; bottom: -9px; height: 18px; border: 1px solid rgba(255,255,255,.86); border-radius: 3px 3px 10px 10px; background: linear-gradient(180deg, rgba(250,249,246,.92), rgba(196,188,175,.8)); box-shadow: 0 8px 12px rgba(49,39,28,.11), inset 0 1px 0 white, inset 0 -3px 5px rgba(91,76,56,.12); transform: perspective(90px) rotateX(-7deg); transform-origin: top; pointer-events: none; }
+    .project-art img { position: relative; z-index: 2; display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; filter: drop-shadow(0 13px 8px rgba(16,16,18,.22)); transform: translateY(-4px); transform-origin: 50% 62%; transition: filter .35s ease; user-select: none; -webkit-user-drag: none; }
+    .project-card:hover .project-art, .project-card:focus-within .project-art { border-color: rgba(237,110,3,.42); box-shadow: 0 18px 28px -16px rgba(16,16,18,.4), 0 0 0 1px rgba(237,110,3,.12), inset 0 1px 0 rgba(255,255,255,1), inset 0 -5px 10px rgba(112,96,76,.08); transform: translateY(-2px); }
+    .project-card:hover .project-art::after, .project-card:focus-within .project-art::after { opacity: .85; transform: scaleX(1); filter: blur(19px); }
+    .project-card:hover .project-art img, .project-card:focus-within .project-art img { animation: footwearShoeBobble 1.05s cubic-bezier(.34,1.56,.64,1) both; filter: drop-shadow(0 17px 10px rgba(16,16,18,.26)); }
+    @keyframes footwearShoeBobble { 0% { transform: translateY(-4px) rotate(0); } 38% { transform: translateY(-13px) rotate(-1.2deg); } 68% { transform: translateY(-5px) rotate(.45deg); } 100% { transform: translateY(-8px) rotate(-.35deg); } }
+    .project-number { position: absolute; z-index: 4; top: 13px; left: 15px; color: rgba(16,16,18,.5); font: 600 .55rem var(--mono); letter-spacing: .08em; }
+    .project-badge { position: absolute; z-index: 4; top: 10px; right: 12px; padding: 4px 8px; border: 1px solid rgba(16,16,18,.08); border-radius: 999px; color: #4e453c; background: rgba(255,255,255,.72); box-shadow: 0 4px 12px rgba(16,16,18,.06), inset 0 1px 0 rgba(255,255,255,.9); backdrop-filter: blur(9px); font: 700 .5rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+    .project-swatches { position: absolute; z-index: 5; right: 13px; bottom: 13px; display: inline-flex; align-items: center; gap: 5px; padding: 5px 7px; border: 1px solid rgba(255,255,255,.78); border-radius: 999px; background: rgba(248,247,244,.72); box-shadow: 0 4px 13px rgba(16,16,18,.08), inset 0 1px 0 rgba(255,255,255,.94); backdrop-filter: blur(12px); opacity: 0; transform: translateY(7px); transition: opacity .28s ease, transform .38s var(--ease); pointer-events: none; }
+    .project-card:hover .project-swatches, .project-card:focus-within .project-swatches { opacity: 1; transform: translateY(0); }
+    .swatch-dot { display: block; width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; background: var(--swatch-color); border: 1px solid rgba(16,16,18,.14); box-shadow: inset 0 1px 1px rgba(255,255,255,.32), 0 1px 2px rgba(16,16,18,.1); }
+    .project-accordion { position: relative; z-index: 2; display: flex; flex-direction: column; margin-top: 19px; }
+    .project-accordion-toggle { min-height: 43px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 12px 8px 15px; border: 1px solid rgba(255,255,255,.88); border-radius: 13px; color: #5a5149; background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(232,227,218,.48)); box-shadow: 0 8px 17px rgba(68,54,37,.055), inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 5px rgba(110,91,68,.07); backdrop-filter: blur(18px) saturate(1.16); -webkit-backdrop-filter: blur(18px) saturate(1.16); text-align: left; cursor: pointer; transition: border-color .3s, box-shadow .3s, color .3s, transform .3s var(--ease), background .3s; }
+    .project-accordion-toggle:hover { color: var(--orange-deep); border-color: rgba(237,110,3,.45); transform: translateY(-1px); box-shadow: 0 10px 20px rgba(68,54,37,.08), 0 0 15px rgba(237,110,3,.07), inset 0 1px 0 rgba(255,255,255,.98); }
+    .accordion-toggle-label { font: 600 .58rem var(--mono); letter-spacing: .1em; }
+    .accordion-toggle-icon { display: grid; place-items: center; width: 25px; height: 25px; flex: 0 0 25px; border: 1px solid rgba(16,16,18,.13); border-radius: 50%; color: var(--orange-deep); background: rgba(255,255,255,.58); font: 400 1rem/1 var(--body); transition: transform .42s var(--ease), color .25s, background .25s, border-color .25s; }
+    .project-card.is-open .project-accordion-toggle { border-color: rgba(237,110,3,.48); color: var(--orange-deep); background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(255,246,236,.72)); }
+    .project-card.is-open .accordion-toggle-icon { transform: rotate(45deg); color: #111; background: var(--orange); border-color: var(--orange); }
+    .project-accordion-panel { max-height: 0; margin: 0; opacity: 0; overflow: hidden; transition: max-height .58s var(--ease), opacity .32s ease; will-change: max-height; }
+    .project-card.is-open .project-accordion-panel { opacity: 1; }
+    .project-info { display: block; min-width: 0; margin-top: 10px; padding: 0; border: 1px solid rgba(255,255,255,.9); border-radius: 17px; color: var(--ink); background: linear-gradient(145deg, rgba(255,255,255,.8), rgba(235,229,219,.64)); box-shadow: 0 13px 27px rgba(68,54,37,.08), inset 0 1px 0 rgba(255,255,255,.98), inset 0 -3px 7px rgba(110,91,68,.06); backdrop-filter: blur(22px) saturate(1.15); -webkit-backdrop-filter: blur(22px) saturate(1.15); }
+    .project-info-inner { display: flex; flex-direction: column; padding: 20px 19px 18px; }
+    .project-category { color: var(--orange-deep); font: 600 .58rem var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+    .project-info h3 { color: var(--ink); font: 800 1.36rem/1.05 var(--display); letter-spacing: -.045em; margin: 8px 0 12px; }
+    .project-info h3 small { vertical-align: baseline; }
+    .project-info p { color: #625c55; font-size: .77rem; line-height: 1.7; }
+    .project-software { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 2px 0 13px; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 15px; }
+    .project-tags span { color: #69635e; background: rgba(241,238,232,.78); border: 1px solid rgba(16,16,18,.09); border-radius: 999px; padding: 5px 8px; font: 500 .56rem var(--mono); }
+    .project-note { color: #887f75 !important; margin-top: 13px; font-size: .66rem !important; font-style: italic; }
+    .project-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 46px; border-top: 1px solid rgba(16,16,18,.11); margin-top: 17px; padding-top: 13px; color: var(--ink); font: 700 .63rem var(--mono); text-transform: uppercase; letter-spacing: .065em; }
     .project-link:hover { color: var(--orange-deep); }
-    .project-link:hover span:last-child { background: var(--orange); color: #111; transform: rotate(45deg); }
-
-    /* Medium frosted-glass shoe detail viewer — desktop only */
-    .project-art img[data-preview-src] { cursor: zoom-in; }
-    .project-art img[data-preview-src]:focus-visible { outline: 3px solid var(--orange); outline-offset: -5px; border-radius: 8px; }
-    .shoe-preview { position: fixed; width: min(790px, calc(100vw - 44px)); height: min(620px, calc(100dvh - 44px)); max-width: none; max-height: none; margin: auto; padding: 17px; border: 1px solid rgba(255,255,255,.28); border-radius: 22px; overflow: hidden; color: var(--white); background: linear-gradient(145deg, rgba(38,37,36,.76), rgba(24,24,27,.62)); box-shadow: 0 28px 100px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.24); backdrop-filter: blur(26px) saturate(1.25); -webkit-backdrop-filter: blur(26px) saturate(1.25); }
-    .shoe-preview::backdrop { background: rgba(8,8,10,.28); backdrop-filter: blur(9px) saturate(1.08); -webkit-backdrop-filter: blur(9px) saturate(1.08); }
-    .shoe-preview[open] { display: grid; grid-template-rows: auto minmax(0,1fr) auto; animation: shoePreviewIn .26s var(--ease) both; }
-    @keyframes shoePreviewIn { from { opacity: 0; transform: translateY(9px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    .shoe-preview-content { display: contents; }
-    .shoe-preview-head { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 10px 11px 10px 15px; border: 1px solid rgba(255,255,255,.18); border-radius: 14px; background: rgba(255,255,255,.075); box-shadow: 0 10px 28px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-    .shoe-preview-kicker { display: block; color: #f19a55; font: 600 .56rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .shoe-preview-head h2 { margin-top: 4px; color: #f8f7f4; font: 800 clamp(1.05rem, 2vw, 1.4rem)/1.05 var(--display); letter-spacing: -.045em; }
-    .shoe-preview-actions { display: flex; align-items: center; gap: 7px; }
-    .shoe-preview-zoom, .shoe-preview-close { flex: 0 0 38px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; color: #fff; background: rgba(255,255,255,.07); cursor: pointer; font: 600 1rem var(--body); transition: background .2s, color .2s, transform .25s, border-color .2s; }
-    .shoe-preview-zoom:hover, .shoe-preview-close:hover { color: #111; background: var(--orange); border-color: var(--orange); transform: translateY(-1px); }
-    .shoe-preview-zoom:disabled { opacity: .4; cursor: default; }
-    .shoe-preview-stage { position: relative; min-height: 0; margin: 10px 0; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.11); border-radius: 15px; background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.075), rgba(255,255,255,.012) 70%); }
-    .shoe-preview-stage img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; filter: drop-shadow(0 20px 32px rgba(0,0,0,.42)); transform: scale(var(--shoe-zoom, 1)); transform-origin: var(--shoe-zoom-x, 50%) var(--shoe-zoom-y, 50%); transition: transform .18s ease; cursor: zoom-in; user-select: none; -webkit-user-drag: none; }
-    .shoe-preview-stage.is-zoomed { cursor: zoom-out; }
-    .shoe-preview-stage.is-zoomed img { cursor: zoom-out; }
-    .shoe-preview-hint { justify-self: center; max-width: 100%; padding: 7px 11px; border: 1px solid rgba(255,255,255,.13); border-radius: 999px; color: rgba(248,247,244,.72); background: rgba(255,255,255,.055); font: 500 .53rem var(--mono); letter-spacing: .055em; text-align: center; white-space: nowrap; }
+    .project-link-roll { position: relative; display: grid; flex: 1; min-width: 0; overflow: hidden; line-height: 1.25; }
+    .project-link-roll .roll-line { grid-area: 1 / 1; display: inline-flex; white-space: nowrap; }
+    .project-link-roll .roll-line:last-child { position: absolute; inset: 0; }
+    .project-link-roll .roll-char { display: inline-block; transition: transform .42s var(--ease); transition-delay: var(--roll-delay, 0ms); }
+    .project-link-roll .roll-line:first-child .roll-char { transform: translateY(0); }
+    .project-link-roll .roll-line:last-child .roll-char { transform: translateY(125%); }
+    .project-link:hover .roll-line:first-child .roll-char { transform: translateY(-125%); }
+    .project-link:hover .roll-line:last-child .roll-char { transform: translateY(0); }
+    .project-link-icon { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%; background: var(--ink); color: white; font: 500 .9rem var(--body); transition: .28s var(--ease); }
+    .project-link:hover .project-link-icon { background: var(--orange); color: #111; transform: rotate(45deg); }
 
     /* Unified, contrast-aware loading treatment for assets, embeds and interactive models */
     .portfolio-loading {
@@ -328,10 +342,6 @@
     .portfolio-loading.is-complete .portfolio-loading-spinner::after { content: '✓'; position: absolute; inset: 0; display: grid; place-items: center; color: #54bd81; font: 800 15px var(--body); }
     .portfolio-loading.is-error .portfolio-loading-spinner { border-color: rgba(237,110,3,.35); border-top-color: var(--orange); border-right-color: var(--orange); animation: none; }
     .portfolio-loading.is-error .portfolio-loading-spinner::after { content: '!'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--orange); font: 800 15px var(--body); }
-    .shoe-preview-stage { isolation: isolate; }
-    #shoePreviewImage { opacity:  0; visibility: hidden; transition: opacity .2s ease; }
-    .shoe-preview-stage.is-ready #shoePreviewImage { opacity: 1; visibility: visible; }
-    .shoe-preview-stage.is-loading #shoePreviewImage { opacity: 0; visibility: hidden; }
     .model-panel, .coming-model, .video-frame, .document-frame-wrap { isolation: isolate; }
     .model-panel .portfolio-loading, .coming-model .portfolio-loading { z-index: 2; }
     .model-panel .model-topline, .coming-model .coming-model-topline, .model-panel .model-hint { z-index: 35; }
@@ -347,14 +357,6 @@
     @media (prefers-reduced-motion: reduce) {
       .portfolio-loading-spinner { animation-duration: 1.8s; }
       .portfolio-loading, .portfolio-loading-fill { transition-duration: .01ms; }
-    }
-    @media (max-width: 760px) {
-      .project-art img[data-preview-src] { cursor: default; }
-      .shoe-preview { display: none !important; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .shoe-preview[open] { animation: none; }
-      .shoe-preview-stage img { transition: none; }
     }
 
     /* 3D / technical */
@@ -1123,6 +1125,45 @@
       .approach-route { animation: none !important; }
       .approach-scene { transition: none !important; }
     }
+  
+    /* Footwear-only responsive finish and accessibility motion overrides */
+    #footwear.projects-section { padding-bottom: clamp(190px, 20vw, 290px); overflow: visible; }
+    #footwear.projects-section .project-grid { grid-template-columns: repeat(3, minmax(0,1fr)); align-items: start; gap: clamp(18px, 2.6vw, 34px); }
+    #footwear.projects-section .project-column { display: flex; flex-direction: column; gap: clamp(28px, 3.2vw, 42px); min-width: 0; }
+    #footwear.projects-section .project-card::after { content: none; display: none; }
+    #footwear.projects-section .project-info h3 { margin-bottom: 12px; }
+    #footwear.projects-section .project-card:hover .project-info h3 { color: var(--orange-deep); }
+    #footwear.projects-section .project-card.is-filter-exiting { opacity: 0; filter: blur(3px); transform: translateY(16px) scale(.975); }
+    #footwear.projects-section .project-art img { cursor: default; }
+    @media (max-width: 760px) {
+      #footwear.projects-section .project-grid { grid-template-columns: minmax(0,1fr); gap: 0; }
+      #footwear.projects-section .project-column { gap: 28px; }
+      #footwear.projects-section .project-art { height: clamp(190px, 54vw, 245px); }
+      #footwear.projects-section .project-art img { max-width: 100%; }
+      #footwear.projects-section .project-tools { align-items: flex-start; }
+      #footwear.projects-section .project-count { margin-left: auto; padding-top: 6px; }
+      #footwear.projects-section { padding-bottom: 185px; }
+    }
+    @media (max-width: 420px) {
+      #footwear.projects-section .project-art { height: 218px; }
+      #footwear.projects-section .project-info-inner { padding: 17px 16px 16px; }
+      #footwear.projects-section .project-swatches { opacity: 1; transform: none; }
+      #footwear.projects-section .filter-btn { font-size: .58rem; padding: 8px 10px; }
+    }
+    @media (hover: none) {
+      #footwear.projects-section .project-swatches { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #footwear.projects-section .project-card,
+      #footwear.projects-section .project-art,
+      #footwear.projects-section .project-art::after,
+      #footwear.projects-section .project-art img,
+      #footwear.projects-section .project-accordion-toggle,
+      #footwear.projects-section .project-accordion-panel,
+      #footwear.projects-section .project-link-roll .roll-char { transition-duration: .01ms !important; animation: none !important; }
+      #footwear.projects-section .project-card.is-filter-entering { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1361,162 +1402,339 @@
     <section class="section projects-section" id="footwear">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <div><span class="eyebrow">03 / Footwear concept archive</span><h2><span id="projectIdeasWord">Ten</span> ideas.<br /><em><span id="projectNarrativesWord">Ten</span> different narratives.</em></h2></div>
+          <div><span class="eyebrow">03 / Footwear concept archive</span><h2><span id="projectIdeasWord">Twelve</span> ideas.<br /><em><span id="projectNarrativesWord">Twelve</span> different narratives.</em></h2></div>
           <p>Each project begins with a point of view and develops into a footwear concept supported by visual exploration, technical drawings, and material considerations.</p>
         </div>
         <div class="project-tools" data-reveal>
           <div class="filters" role="group" aria-label="Filter footwear projects">
             <button class="filter-btn active" data-filter="all" aria-pressed="true">All projects</button>
-            <button class="filter-btn" data-filter="performance" aria-pressed="false">Performance</button>
+            <button class="filter-btn" data-filter="development" aria-pressed="false">Development</button>
+            <button class="filter-btn" data-filter="concept" aria-pressed="false">Concept</button>
             <button class="filter-btn" data-filter="lifestyle" aria-pressed="false">Lifestyle</button>
+            <button class="filter-btn" data-filter="sport" aria-pressed="false">Sport</button>
+            <button class="filter-btn" data-filter="performance" aria-pressed="false">Performance</button>
             <button class="filter-btn" data-filter="clog" aria-pressed="false">Clog</button>
-            <button class="filter-btn" data-filter="concept" aria-pressed="false">Conceptual</button>
-            <button class="filter-btn" data-filter="competition" aria-pressed="false">Competition</button>
+            <button class="filter-btn" data-filter="formal" aria-pressed="false">Formal</button>
+            <button class="filter-btn" data-filter="experiment" aria-pressed="false">Experiment</button>
           </div>
-          <span class="project-count" id="projectCount">10 PROJECTS / 10</span>
+          <span class="project-count" id="projectCount">12 PROJECTS / 12</span>
         </div>
-
-        <!--
-          FUTURE PORTFOLIO UPDATE NOTE FOR AI AGENTS / DEVELOPERS:
-          When adding a new footwear project card, ALWAYS ask Garin which design applications were used.
-          If the application list is missing or any logo file is unavailable, ask Garin before adding the card.
-          Do not guess the software stack and do not substitute unrelated logos.
-          Approved local logo filenames: corellogo.png, ilustrator.png, photoshop.png, vizcomlogo.png, canvalogo.png.
-          Keep all logo tiles at the shared .project-software-icon dimensions for visual consistency. Project count, title wording, and card numbering are generated from the live .project-card count; never hardcode totals such as /09 or Nine.
-        -->
+        <!-- The 10 documented projects retain their original software, narrative, tags, notes and Drive links. -->
         <div class="project-grid" id="projectGrid">
-          <article class="project-card" data-category="concept">
-            <div class="project-art"><span class="project-number">01 / 10</span><img src="20260218_221106_0000 (1).png" data-preview-src="REVERVETR.png" alt="Reverve footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Reverve full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <div class="project-column" data-column="0">
+          <article class="project-card" data-order="1" data-category="development lifestyle">
+            <div class="project-art" aria-label="Reverve colorway shelf">
+              <span class="project-number">01 / 12</span>
+              
+              <img src="Reverve BLACK.png" alt="Reverve side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Reverve BLACK.png" style="--swatch-color:#17171b"></span><span class="swatch-dot" data-colorway-file="Reverve ICE.png" style="--swatch-color:#dbe6e8"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-reverve">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-reverve" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Climate adaptation / Concept</span><h3>Reverve</h3>
+<div aria-label="Software used: CorelDRAW, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Climate Adapt.</strong> Inspired by potential extreme environmental shifts. Engineered with advanced vulcanization technology for a future ice-age scenario.</p><div class="project-tags"><span>Footwear design</span><span>Vulcanized</span><span>Concept</span></div><span class="project-note">Technical drawing, material specifications &amp; R&amp;D process.</span><a class="project-link" href="https://drive.google.com/file/d/1GDbGczJ-E2OTc7XHX0_d18arYjNflY68/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="performance">
-            <div class="project-art"><span class="project-number">02 / 10</span><img src="20260218_221106_0000 (2).png" data-preview-src="MUSCLEMEMORYTR.png" alt="Muscle Memory skateboarding footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Muscle Memory full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing & R&D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="4" data-category="concept sport performance">
+            <div class="project-art" aria-label="Spice Bloom colorway shelf">
+              <span class="project-number">04 / 12</span>
+              
+              <img src="Spice Bloom DRAGON.png" alt="Spice Bloom side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Spice Bloom DRAGON.png" style="--swatch-color:#e34f45"></span><span class="swatch-dot" data-colorway-file="Spice Bloom ORANGE.png" style="--swatch-color:#ed8b19"></span><span class="swatch-dot" data-colorway-file="Spice Bloom GUM.png" style="--swatch-color:#27a8b5"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-spice-bloom">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-spice-bloom" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3>
+<div aria-label="Software used: Adobe Illustrator, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="Adobe Illustrator" class="project-software-icon" role="listitem" title="Adobe Illustrator">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="ilustrator.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development &amp; technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">03 / 10</span><img src="porto 3.png" data-preview-src="DARKSYSTEMTR.png" alt="Dark System lifestyle footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Dark System full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Lifestyle defiance & social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards & meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="7" data-category="concept lifestyle formal">
+            <div class="project-art" aria-label="Terra Nullius colorway shelf">
+              <span class="project-number">07 / 12</span>
+              
+              <img src="Terra Nullius GOLD.png" alt="Terra Nullius side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Terra Nullius GOLD.png" style="--swatch-color:#c39b53"></span><span class="swatch-dot" data-colorway-file="Terra Nullius SILVER.png" style="--swatch-color:#a9b0aa"></span><span class="swatch-dot" data-colorway-file="Terra Nullius REGULAR.png" style="--swatch-color:#ad825e"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-terra-nullius">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-terra-nullius" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3>
+<div aria-label="Software used: CorelDRAW, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials &amp; visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="performance concept">
-            <div class="project-art"><span class="project-number">04 / 10</span><img src="SPIC.png" data-preview-src="SPICEBLOOMTR.png" alt="Spice Bloom running footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Spice Bloom full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Running / Heritage</span><h3>Spice Bloom</h3>
-                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
-                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Heritage Flow.</strong> Inspired by the historical legacy of the Indonesian spice trade and the modern global running phenomenon, with organic sole ergonomics shaped around the equatorial climate.</p><div class="project-tags"><span>Running</span><span>Performance</span><span>Sport</span></div><span class="project-note">Concept explanation, visual development & technical specifications.</span><a class="project-link" href="https://drive.google.com/file/d/1E1vJ7efdogI1ziSwUHFFvqjoLZa2Q0b4/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="10" data-category="concept clog">
+            <div class="project-art" aria-label="C-ryx colorway shelf">
+              <span class="project-number">10 / 12</span>
+              <span class="project-badge">New project</span>
+              <img src="C-ryx BLACK.png" alt="C-ryx side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="C-ryx BLACK.png" style="--swatch-color:#191b15"></span><span class="swatch-dot" data-colorway-file="C-ryx ORANGE.png" style="--swatch-color:#c57b3a"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-c-ryx">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-c-ryx" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Clog / Lifestyle</span><h3>C-ryx</h3>
+<div aria-label="Software used: Adobe Illustrator, Vizcom, Adobe Photoshop" class="project-software" role="list">
+<span aria-label="Adobe Illustrator" class="project-software-icon" role="listitem" title="Adobe Illustrator">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="ilustrator.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Adobe Photoshop" class="project-software-icon" role="listitem" title="Adobe Photoshop">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="photoshop.png" width="28"/>
+</span>
+</div><p><strong>Biological Structural Nihilism.</strong> Meet C-ryx, a conceptual slip-on sandal inspired by Canthumeryx, an early ancestor of the modern giraffe. Its sculptural matte-black shell, organic cutouts, and lime-green inner core reinterpret the giraffe skull's porous, lightweight structure as a monolithic footwear suspension system—exploring support through structural voids rather than dense, bulky mass.</p><div class="project-tags"><span>Clog</span><span>Lifestyle</span><span>Slip-on sandal</span></div><span class="project-note">Biomimicry, structural exploration &amp; conceptual footwear development.</span><a class="project-link" href="https://drive.google.com/file/d/1ZrNk7N2u7OQu6FhBEjid0w5s7CNJSLa6/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="performance competition">
-            <div class="project-art"><span class="project-number">05 / 10</span><span class="project-badge">IFCC 2026</span><img src="SCAR FLOW.png" data-preview-src="SCARFLOWXREISENTR.png" alt="Scar Flow x Reisen trail footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Scar Flow x Reisen full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3>
-                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, CorelDRAW, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
-                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications & Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" target="_blank" rel="noopener"><span>View competition entry</span><span>↗</span></a></div>
+          </div>
+          <div class="project-column" data-column="1">
+          <article class="project-card" data-order="2" data-category="development sport">
+            <div class="project-art" aria-label="Muscle Memory colorway shelf">
+              <span class="project-number">02 / 12</span>
+              
+              <img src="Muscle Memory MEDALS.png" alt="Muscle Memory side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Muscle Memory MEDALS.png" style="--swatch-color:#a98252"></span><span class="swatch-dot" data-colorway-file="Muscle Memory BLACK.png" style="--swatch-color:#17171a"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-muscle-memory">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-muscle-memory" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Skateboarding / Performance</span><h3>Muscle Memory</h3>
+<div aria-label="Software used: CorelDRAW, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Urban skateboard performance.</strong> Designed for the heat of East Java. Lightweight, breathable, and refined for high-performance versatility in skateboarding.</p><div class="project-tags"><span>Performance</span><span>Skateboarding</span><span>Leather tech</span></div><span class="project-note">Technical drawing, performance testing &amp; R&amp;D process.</span><a class="project-link" href="https://drive.google.com/file/d/1vYXgyNziEKTYX_--4tZXASm0lYEMOk2K/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">06 / 10</span><img src="BLAKRAKAN.png" data-preview-src="BLAKRAKANTR.png" alt="Blakraan casual footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Blakraan full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications & colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="5" data-category="concept sport">
+            <div class="project-art" aria-label="Scar Flow × Reisen colorway shelf">
+              <span class="project-number">05 / 12</span>
+              <span class="project-badge">IFCC 2026</span>
+              <img src="Scar Flow EARTH.png" alt="Scar Flow × Reisen side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Scar Flow EARTH.png" style="--swatch-color:#68734e"></span><span class="swatch-dot" data-colorway-file="Scar Flow ANCHESTOR.png" style="--swatch-color:#7d2d40"></span><span class="swatch-dot" data-colorway-file="Scar Flow WHALE.png" style="--swatch-color:#2d8792"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-scar-flow-reisen">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-scar-flow-reisen" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Trail performance / Competition</span><h3>Scar Flow <small style="font-size:.72em;color:#7c756d">× Reisen</small></h3>
+<div aria-label="Software used: Adobe Illustrator, CorelDRAW, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="Adobe Illustrator" class="project-software-icon" role="listitem" title="Adobe Illustrator">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="ilustrator.png" width="28"/>
+</span><span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Adaptive Current.</strong> An IFCC design entry developed for REI Footwear, bridging urban utility with rugged trail performance through technical TPU architecture and an outsole system explored across three style concepts.</p><div class="project-tags"><span>IFCC entry</span><span>REI Footwear</span><span>Trail</span></div><span class="project-note">IFCC design board, material specifications &amp; Vizcom 3D rendering.</span><a class="project-link" href="https://drive.google.com/file/d/1Qx5EBEXw87A5eFudQK9mMKDEuGRR6jJP/view?usp=drive_link" rel="noopener" target="_blank"><span>View competition entry</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">07 / 10</span><img src="TERRA.png" data-preview-src="TERRANULLIUSTR.png" alt="Terra Nullius experimental slip-on concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Terra Nullius full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Experimental / Speculative</span><h3>Terra Nullius</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Ecological Reclamation.</strong> A formal slip-on concept that contrasts CH leather and a universal buckle with an artificial moss vamp — nature's forceful return in a post-soil future.</p><div class="project-tags"><span>Formal</span><span>Experimental</span><span>Speculative</span></div><span class="project-note">Dystopian narrative, speculative materials & visual concept.</span><a class="project-link" href="https://drive.google.com/file/d/15VfwET1Qssd2gBiNQ5WzKHazwj1jBqcR/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="8" data-category="concept sport performance">
+            <div class="project-art" aria-label="Nett colorway shelf">
+              <span class="project-number">08 / 12</span>
+              
+              <img src="Nett WATERMELON.png" alt="Nett side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Nett WATERMELON.png" style="--swatch-color:#58bf8d"></span><span class="swatch-dot" data-colorway-file="Nett APRICOTT.png" style="--swatch-color:#df8297"></span><span class="swatch-dot" data-colorway-file="Nett TERACOTTA.png" style="--swatch-color:#b15d3d"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-nett">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-nett" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Tennis / Performance</span><h3>Nett</h3>
+<div aria-label="Software used: CorelDRAW, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs &amp; visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="performance">
-            <div class="project-art"><span class="project-number">08 / 10</span><img src="NETT.png" data-preview-src="NETTTR.png" alt="Nett tennis footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nett full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Tennis / Performance</span><h3>Nett</h3>
-                <div class="project-software" role="list" aria-label="Software used: CorelDRAW, Vizcom, Canva">
-                  <span class="project-software-icon" role="listitem" aria-label="CorelDRAW" title="CorelDRAW">
-                    <img src="corellogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Canva" title="Canva">
-                    <img src="canvalogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Baseline Rally.</strong> Inspired by the explosive physical demands of tennis. The woven tension of a court net informs a breathable upper, lateral lockdown, and a deeply cushioned midsole for hardcourt impact.</p><div class="project-tags"><span>Tennis</span><span>Performance</span><span>Footwear design</span></div><span class="project-note">Storytelling narrative, validation logs & visual development.</span><a class="project-link" href="https://drive.google.com/file/d/1U3m9BnDxirXK-WiIXHjjk5UnwH3CflwX/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="11" data-category="concept lifestyle sport performance experiment">
+            <div class="project-art" aria-label="Spilled EXP colorway shelf">
+              <span class="project-number">11 / 12</span>
+              
+              <img src="SPILLED EXP 1 MATCHA.png" alt="Spilled EXP side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 MATCHA.png" style="--swatch-color:#9bd9c0"></span><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 BRICKET.png" style="--swatch-color:#c99d98"></span><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 GREY.png" style="--swatch-color:#a2a3a5"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-spilled-exp">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-spilled-exp" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><h3>Spilled EXP</h3><p class="project-note">Early concepts still in active development.</p></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="lifestyle concept">
-            <div class="project-art"><span class="project-number">09 / 10</span><span class="project-badge">New project</span><img src="NOTHING.png" data-preview-src="NOTHINGTR.png" alt="Nothing structural nihilism footwear concept" loading="lazy" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Nothing full-screen shoe preview" /></div>
-            <div class="project-info"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3>
-                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, Vizcom, Adobe Photoshop">
-                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
-                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Adobe Photoshop" title="Adobe Photoshop">
-                    <img src="photoshop.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing & structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          </div>
+          <div class="project-column" data-column="2">
+          <article class="project-card" data-order="3" data-category="concept lifestyle">
+            <div class="project-art" aria-label="Dark System colorway shelf">
+              <span class="project-number">03 / 12</span>
+              
+              <img src="Dark System PEACE.png" alt="Dark System side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Dark System PEACE.png" style="--swatch-color:#23583a"></span><span class="swatch-dot" data-colorway-file="Dark System BLACK.png" style="--swatch-color:#171719"></span><span class="swatch-dot" data-colorway-file="Dark System SMOKE.png" style="--swatch-color:#77797a"></span><span class="swatch-dot" data-colorway-file="Dark System BLOODS.png" style="--swatch-color:#963842"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-dark-system">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-dark-system" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Lifestyle / Social statement</span><h3>Dark System</h3>
+<div aria-label="Software used: CorelDRAW, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Lifestyle defiance &amp; social connectivity.</strong> A visual manifesto against systemic oppression, representing solidarity, equality, and the refusal to be silenced.</p><div class="project-tags"><span>Lifestyle</span><span>Solidarity</span><span>Social statement</span></div><span class="project-note">2D/3D design process, riot-inspired moodboards &amp; meaning analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1eip6EOxOLehpZ1GeHfPs8fF7VgNCyfJW/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
-          <article class="project-card" data-category="clog lifestyle">
-            <div class="project-art"><span class="project-number">10 / 10</span><span class="project-badge">New project</span><img src="CRY.png" data-preview-src="CRY.png" alt="C-ryx conceptual slip-on sandal" loading="lazy" decoding="async" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open C-ryx full-size sandal preview" /></div>
-            <div class="project-info"><span class="project-category">Clog / Lifestyle</span><h3>C-ryx</h3>
-                <div class="project-software" role="list" aria-label="Software used: Adobe Illustrator, Vizcom, Adobe Photoshop">
-                  <span class="project-software-icon" role="listitem" aria-label="Adobe Illustrator" title="Adobe Illustrator">
-                    <img src="ilustrator.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Vizcom" title="Vizcom">
-                    <img src="vizcomlogo.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span><span class="project-software-icon" role="listitem" aria-label="Adobe Photoshop" title="Adobe Photoshop">
-                    <img src="photoshop.png" alt="" width="28" height="28" loading="lazy" decoding="async" fetchpriority="low" data-no-loader="true" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" />
-                  </span>
-                </div><p><strong>Biological Structural Nihilism.</strong> Meet C-ryx, a conceptual slip-on sandal inspired by Canthumeryx, an early ancestor of the modern giraffe. Its sculptural matte-black shell, organic cutouts, and lime-green inner core reinterpret the giraffe skull's porous, lightweight structure as a monolithic footwear suspension system—exploring support through structural voids rather than dense, bulky mass.</p><div class="project-tags"><span>Clog</span><span>Lifestyle</span><span>Slip-on sandal</span></div><span class="project-note">Biomimicry, structural exploration & conceptual footwear development.</span><a class="project-link" href="https://drive.google.com/file/d/1ZrNk7N2u7OQu6FhBEjid0w5s7CNJSLa6/view?usp=drive_link" target="_blank" rel="noopener"><span>Explore documentation</span><span>↗</span></a></div>
+          <article class="project-card" data-order="6" data-category="concept lifestyle">
+            <div class="project-art" aria-label="Blakraan colorway shelf">
+              <span class="project-number">06 / 12</span>
+              
+              <img src="Blakraan CITY.png" alt="Blakraan side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Blakraan CITY.png" style="--swatch-color:#c2c6b8"></span><span class="swatch-dot" data-colorway-file="Blakraan DIRTY.png" style="--swatch-color:#bd854b"></span><span class="swatch-dot" data-colorway-file="Blakraan WILD.png" style="--swatch-color:#68715a"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-blakraan">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-blakraan" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Casual / Everyday exploration</span><h3>Blakraan</h3>
+<div aria-label="Software used: CorelDRAW, Vizcom, Canva" class="project-software" role="list">
+<span aria-label="CorelDRAW" class="project-software-icon" role="listitem" title="CorelDRAW">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="corellogo.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Canva" class="project-software-icon" role="listitem" title="Canva">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="canvalogo.png" width="28"/>
+</span>
+</div><p><strong>Aimless Wandering.</strong> A tribute to unburdened childhood exploration, combining tactical earthy accents and rugged comfort with modern urban functionality.</p><div class="project-tags"><span>Casual</span><span>Concept</span><span>Colorway</span></div><span class="project-note">Storytelling, technical specifications &amp; colorway archive.</span><a class="project-link" href="https://drive.google.com/file/d/17Zia4A_It31-PVhQDpWgCrQyEErDPOXi/view?usp=sharing" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
           </article>
+          <article class="project-card" data-order="9" data-category="concept">
+            <div class="project-art" aria-label="Nothing colorway shelf">
+              <span class="project-number">09 / 12</span>
+              <span class="project-badge">New project</span>
+              <img src="Nothing DUST.png" alt="Nothing side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Nothing DUST.png" style="--swatch-color:#a0a2a1"></span><span class="swatch-dot" data-colorway-file="Nothing BLACK HOLE.png" style="--swatch-color:#202226"></span><span class="swatch-dot" data-colorway-file="Nothing LOLIPOP.png" style="--swatch-color:#e1b7ca"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-nothing">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-nothing" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><span class="project-category">Structural exploration / 3D</span><h3>Nothing</h3>
+<div aria-label="Software used: Adobe Illustrator, Vizcom, Adobe Photoshop" class="project-software" role="list">
+<span aria-label="Adobe Illustrator" class="project-software-icon" role="listitem" title="Adobe Illustrator">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="ilustrator.png" width="28"/>
+</span><span aria-label="Vizcom" class="project-software-icon" role="listitem" title="Vizcom">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="vizcomlogo.png" width="28"/>
+</span><span aria-label="Adobe Photoshop" class="project-software-icon" role="listitem" title="Adobe Photoshop">
+<img alt="" data-no-loader="true" decoding="async" fetchpriority="low" height="28" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('is-missing')" src="photoshop.png" width="28"/>
+</span>
+</div><p><strong>Structural Nihilism.</strong> An exploration of mass and void. A hyper-layered upper contrasts with a monolithic bottom unit defined by negative space and hollow tunnels conceived as a mechanical suspension system.</p><div class="project-tags"><span>Lifestyle</span><span>3D construction</span><span>2D vector</span></div><span class="project-note">3D construction, 2D vector detailing &amp; structural analysis.</span><a class="project-link" href="https://drive.google.com/file/d/1pkYz0IeHx8IfsYzy7hLn7_SRdjqHa2B8/view?usp=drive_link" rel="noopener" target="_blank"><span>Explore documentation</span><span>↗</span></a></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="project-card" data-order="12" data-category="concept sport performance experiment">
+            <div class="project-art" aria-label="Tennis EXP colorway shelf">
+              <span class="project-number">12 / 12</span>
+              
+              <img src="TENNIS EXP 2 OLYMPIC.png" alt="Tennis EXP side-profile footwear concept" loading="lazy" decoding="async" />
+              <span class="project-shelf-edge" aria-hidden="true"></span>
+              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="TENNIS EXP 2 OLYMPIC.png" style="--swatch-color:#587fc8"></span><span class="swatch-dot" data-colorway-file="TENNIS EXP 3 GUM.png" style="--swatch-color:#a8d8ca"></span><span class="swatch-dot" data-colorway-file="TENNIS EXP 1 PINK.png" style="--swatch-color:#e6b0c5"></span></span>
+            </div>
+            <div class="project-accordion">
+              <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-tennis-exp">
+                <span class="accordion-toggle-label">PROJECT DETAILS</span>
+                <span class="accordion-toggle-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="project-accordion-panel" id="footwear-panel-tennis-exp" aria-hidden="true" inert>
+                <div class="project-info"><div class="project-info-inner"><h3>Tennis EXP</h3><p class="project-note">Early concepts still in active development.</p></div></div>
+              </div>
+            </div>
+          </article>
+          </div>
+          <div class="project-hidden-bin" hidden aria-hidden="true"></div>
         </div>
       </div>
     </section>
-
     <section class="section technical-section" id="technical">
       <div class="wrap">
         <div class="section-head" data-reveal>
@@ -1718,28 +1936,7 @@
   </footer>
 
   <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
-
-  <dialog class="shoe-preview" id="shoePreview" aria-labelledby="shoePreviewTitle">
-    <div class="shoe-preview-content">
-      <div class="shoe-preview-head">
-        <div>
-          <span class="shoe-preview-kicker">FOOTWEAR CONCEPT / TRANSPARENT PNG</span>
-          <h2 id="shoePreviewTitle">Shoe preview</h2>
-        </div>
-        <div class="shoe-preview-actions">
-          <button class="shoe-preview-zoom" id="shoeZoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
-          <button class="shoe-preview-zoom" id="shoeZoomIn" type="button" aria-label="Zoom in" title="Zoom in">＋</button>
-          <button class="shoe-preview-close" id="closeShoePreview" type="button" aria-label="Close shoe preview">×</button>
-        </div>
-      </div>
-      <div class="shoe-preview-stage" id="shoePreviewStage">
-        <img id="shoePreviewImage" alt="Transparent footwear render detail" />
-      </div>
-      <span class="shoe-preview-hint" id="shoePreviewHint">SCROLL OR USE + / − TO ZOOM · LEAVE THE CARD AND PREVIEW TO CLOSE</span>
-    </div>
-  </dialog>
-
-  <script>
+<script>
     (() => {
       'use strict';
 
@@ -1810,18 +2007,23 @@
         navSections.forEach(section => sectionObserver.observe(section));
       }
 
-      // Portfolio project filters and self-updating archive count.
-      // Adding/removing .project-card elements automatically updates the title, card indices and counter.
-      const filterButtons = $$('.filter-btn');
-      const projectCards = $$('#projectGrid .project-card');
+      // Footwear archive: independent vertical columns, multi-open accordions and animated filters.
+      const projectGrid = $('#projectGrid');
+      const filterButtons = $$('.filter-btn', $('#footwear'));
+      const projectCards = $$('#projectGrid .project-card').sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order));
+      const projectColumns = $$('.project-column', projectGrid);
+      const projectHiddenBin = $('.project-hidden-bin', projectGrid);
       const projectCount = $('#projectCount');
       const projectIdeasWord = $('#projectIdeasWord');
       const projectNarrativesWord = $('#projectNarrativesWord');
       const projectNumberWords = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
       const projectCountWord = count => projectNumberWords[count] || String(count);
-      const updateProjectArchiveMeta = () => {
+      const mobileFootwearColumns = window.matchMedia('(max-width: 760px)');
+      let footwearFilterRun = 0;
+
+      const updateProjectArchiveMeta = (visibleOverride) => {
         const total = projectCards.length;
-        const visible = projectCards.filter(card => !card.hidden).length;
+        const visible = Number.isInteger(visibleOverride) ? visibleOverride : projectCards.filter(card => !card.hidden).length;
         const totalLabel = String(total).padStart(2, '0');
         if (projectCount) projectCount.textContent = `${String(visible).padStart(2, '0')} PROJECTS / ${totalLabel}`;
         if (projectIdeasWord) projectIdeasWord.textContent = projectCountWord(total);
@@ -1831,24 +2033,166 @@
           if (number) number.textContent = `${String(index + 1).padStart(2, '0')} / ${totalLabel}`;
         });
       };
-      updateProjectArchiveMeta();
+
+      const distributeVisibleProjectCards = (visibleCards, animateReflow = true) => {
+        const visibleSet = new Set(visibleCards);
+        const previousRects = new Map();
+        visibleCards.forEach(card => {
+          if (!card.hidden && card.parentElement !== projectHiddenBin) previousRects.set(card, card.getBoundingClientRect());
+        });
+        projectColumns.forEach(column => column.replaceChildren());
+        projectHiddenBin.replaceChildren();
+        const columnCount = mobileFootwearColumns.matches ? 1 : Math.min(3, projectColumns.length);
+        visibleCards.forEach((card, index) => {
+          card.hidden = false;
+          card.inert = false;
+          card.setAttribute('aria-hidden', 'false');
+          card.classList.remove('is-filter-exiting');
+          card.style.pointerEvents = '';
+          projectColumns[index % columnCount].appendChild(card);
+        });
+        projectCards.forEach(card => {
+          if (visibleSet.has(card)) return;
+          card.hidden = true;
+          card.inert = true;
+          card.setAttribute('aria-hidden', 'true');
+          card.classList.remove('is-filter-exiting', 'is-filter-entering');
+          card.style.pointerEvents = 'none';
+          projectHiddenBin.appendChild(card);
+        });
+
+        if (!animateReflow || reducedMotion) return;
+        visibleCards.forEach(card => {
+          const previous = previousRects.get(card);
+          if (!previous) return;
+          const next = card.getBoundingClientRect();
+          const dx = previous.left - next.left;
+          const dy = previous.top - next.top;
+          if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+          card.style.transition = 'none';
+          card.style.transform = `translate(${dx}px, ${dy}px)`;
+          card.getBoundingClientRect();
+          requestAnimationFrame(() => {
+            card.style.transition = 'transform .62s var(--ease)';
+            card.style.transform = '';
+            window.setTimeout(() => {
+              card.style.transition = '';
+              card.style.transform = '';
+            }, 680);
+          });
+        });
+      };
+
+      const applyProjectFilter = (filter, animate = true) => {
+        const run = ++footwearFilterRun;
+        const matches = projectCards.filter(card => filter === 'all' || (card.dataset.category || '').split(/\s+/).includes(filter));
+        const matchSet = new Set(matches);
+        const entering = matches.filter(card => card.hidden || card.parentElement === projectHiddenBin);
+        const exiting = projectCards.filter(card => !card.hidden && !matchSet.has(card));
+
+        projectCards.forEach(card => {
+          card.classList.remove('is-filter-exiting', 'is-filter-entering');
+          card.style.pointerEvents = '';
+          card.inert = false;
+          card.setAttribute('aria-hidden', 'false');
+        });
+        entering.forEach(card => { card.hidden = false; });
+        exiting.forEach(card => {
+          card.classList.add('is-filter-exiting');
+          card.style.pointerEvents = 'none';
+          card.inert = true;
+          card.setAttribute('aria-hidden', 'true');
+        });
+        updateProjectArchiveMeta(matches.length);
+
+        const finishFilter = () => {
+          if (run !== footwearFilterRun) return;
+          distributeVisibleProjectCards(matches, true);
+          entering.forEach(card => card.classList.add('is-filter-entering'));
+          if (entering.length) {
+            window.setTimeout(() => entering.forEach(card => card.classList.remove('is-filter-entering')), reducedMotion ? 0 : 650);
+          }
+        };
+
+        if (animate && exiting.length && !reducedMotion) window.setTimeout(finishFilter, 320);
+        else finishFilter();
+      };
+
+      updateProjectArchiveMeta(projectCards.length);
+      distributeVisibleProjectCards(projectCards, false);
       filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-          const filter = button.dataset.filter;
+          const filter = button.dataset.filter || 'all';
           filterButtons.forEach(item => {
             const active = item === button;
             item.classList.toggle('active', active);
             item.setAttribute('aria-pressed', String(active));
           });
-          projectCards.forEach(card => {
-            const categories = (card.dataset.category || '').split(/\s+/).filter(Boolean);
-            card.hidden = filter !== 'all' && !categories.includes(filter);
-          });
-          updateProjectArchiveMeta();
+          applyProjectFilter(filter, true);
         });
       });
 
-      // Subtle cursor-following light on project cards
+      // Rebalance the archive between three desktop shelves and one mobile stack on viewport changes.
+      const onFootwearColumnModeChange = () => {
+        const activeCards = projectCards.filter(card => !card.hidden && card.parentElement !== projectHiddenBin);
+        distributeVisibleProjectCards(activeCards, true);
+      };
+      mobileFootwearColumns.addEventListener?.('change', onFootwearColumnModeChange);
+
+      // Each accordion is independent; several project panels may remain open together.
+      $$('.project-accordion-toggle', projectGrid).forEach(button => {
+        const card = button.closest('.project-card');
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        if (!card || !panel) return;
+        panel.style.maxHeight = '0px';
+        panel.inert = true;
+        button.addEventListener('click', () => {
+          const opening = button.getAttribute('aria-expanded') !== 'true';
+          button.setAttribute('aria-expanded', String(opening));
+          card.classList.toggle('is-open', opening);
+          panel.setAttribute('aria-hidden', String(!opening));
+          panel.inert = !opening;
+          if (opening) {
+            panel.style.maxHeight = `${panel.scrollHeight}px`;
+          } else {
+            panel.style.maxHeight = `${panel.scrollHeight}px`;
+            panel.getBoundingClientRect();
+            requestAnimationFrame(() => { panel.style.maxHeight = '0px'; });
+          }
+        });
+        panel.addEventListener('transitionend', event => {
+          if (event.propertyName !== 'max-height') return;
+          if (button.getAttribute('aria-expanded') === 'true') panel.style.maxHeight = 'none';
+        });
+      });
+
+      // Stagger each character through a second rolling line on documentation-link hover.
+      $$('.project-link', projectGrid).forEach(link => {
+        const label = link.querySelector(':scope > span:first-child');
+        if (!label) return;
+        const text = label.textContent.replace(/\s+/g, ' ').trim();
+        link.setAttribute('aria-label', text);
+        const roll = document.createElement('span');
+        roll.className = 'project-link-roll';
+        roll.setAttribute('aria-hidden', 'true');
+        [0, 1].forEach(lineIndex => {
+          const line = document.createElement('span');
+          line.className = 'roll-line';
+          Array.from(text).forEach((character, charIndex) => {
+            const glyph = document.createElement('span');
+            glyph.className = 'roll-char';
+            glyph.textContent = character === ' ' ? '\u00a0' : character;
+            glyph.style.setProperty('--roll-delay', `${charIndex * 13}ms`);
+            line.appendChild(glyph);
+          });
+          roll.appendChild(line);
+        });
+        label.replaceWith(roll);
+        const icon = link.querySelector(':scope > span:last-child');
+        if (icon) icon.classList.add('project-link-icon');
+      });
+
+      // Subtle cursor-following light on project cards.
       projectCards.forEach(card => {
         card.addEventListener('pointermove', event => {
           const rect = card.getBoundingClientRect();
@@ -1960,7 +2304,7 @@
             entry.target.dispatchEvent(new Event('portfolio-image-near'));
           }), { rootMargin: '420px 0px' })
         : null;
-      $$('main img:not(#shoePreviewImage)').forEach(image => {
+      $$('main img').forEach(image => {
         const host = image.parentElement;
         if (!host || image.dataset.noLoader === 'true') return;
         const lightHost = !!image.closest('.light, .projects-section, .process-section, .project-art, .college-image, .school-mark, .journey-logo-frame, .journey-brand-frame');
@@ -2084,218 +2428,6 @@
         if (event.target === stitchingDialog) closeStitchingDialog();
       });
       stitchingDialog?.addEventListener('close', stopStitchingVideo);
-
-      // Desktop-only transparent shoe detail viewer. Each selection cancels the previous request,
-      // clears the old image immediately, and only reveals the new PNG after decoding is complete.
-      const shoePreview = $('#shoePreview');
-      const shoePreviewImage = $('#shoePreviewImage');
-      const shoePreviewTitle = $('#shoePreviewTitle');
-      const shoePreviewHint = $('#shoePreviewHint');
-      const shoePreviewStage = $('#shoePreviewStage');
-      const closeShoePreview = $('#closeShoePreview');
-      const shoeZoomIn = $('#shoeZoomIn');
-      const shoeZoomOut = $('#shoeZoomOut');
-      const desktopShoePreview = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)');
-      const shoePreviewLoading = createPortfolioLoader(shoePreviewStage, 'DOWNLOADING TRANSPARENT PNG', 'dark');
-      let activeShoeCard = null;
-      let shoeZoom = 1;
-      let pointerCloseFrame = 0;
-      let shoeRequestId = 0;
-      let activeShoeRequest = null;
-      let activeShoeObjectUrl = null;
-
-      const updateShoeZoom = (nextZoom, originX = 50, originY = 50) => {
-        shoeZoom = Math.max(1, Math.min(3.2, nextZoom));
-        shoePreviewImage.style.setProperty('--shoe-zoom', shoeZoom.toFixed(2));
-        shoePreviewImage.style.setProperty('--shoe-zoom-x', `${originX}%`);
-        shoePreviewImage.style.setProperty('--shoe-zoom-y', `${originY}%`);
-        shoePreviewStage.classList.toggle('is-zoomed', shoeZoom > 1.02);
-        shoeZoomIn.disabled = shoeZoom >= 3.19;
-        shoeZoomOut.disabled = shoeZoom <= 1.01;
-        shoePreviewHint.textContent = `ZOOM ${Math.round(shoeZoom * 100)}% · SCROLL OR USE + / − · LEAVE CARD AND PREVIEW TO CLOSE`;
-      };
-
-      const cancelShoeRequest = () => {
-        shoeRequestId++;
-        if (activeShoeRequest) {
-          activeShoeRequest.onload = null;
-          activeShoeRequest.onerror = null;
-          activeShoeRequest.onprogress = null;
-          activeShoeRequest.onabort = null;
-          try { activeShoeRequest.abort(); } catch (_) {}
-          activeShoeRequest = null;
-        }
-        shoePreviewImage.onload = null;
-        shoePreviewImage.onerror = null;
-        shoePreviewImage.removeAttribute('src');
-        if (activeShoeObjectUrl) {
-          URL.revokeObjectURL(activeShoeObjectUrl);
-          activeShoeObjectUrl = null;
-        }
-        shoePreviewStage.classList.remove('is-ready', 'is-loading');
-        shoePreviewLoading.hide();
-        return shoeRequestId;
-      };
-
-      const failShoeRequest = (token, filename) => {
-        if (token !== shoeRequestId) return;
-        shoePreviewStage.classList.remove('is-loading', 'is-ready');
-        shoePreviewLoading.fail(`${filename} NOT FOUND — CHECK THE PNG FILE NAME`);
-        shoePreviewHint.textContent = `COULD NOT LOAD ${filename} · CHECK THE FILE BESIDE INDEX.HTML`;
-      };
-
-      const revealShoeImage = (token, source) => {
-        if (token !== shoeRequestId) {
-          if (source.startsWith('blob:')) URL.revokeObjectURL(source);
-          return;
-        }
-        shoePreviewImage.onload = () => {
-          if (token !== shoeRequestId) return;
-          shoePreviewStage.classList.remove('is-loading');
-          shoePreviewStage.classList.add('is-ready');
-          shoePreviewLoading.finish('TRANSPARENT PNG READY');
-          shoePreviewHint.textContent = 'SCROLL OR USE + / − TO ZOOM · LEAVE CARD AND PREVIEW TO CLOSE';
-        };
-        shoePreviewImage.onerror = () => failShoeRequest(token, activeShoeCard?.querySelector('img[data-preview-src]')?.dataset.previewSrc || source.split('/').pop());
-        shoePreviewImage.src = source;
-        if (shoePreviewImage.complete && shoePreviewImage.naturalWidth > 0) {
-          shoePreviewImage.onload();
-        }
-      };
-
-      const openShoePreview = (cardImage) => {
-        if (!desktopShoePreview.matches) return;
-        const card = cardImage.closest('.project-card');
-        const title = card?.querySelector('.project-info h3')?.textContent.replace(/\s+/g, ' ').trim() || 'Footwear concept';
-        const previewFile = cardImage.dataset.previewSrc;
-        if (!previewFile || !shoePreview || !shoePreviewImage) return;
-
-        // Abort any previous card request and invalidate every callback from it.
-        const token = cancelShoeRequest();
-        activeShoeCard = card;
-        shoePreviewTitle.textContent = title;
-        shoePreviewImage.alt = `${title} — transparent footwear render detail`;
-        shoePreviewStage.classList.add('is-loading');
-        shoePreviewLoading.start(`DOWNLOADING ${previewFile}`, true);
-        shoePreviewHint.textContent = 'PREPARING HIGH-RESOLUTION PNG…';
-        updateShoeZoom(1);
-        if (!shoePreview.open) shoePreview.showModal();
-
-        // Same-origin XHR provides real byte progress for large PNGs (including GitHub Pages assets).
-        // The fallback handles direct file:// previews and browsers that block local XHR.
-        const useNativeImageFallback = () => {
-          if (token !== shoeRequestId) return;
-          shoePreviewLoading.start(`LOADING ${previewFile}`, true);
-          revealShoeImage(token, previewFile);
-        };
-        try {
-          const request = new XMLHttpRequest();
-          activeShoeRequest = request;
-          request.open('GET', previewFile, true);
-          request.responseType = 'blob';
-          request.onprogress = event => {
-            if (token !== shoeRequestId) return;
-            if (event.lengthComputable && event.total > 0) {
-              shoePreviewLoading.setProgress(Math.min(98, event.loaded / event.total * 98), true);
-            }
-          };
-          request.onload = () => {
-            if (token !== shoeRequestId) return;
-            activeShoeRequest = null;
-            if (request.status >= 200 && request.status < 300 && request.response && request.response.size > 0) {
-              shoePreviewLoading.setProgress(98, true);
-              const pngBlob = request.response.type ? request.response : new Blob([request.response], { type: 'image/png' });
-              activeShoeObjectUrl = URL.createObjectURL(pngBlob);
-              revealShoeImage(token, activeShoeObjectUrl);
-            } else if (request.status === 0) {
-              useNativeImageFallback();
-            } else {
-              failShoeRequest(token, previewFile);
-            }
-          };
-          request.onerror = () => {
-            if (token !== shoeRequestId) return;
-            activeShoeRequest = null;
-            useNativeImageFallback();
-          };
-          request.onabort = () => {};
-          request.send();
-        } catch (_) {
-          activeShoeRequest = null;
-          useNativeImageFallback();
-        }
-      };
-
-      const closeShoeDetail = () => {
-        cancelShoeRequest();
-        activeShoeCard = null;
-        cancelAnimationFrame(pointerCloseFrame);
-        if (shoePreview?.open) shoePreview.close();
-        updateShoeZoom(1);
-      };
-
-      if (desktopShoePreview.matches) {
-        $$('.project-art img[data-preview-src]').forEach(image => {
-          image.addEventListener('click', () => openShoePreview(image));
-          image.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault();
-              openShoePreview(image);
-            }
-          });
-        });
-
-        document.addEventListener('pointermove', event => {
-          if (!shoePreview?.open || event.pointerType !== 'mouse' || !activeShoeCard) return;
-          cancelAnimationFrame(pointerCloseFrame);
-          pointerCloseFrame = requestAnimationFrame(() => {
-            const within = (element, x, y) => {
-              if (!element) return false;
-              const rect = element.getBoundingClientRect();
-              return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
-            };
-            const insideCard = within(activeShoeCard, event.clientX, event.clientY);
-            const insidePreview = within(shoePreview, event.clientX, event.clientY);
-            if (!insideCard && !insidePreview) closeShoeDetail();
-          });
-        }, { passive: true });
-
-        shoePreviewStage.addEventListener('wheel', event => {
-          if (!shoePreview.open || !shoePreviewStage.classList.contains('is-ready')) return;
-          event.preventDefault();
-          const rect = shoePreviewStage.getBoundingClientRect();
-          const originX = ((event.clientX - rect.left) / rect.width) * 100;
-          const originY = ((event.clientY - rect.top) / rect.height) * 100;
-          updateShoeZoom(shoeZoom + (event.deltaY < 0 ? .18 : -.18), originX, originY);
-        }, { passive: false });
-
-        shoePreviewImage.addEventListener('click', event => {
-          if (!shoePreviewStage.classList.contains('is-ready')) return;
-          const rect = shoePreviewStage.getBoundingClientRect();
-          const originX = ((event.clientX - rect.left) / rect.width) * 100;
-          const originY = ((event.clientY - rect.top) / rect.height) * 100;
-          updateShoeZoom(shoeZoom > 1.02 ? 1 : 1.8, originX, originY);
-        });
-        shoeZoomIn.addEventListener('click', () => updateShoeZoom(shoeZoom + .25));
-        shoeZoomOut.addEventListener('click', () => updateShoeZoom(shoeZoom - .25));
-      }
-
-      closeShoePreview.addEventListener('click', closeShoeDetail);
-      shoePreview.addEventListener('click', event => {
-        if (event.target === shoePreview) closeShoeDetail();
-      });
-      shoePreview.addEventListener('close', () => {
-        if (shoePreview.open) return;
-        // Also cancel when the native dialog is dismissed with Escape or browser controls.
-        cancelShoeRequest();
-        activeShoeCard = null;
-        updateShoeZoom(1);
-      });
-      document.addEventListener('mouseleave', closeShoeDetail);
-      window.addEventListener('blur', closeShoeDetail);
-      desktopShoePreview.addEventListener?.('change', event => {
-        if (!event.matches) closeShoeDetail();
-      });
 
       // Fiber Pallet Nike Marina: switch between solid and exploded GLB assets
       const fiberPalletViewer = $('#marinaViewer');
@@ -2829,7 +2961,7 @@
           '.about-side', '.model-explainer-trigger', '.approach-step', '.skill-card',
           '.process-step', '.tag', '.project-tags span', '.chips span',
           '.project-badge', '.availability', '.back-top', '#menuToggle',
-          '.shoe-preview-zoom', '.shoe-preview-close', '[data-gallery-next]',
+          '[data-gallery-next]',
           '[data-gallery-prev]', '[data-gallery-thumb]', '.gallery-next',
           '.gallery-prev', '.gallery-thumb'
         ].join(',');
@@ -2865,7 +2997,7 @@
         if (modelTab) return; // The dedicated 3D mode handler above owns this sound.
 
         const galleryControl = target.closest(
-          '[data-gallery-next], [data-gallery-prev], [data-gallery-thumb], .gallery-next, .gallery-prev, .gallery-thumb, .shoe-preview-zoom, [data-slide-control]'
+          '[data-gallery-next], [data-gallery-prev], [data-gallery-thumb], .gallery-next, .gallery-prev, .gallery-thumb, [data-slide-control]'
         );
         if (galleryControl) {
           playTactileSound('sliderFlip', { rate: randomRate(0.97, 1.03) });
