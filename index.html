@@ -1153,6 +1153,157 @@
     @media (hover: none) {
       #footwear.projects-section .project-swatches { opacity: 1; transform: none; }
     }
+    /* Footwear presentation refinement: one archive frame, floating side profiles, exposed swatches. */
+    #footwear.projects-section #projectGrid {
+      position: relative;
+      padding: clamp(18px, 2.35vw, 34px);
+      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 29px;
+      background: linear-gradient(145deg, rgba(255,255,255,.48), rgba(226,221,211,.28));
+      box-shadow: 0 24px 52px -35px rgba(48,38,26,.3), inset 0 1px 0 rgba(255,255,255,.94), inset 0 -1px 0 rgba(140,125,104,.08);
+      backdrop-filter: blur(22px) saturate(1.12);
+      -webkit-backdrop-filter: blur(22px) saturate(1.12);
+      isolation: isolate;
+      margin-inline: auto;
+      transition: width .48s var(--ease), border-color .35s ease, box-shadow .35s ease;
+    }
+    #footwear.projects-section #projectGrid[data-visible-count="0"] { min-height: 0; }
+    #footwear.projects-section .project-art {
+      height: clamp(226px, 22vw, 276px);
+      min-width: 0;
+      padding: 0 5px 18px;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      transform: none !important;
+      overflow: visible;
+    }
+    #footwear.projects-section .project-art::before { content: none !important; display: none !important; }
+    #footwear.projects-section .project-art::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 10%;
+      right: 10%;
+      bottom: -11px;
+      height: 27px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(237,110,3,.56) 0%, rgba(237,110,3,.26) 42%, transparent 74%);
+      filter: blur(17px);
+      opacity: .2;
+      transform: scaleX(.78);
+      transition: opacity .38s ease, transform .48s var(--ease), filter .38s ease;
+      pointer-events: none;
+    }
+    #footwear.projects-section .project-card:hover .project-art::after,
+    #footwear.projects-section .project-card:focus-within .project-art::after {
+      opacity: .9;
+      transform: scaleX(1.04);
+      filter: blur(19px);
+    }
+    #footwear.projects-section .project-shelf-edge {
+      z-index: 1;
+      left: 8%;
+      right: 8%;
+      bottom: -4px;
+      height: 19px;
+      border: 1px solid rgba(255,255,255,.94);
+      border-radius: 4px 4px 13px 13px;
+      background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(232,228,220,.9) 48%, rgba(193,184,170,.82) 100%);
+      box-shadow: 0 10px 15px rgba(49,39,28,.13), 0 1px 0 rgba(255,255,255,.95) inset, 0 -3px 6px rgba(91,76,56,.12) inset;
+      transform: perspective(100px) rotateX(-8deg);
+      transform-origin: top;
+    }
+    #footwear.projects-section .project-art img {
+      position: relative;
+      z-index: 2;
+      flex: 0 0 auto;
+      width: 124%;
+      height: 119%;
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
+      transform: translateY(7px);
+      transform-origin: 50% 67%;
+      filter: drop-shadow(0 17px 12px rgba(16,16,18,.24));
+      transition: opacity .2s ease, filter .35s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    #footwear.projects-section .project-art img.is-changing { opacity: .18; filter: blur(1.5px) drop-shadow(0 12px 9px rgba(16,16,18,.16)); }
+    #footwear.projects-section .project-card:hover .project-art img,
+    #footwear.projects-section .project-card:focus-within .project-art img {
+      animation: footwearShoeBobble 1.05s cubic-bezier(.34,1.56,.64,1) both;
+      filter: drop-shadow(0 20px 13px rgba(16,16,18,.3));
+    }
+    #footwear.projects-section .project-number { top: 5px; left: 9px; z-index: 4; color: rgba(16,16,18,.43); }
+    #footwear.projects-section .project-badge { top: auto; right: auto; bottom: 27px; left: 10px; z-index: 4; }
+    #footwear.projects-section .project-swatches {
+      position: absolute;
+      z-index: 6;
+      top: 8px;
+      right: 7px;
+      bottom: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 999px;
+      background: rgba(248,247,244,.78);
+      box-shadow: 0 7px 17px rgba(16,16,18,.1), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(14px) saturate(1.18);
+      -webkit-backdrop-filter: blur(14px) saturate(1.18);
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto;
+    }
+    #footwear.projects-section .swatch-dot {
+      appearance: none;
+      -webkit-appearance: none;
+      display: block;
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+      padding: 0;
+      border: 1px solid rgba(16,16,18,.2);
+      border-radius: 50%;
+      background: var(--swatch-color);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,.42), 0 1px 2px rgba(16,16,18,.13);
+      cursor: pointer;
+      transition: transform .2s var(--ease), box-shadow .2s ease, outline-color .2s ease;
+    }
+    #footwear.projects-section .swatch-dot:hover { transform: scale(1.16); }
+    #footwear.projects-section .swatch-dot.is-active {
+      outline: 2px solid rgba(16,16,18,.74);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(255,255,255,.86), inset 0 1px 2px rgba(255,255,255,.4);
+    }
+    #footwear.projects-section .swatch-dot:focus-visible { outline: 2px solid var(--orange-deep); outline-offset: 4px; }
+    @media (max-width: 760px) {
+      #footwear.projects-section #projectGrid { padding: 17px 16px 21px; border-radius: 23px; }
+      #footwear.projects-section .project-column { gap: 31px; }
+      #footwear.projects-section .project-art { height: clamp(218px, 59vw, 270px); padding-bottom: 18px; }
+      #footwear.projects-section .project-art img { width: 120%; height: 118%; }
+      #footwear.projects-section .project-swatches { top: 7px; right: 5px; gap: 7px; padding: 7px 8px; }
+      #footwear.projects-section .swatch-dot { width: 17px; height: 17px; flex-basis: 17px; }
+    }
+    @media (max-width: 420px) {
+      #footwear.projects-section #projectGrid { padding: 13px 11px 18px; }
+      #footwear.projects-section .project-art { height: 228px; }
+      #footwear.projects-section .project-art img { width: 119%; height: 116%; }
+      #footwear.projects-section .project-swatches { gap: 6px; padding: 6px 7px; }
+      #footwear.projects-section .swatch-dot { width: 16px; height: 16px; flex-basis: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #footwear.projects-section #projectGrid,
+      #footwear.projects-section .swatch-dot { transition-duration: .01ms !important; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       #footwear.projects-section .project-card,
       #footwear.projects-section .project-art,
@@ -1428,7 +1579,7 @@
               
               <img src="Reverve BLACK.png" alt="Reverve side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Reverve BLACK.png" style="--swatch-color:#17171b"></span><span class="swatch-dot" data-colorway-file="Reverve ICE.png" style="--swatch-color:#dbe6e8"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Reverve BLACK.png" style="--swatch-color:#17171b" aria-label="Select Reverve BLACK colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Reverve ICE.png" style="--swatch-color:#dbe6e8" aria-label="Select Reverve ICE colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-reverve">
@@ -1453,7 +1604,7 @@
               
               <img src="Spice Bloom DRAGON.png" alt="Spice Bloom side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Spice Bloom DRAGON.png" style="--swatch-color:#e34f45"></span><span class="swatch-dot" data-colorway-file="Spice Bloom ORANGE.png" style="--swatch-color:#ed8b19"></span><span class="swatch-dot" data-colorway-file="Spice Bloom GUM.png" style="--swatch-color:#27a8b5"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Spice Bloom DRAGON.png" style="--swatch-color:#e34f45" aria-label="Select Spice Bloom DRAGON colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Spice Bloom ORANGE.png" style="--swatch-color:#ed8b19" aria-label="Select Spice Bloom ORANGE colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Spice Bloom GUM.png" style="--swatch-color:#27a8b5" aria-label="Select Spice Bloom GUM colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-spice-bloom">
@@ -1480,7 +1631,7 @@
               
               <img src="Terra Nullius GOLD.png" alt="Terra Nullius side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Terra Nullius GOLD.png" style="--swatch-color:#c39b53"></span><span class="swatch-dot" data-colorway-file="Terra Nullius SILVER.png" style="--swatch-color:#a9b0aa"></span><span class="swatch-dot" data-colorway-file="Terra Nullius REGULAR.png" style="--swatch-color:#ad825e"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Terra Nullius GOLD.png" style="--swatch-color:#c39b53" aria-label="Select Terra Nullius GOLD colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Terra Nullius SILVER.png" style="--swatch-color:#a9b0aa" aria-label="Select Terra Nullius SILVER colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Terra Nullius REGULAR.png" style="--swatch-color:#ad825e" aria-label="Select Terra Nullius REGULAR colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-terra-nullius">
@@ -1507,7 +1658,7 @@
               <span class="project-badge">New project</span>
               <img src="C-ryx BLACK.png" alt="C-ryx side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="C-ryx BLACK.png" style="--swatch-color:#191b15"></span><span class="swatch-dot" data-colorway-file="C-ryx ORANGE.png" style="--swatch-color:#c57b3a"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="C-ryx BLACK.png" style="--swatch-color:#191b15" aria-label="Select C-ryx BLACK colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="C-ryx ORANGE.png" style="--swatch-color:#c57b3a" aria-label="Select C-ryx ORANGE colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-c-ryx">
@@ -1536,7 +1687,7 @@
               
               <img src="Muscle Memory MEDALS.png" alt="Muscle Memory side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Muscle Memory MEDALS.png" style="--swatch-color:#a98252"></span><span class="swatch-dot" data-colorway-file="Muscle Memory BLACK.png" style="--swatch-color:#17171a"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Muscle Memory MEDALS.png" style="--swatch-color:#a98252" aria-label="Select Muscle Memory MEDALS colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Muscle Memory BLACK.png" style="--swatch-color:#17171a" aria-label="Select Muscle Memory BLACK colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-muscle-memory">
@@ -1561,7 +1712,7 @@
               <span class="project-badge">IFCC 2026</span>
               <img src="Scar Flow EARTH.png" alt="Scar Flow × Reisen side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Scar Flow EARTH.png" style="--swatch-color:#68734e"></span><span class="swatch-dot" data-colorway-file="Scar Flow ANCHESTOR.png" style="--swatch-color:#7d2d40"></span><span class="swatch-dot" data-colorway-file="Scar Flow WHALE.png" style="--swatch-color:#2d8792"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Scar Flow EARTH.png" style="--swatch-color:#68734e" aria-label="Select Scar Flow EARTH colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Scar Flow ANCHESTOR.png" style="--swatch-color:#7d2d40" aria-label="Select Scar Flow ANCHESTOR colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Scar Flow WHALE.png" style="--swatch-color:#2d8792" aria-label="Select Scar Flow WHALE colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-scar-flow-reisen">
@@ -1590,7 +1741,7 @@
               
               <img src="Nett WATERMELON.png" alt="Nett side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Nett WATERMELON.png" style="--swatch-color:#58bf8d"></span><span class="swatch-dot" data-colorway-file="Nett APRICOTT.png" style="--swatch-color:#df8297"></span><span class="swatch-dot" data-colorway-file="Nett TERACOTTA.png" style="--swatch-color:#b15d3d"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Nett WATERMELON.png" style="--swatch-color:#58bf8d" aria-label="Select Nett WATERMELON colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Nett APRICOTT.png" style="--swatch-color:#df8297" aria-label="Select Nett APRICOTT colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Nett TERACOTTA.png" style="--swatch-color:#b15d3d" aria-label="Select Nett TERACOTTA colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-nett">
@@ -1617,7 +1768,7 @@
               
               <img src="SPILLED EXP 1 MATCHA.png" alt="Spilled EXP side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 MATCHA.png" style="--swatch-color:#9bd9c0"></span><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 BRICKET.png" style="--swatch-color:#c99d98"></span><span class="swatch-dot" data-colorway-file="SPILLED EXP 1 GREY.png" style="--swatch-color:#a2a3a5"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="SPILLED EXP 1 MATCHA.png" style="--swatch-color:#9bd9c0" aria-label="Select SPILLED EXP 1 MATCHA colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="SPILLED EXP 1 BRICKET.png" style="--swatch-color:#c99d98" aria-label="Select SPILLED EXP 1 BRICKET colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="SPILLED EXP 1 GREY.png" style="--swatch-color:#a2a3a5" aria-label="Select SPILLED EXP 1 GREY colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-spilled-exp">
@@ -1637,7 +1788,7 @@
               
               <img src="Dark System PEACE.png" alt="Dark System side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Dark System PEACE.png" style="--swatch-color:#23583a"></span><span class="swatch-dot" data-colorway-file="Dark System BLACK.png" style="--swatch-color:#171719"></span><span class="swatch-dot" data-colorway-file="Dark System SMOKE.png" style="--swatch-color:#77797a"></span><span class="swatch-dot" data-colorway-file="Dark System BLOODS.png" style="--swatch-color:#963842"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Dark System PEACE.png" style="--swatch-color:#23583a" aria-label="Select Dark System PEACE colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Dark System BLACK.png" style="--swatch-color:#171719" aria-label="Select Dark System BLACK colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Dark System SMOKE.png" style="--swatch-color:#77797a" aria-label="Select Dark System SMOKE colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Dark System BLOODS.png" style="--swatch-color:#963842" aria-label="Select Dark System BLOODS colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-dark-system">
@@ -1664,7 +1815,7 @@
               
               <img src="Blakraan CITY.png" alt="Blakraan side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Blakraan CITY.png" style="--swatch-color:#c2c6b8"></span><span class="swatch-dot" data-colorway-file="Blakraan DIRTY.png" style="--swatch-color:#bd854b"></span><span class="swatch-dot" data-colorway-file="Blakraan WILD.png" style="--swatch-color:#68715a"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Blakraan CITY.png" style="--swatch-color:#c2c6b8" aria-label="Select Blakraan CITY colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Blakraan DIRTY.png" style="--swatch-color:#bd854b" aria-label="Select Blakraan DIRTY colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Blakraan WILD.png" style="--swatch-color:#68715a" aria-label="Select Blakraan WILD colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-blakraan">
@@ -1691,7 +1842,7 @@
               <span class="project-badge">New project</span>
               <img src="Nothing DUST.png" alt="Nothing side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="Nothing DUST.png" style="--swatch-color:#a0a2a1"></span><span class="swatch-dot" data-colorway-file="Nothing BLACK HOLE.png" style="--swatch-color:#202226"></span><span class="swatch-dot" data-colorway-file="Nothing LOLIPOP.png" style="--swatch-color:#e1b7ca"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="Nothing DUST.png" style="--swatch-color:#a0a2a1" aria-label="Select Nothing DUST colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Nothing BLACK HOLE.png" style="--swatch-color:#202226" aria-label="Select Nothing BLACK HOLE colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="Nothing LOLIPOP.png" style="--swatch-color:#e1b7ca" aria-label="Select Nothing LOLIPOP colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-nothing">
@@ -1718,7 +1869,7 @@
               
               <img src="TENNIS EXP 2 OLYMPIC.png" alt="Tennis EXP side-profile footwear concept" loading="lazy" decoding="async" />
               <span class="project-shelf-edge" aria-hidden="true"></span>
-              <span class="project-swatches" aria-hidden="true"><span class="swatch-dot" data-colorway-file="TENNIS EXP 2 OLYMPIC.png" style="--swatch-color:#587fc8"></span><span class="swatch-dot" data-colorway-file="TENNIS EXP 3 GUM.png" style="--swatch-color:#a8d8ca"></span><span class="swatch-dot" data-colorway-file="TENNIS EXP 1 PINK.png" style="--swatch-color:#e6b0c5"></span></span>
+              <div class="project-swatches" role="group" aria-label="Choose shoe colorway"><button class="swatch-dot" type="button" data-colorway-file="TENNIS EXP 2 OLYMPIC.png" style="--swatch-color:#587fc8" aria-label="Select TENNIS EXP 2 OLYMPIC colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="TENNIS EXP 3 GUM.png" style="--swatch-color:#a8d8ca" aria-label="Select TENNIS EXP 3 GUM colorway" aria-pressed="false"></button><button class="swatch-dot" type="button" data-colorway-file="TENNIS EXP 1 PINK.png" style="--swatch-color:#e6b0c5" aria-label="Select TENNIS EXP 1 PINK colorway" aria-pressed="false"></button></div>
             </div>
             <div class="project-accordion">
               <button class="project-accordion-toggle" type="button" aria-expanded="false" aria-controls="footwear-panel-tennis-exp">
@@ -2025,6 +2176,7 @@
         const total = projectCards.length;
         const visible = Number.isInteger(visibleOverride) ? visibleOverride : projectCards.filter(card => !card.hidden).length;
         const totalLabel = String(total).padStart(2, '0');
+        if (projectGrid) projectGrid.dataset.visibleCount = String(visible);
         if (projectCount) projectCount.textContent = `${String(visible).padStart(2, '0')} PROJECTS / ${totalLabel}`;
         if (projectIdeasWord) projectIdeasWord.textContent = projectCountWord(total);
         if (projectNarrativesWord) projectNarrativesWord.textContent = projectCountWord(total);
@@ -2042,7 +2194,9 @@
         });
         projectColumns.forEach(column => column.replaceChildren());
         projectHiddenBin.replaceChildren();
-        const columnCount = mobileFootwearColumns.matches ? 1 : Math.min(3, projectColumns.length);
+        const columnCount = mobileFootwearColumns.matches ? 1 : Math.max(1, Math.min(3, visibleCards.length));
+        projectGrid.style.gridTemplateColumns = `repeat(${columnCount}, minmax(0, 1fr))`;
+        projectGrid.style.width = mobileFootwearColumns.matches ? '100%' : `${(columnCount / 3) * 100}%`;
         visibleCards.forEach((card, index) => {
           card.hidden = false;
           card.inert = false;
@@ -2138,6 +2292,39 @@
         distributeVisibleProjectCards(activeCards, true);
       };
       mobileFootwearColumns.addEventListener?.('change', onFootwearColumnModeChange);
+
+      // Colorway dots are persistent, accessible controls. Selecting one swaps only that shoe image.
+      projectCards.forEach(card => {
+        const image = $('.project-art img', card);
+        const swatches = $$('.swatch-dot', card);
+        if (!image || !swatches.length) return;
+        const setActiveSwatch = selected => {
+          swatches.forEach(swatch => {
+            const active = swatch === selected;
+            swatch.classList.toggle('is-active', active);
+            swatch.setAttribute('aria-pressed', String(active));
+          });
+        };
+        const initialFile = image.getAttribute('src');
+        const initiallySelected = swatches.find(swatch => swatch.dataset.colorwayFile === initialFile) || swatches[0];
+        setActiveSwatch(initiallySelected);
+        swatches.forEach(swatch => {
+          swatch.addEventListener('click', () => {
+            const nextFile = swatch.dataset.colorwayFile;
+            if (!nextFile) return;
+            setActiveSwatch(swatch);
+            if (image.getAttribute('src') === nextFile) return;
+            image.classList.add('is-changing');
+            const preload = new Image();
+            preload.onload = () => {
+              image.src = nextFile;
+              image.classList.remove('is-changing');
+            };
+            preload.onerror = () => image.classList.remove('is-changing');
+            preload.src = nextFile;
+          });
+        });
+      });
 
       // Each accordion is independent; several project panels may remain open together.
       $$('.project-accordion-toggle', projectGrid).forEach(button => {
@@ -2951,29 +3138,34 @@
         wasTechnical3DFullscreen = isNowTechnical3D;
       });
 
-      // Desktop-only micro hover. One global cooldown prevents rapid cursor audio spam.
+      // Desktop-only micro hover. Delegation keeps rollover cues alive when footwear cards
+      // are redistributed between their independent columns by filters or responsive changes.
       const finePointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false;
       if (finePointer) {
         const hoverTargets = [
-          '.nav-links a', '#mobilePanel a', '.project-card', '.college-feature',
-          '.model-tab', '.fullscreen-btn', '.button', '.nav-cv', '.mobile-cv', '.sound-toggle', '.document-close',
+          '#siteNav .brand', '.nav-links a', '#mobilePanel a', '#menuToggle',
+          '.project-card', '.college-feature', '.model-tab', '.fullscreen-btn',
+          '.button', '.nav-cv', '.mobile-cv', '.sound-toggle', '.document-close',
           '.contact-action', '.filter-btn', '.journey-toggle', '.journey-card',
           '.about-side', '.model-explainer-trigger', '.approach-step', '.skill-card',
           '.process-step', '.tag', '.project-tags span', '.chips span',
-          '.project-badge', '.availability', '.back-top', '#menuToggle',
-          '[data-gallery-next]',
-          '[data-gallery-prev]', '[data-gallery-thumb]', '.gallery-next',
-          '.gallery-prev', '.gallery-thumb'
+          '.project-badge', '.availability', '.back-top', '.scroll-cue', '.hero-featured',
+          '[data-gallery-next]', '[data-gallery-prev]', '[data-gallery-thumb]',
+          '.gallery-next', '.gallery-prev', '.gallery-thumb'
         ].join(',');
         let lastHoverSoundAt = -Infinity;
-        document.querySelectorAll(hoverTargets).forEach(element => {
-          element.addEventListener('mouseenter', () => {
-            const now = performance.now();
-            if (now - lastHoverSoundAt < 65) return;
-            lastHoverSoundAt = now;
-            playTactileSound('rollover', { rate: randomRate(0.96, 1.04) });
-          }, { passive: true });
-        });
+        document.addEventListener('pointerover', event => {
+          if (event.pointerType && event.pointerType !== 'mouse') return;
+          const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+          const hoverTarget = target?.closest(hoverTargets);
+          if (!hoverTarget || hoverTarget.hidden || hoverTarget.closest('.project-hidden-bin')) return;
+          const related = event.relatedTarget instanceof Element ? event.relatedTarget : event.relatedTarget?.parentElement;
+          if (related && hoverTarget.contains(related)) return;
+          const now = performance.now();
+          if (now - lastHoverSoundAt < 72) return;
+          lastHoverSoundAt = now;
+          playTactileSound('rollover', { rate: randomRate(0.96, 1.04) });
+        }, { passive: true });
       }
 
       // Sound map for section jumps, tactile cards/tabs, gallery controls and primary actions.
