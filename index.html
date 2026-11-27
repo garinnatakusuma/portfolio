@@ -1661,8 +1661,7 @@
     .nav-links .mega-trigger span { color: var(--orange); font-size: .9rem; opacity: .75; transition: transform .3s var(--ease); }
     .nav-links .mega-trigger:hover, .nav-links .mega-trigger.active, .nav-links .mega-trigger[aria-expanded="true"] { color: var(--white); }
     .nav-links .mega-trigger[aria-expanded="true"] span { transform: rotate(180deg); }
-    .mega-menu { --mega-panel-bg: rgba(23,23,26,.985); position: fixed; z-index: 1001; top: calc(var(--nav-h) + 10px); left: 50%; width: min(1080px, calc(100vw - 9%)); max-height: min(690px, calc(100dvh - var(--nav-h) - 24px)); padding: 27px 30px 19px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.13); border-radius: 18px; color: var(--white); background: var(--mega-panel-bg); box-shadow: 0 28px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(1.15); -webkit-backdrop-filter: blur(24px) saturate(1.15); transform: translate3d(-50%,-12px,0) scale(.975); transform-origin: 50% 0; opacity: 0; visibility: hidden; pointer-events: none; transition: transform .48s cubic-bezier(.2,1.35,.35,1), opacity .22s ease, visibility .22s; }
-    .mega-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -13px; height: 14px; }
+    .mega-menu { --mega-panel-bg: rgba(23,23,26,.985); position: fixed; z-index: 1001; top: var(--nav-h); left: 50%; width: min(1080px, calc(100vw - 9%)); max-height: min(690px, calc(100dvh - var(--nav-h) - 24px)); padding: 27px 30px 19px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.13); border-radius: 18px; color: var(--white); background: var(--mega-panel-bg); box-shadow: 0 28px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(1.15); -webkit-backdrop-filter: blur(24px) saturate(1.15); transform: translate3d(-50%,-12px,0) scale(.975); transform-origin: 50% 0; opacity: 0; visibility: hidden; pointer-events: none; transition: transform .48s cubic-bezier(.2,1.35,.35,1), opacity .22s ease, visibility .22s; }
     .mega-menu.open { transform: translate3d(-50%,0,0) scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
     .mega-tabs { display: none; }
     .mega-content { position: relative; }
@@ -1793,7 +1792,7 @@
         </div>
         <div class="mega-column"><span class="mega-kicker">02 / Next step</span><h3>Connect & Actions</h3>
           <a href="#contact" data-jump>Contact <span>↗</span></a>
-          <a href="#home" data-jump data-action="documents">Documentation Viewer <span>↗</span></a>
+          <a href="#documentViewer" data-jump data-action="documents">Documentation Viewer <span>↗</span></a>
           <a href="#home" data-jump data-action="top">Back to Top <span>↗</span></a>
         </div>
         <div class="mega-column mega-note"><span class="mega-kicker">GARIN NATA KUSUMA</span><h3>From narrative to object.</h3><p>Footwear design, technical development and manufacturing thinking.</p></div>
@@ -3857,150 +3856,213 @@
       };
 
 
-      // Mega Menu: desktop hover/click, mobile accordion, destination jumps and tactile cues.
+      // Mega Menu: immediate desktop hover, mobile tabs, destination jumps and tactile cues.
       const megaMenu = $('#mobilePanel');
       const megaBackdrop = $('#megaBackdrop');
       const megaTriggers = $$('[data-mega-tab]');
       const megaPanels = $$('[data-mega-panel]');
       const desktopMegaTriggers = $$('.nav-links [data-mega-tab]');
       const mobileMegaTriggers = $$('.mega-mobile-tab');
-      const fineMegaPointer = window.matchMedia('(pointer: fine) and (min-width: 761px)').matches;
+      const megaIndicator = $('#megaIndicator');
+      const fineMegaPointer = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)').matches;
       let megaCloseTimer = 0;
       let megaActiveTab = 'work';
+
+      const moveMegaIndicator = () => {
+        const activeTrigger = desktopMegaTriggers.find(trigger => trigger.dataset.megaTab === megaActiveTab);
+        if (!activeTrigger || !megaIndicator) return;
+        const navRect = nav.getBoundingClientRect();
+        const triggerRect = activeTrigger.getBoundingClientRect();
+        megaIndicator.style.left = `${triggerRect.left - navRect.left}px`;
+        megaIndicator.style.width = `${triggerRect.width}px`;
+        megaIndicator.style.opacity = '1';
+      };
+
       const setMegaTab = tab => {
+        if (!tab || !['work', 'process', 'journey'].includes(tab)) return;
         megaActiveTab = tab;
         megaTriggers.forEach(trigger => {
           const active = trigger.dataset.megaTab === tab;
           trigger.classList.toggle('active', active);
           trigger.setAttribute('aria-selected', String(active));
-          if (trigger.classList.contains('mega-trigger')) trigger.setAttribute('aria-expanded', String(active && megaMenu.classList.contains('open')));
+          if (trigger.classList.contains('mega-trigger')) {
+            trigger.setAttribute('aria-expanded', String(active && megaMenu.classList.contains('open')));
+          }
         });
         megaPanels.forEach(panel => {
           const active = panel.dataset.megaPanel === tab;
           panel.hidden = !active;
           panel.classList.toggle('active', active);
         });
+        moveMegaIndicator();
         if (megaMenu.classList.contains('open')) {
           megaMenu.classList.remove('open');
           void megaMenu.offsetWidth;
           megaMenu.classList.add('open');
         }
       };
+
+      const syncMobileDrawerClosed = () => {
+        if (fineMegaPointer) return;
+        megaMenu.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+      };
+
       const openMega = tab => {
         window.clearTimeout(megaCloseTimer);
         if (tab) setMegaTab(tab);
         megaMenu.classList.add('open');
         megaMenu.setAttribute('aria-hidden', 'false');
         megaBackdrop.classList.add('open');
-        desktopMegaTriggers.forEach(trigger => trigger.setAttribute('aria-expanded', String(trigger.dataset.megaTab === megaActiveTab)));
-        if (fineMegaPointer) menuToggle.setAttribute('aria-expanded', 'true');
+        desktopMegaTriggers.forEach(trigger => {
+          trigger.setAttribute('aria-expanded', String(trigger.dataset.megaTab === megaActiveTab));
+        });
+        if (!fineMegaPointer) {
+          menuToggle.setAttribute('aria-expanded', 'true');
+          menuToggle.setAttribute('aria-label', 'Close menu');
+        }
       };
+
       const closeMega = () => {
         window.clearTimeout(megaCloseTimer);
         megaMenu.classList.remove('open');
         megaMenu.setAttribute('aria-hidden', 'true');
         megaBackdrop.classList.remove('open');
         desktopMegaTriggers.forEach(trigger => trigger.setAttribute('aria-expanded', 'false'));
-        if (fineMegaPointer) menuToggle.setAttribute('aria-expanded', 'false');
-        if (document.body.classList.contains('menu-open')) setMenu(false);
+        if (!fineMegaPointer) syncMobileDrawerClosed();
+        if (megaIndicator) megaIndicator.style.opacity = '0';
       };
+
       const scheduleMegaClose = () => {
         window.clearTimeout(megaCloseTimer);
-        megaCloseTimer = window.setTimeout(closeMega, fineMegaPointer ? 170 : 0);
+        megaCloseTimer = window.setTimeout(closeMega, 180);
       };
+
+      // Pointer entry opens immediately; moving between triggers swaps tabs without a click.
       desktopMegaTriggers.forEach(trigger => {
-        trigger.addEventListener('pointerenter', () => { if (fineMegaPointer) openMega(trigger.dataset.megaTab); });
-        trigger.addEventListener('mouseenter', () => { if (fineMegaPointer) openMega(trigger.dataset.megaTab); });
+        trigger.addEventListener('pointerenter', () => {
+          if (fineMegaPointer) openMega(trigger.dataset.megaTab);
+        });
         trigger.addEventListener('focus', () => openMega(trigger.dataset.megaTab));
         trigger.addEventListener('click', () => {
-          const same = megaMenu.classList.contains('open') && megaActiveTab === trigger.dataset.megaTab;
-          if (same) closeMega(); else openMega(trigger.dataset.megaTab);
+          openMega(trigger.dataset.megaTab);
           playTactileSound('navigation');
         });
       });
+
       mobileMegaTriggers.forEach(trigger => trigger.addEventListener('click', () => {
         setMegaTab(trigger.dataset.megaTab);
         playTactileSound('rollover', { volume: 0.22 });
       }));
+
+      // Treat the navigation and dropdown as one hover region, with a short exit grace period.
       [nav, megaMenu].forEach(region => {
+        region.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
         region.addEventListener('pointerleave', event => {
           if (!fineMegaPointer) return;
           const related = event.relatedTarget;
           if (related instanceof Node && (nav.contains(related) || megaMenu.contains(related))) return;
           scheduleMegaClose();
         });
-        region.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
       });
+
       megaBackdrop.addEventListener('click', closeMega);
       document.addEventListener('pointerdown', event => {
         if (!megaMenu.classList.contains('open')) return;
         const target = event.target;
         if (!(target instanceof Node) || (!nav.contains(target) && !megaMenu.contains(target))) closeMega();
       });
-      document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMega(); });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && megaMenu.classList.contains('open')) closeMega();
+      });
+
+      // The original mobile toggle handler updates the drawer class first; mirror its state here.
       menuToggle.addEventListener('click', () => {
         if (mobilePanel.classList.contains('open')) {
           openMega(megaActiveTab);
-          megaMenu.setAttribute('aria-hidden', 'false');
         } else {
           closeMega();
         }
       });
-      // The existing mobile toggle handler runs first; synchronize drawer state and body scroll lock.
-      mobilePanel.addEventListener('transitionend', event => {
-        if (event.propertyName !== 'transform') return;
-        if (!mobilePanel.classList.contains('open') && !megaMenu.classList.contains('open')) document.body.classList.remove('menu-open');
-      });
+
       megaMenu.addEventListener('click', event => {
         const link = event.target.closest('a[data-jump]');
         if (!link) return;
         event.preventDefault();
+
         const destination = link.getAttribute('href');
         const projectName = link.dataset.project;
         const action = link.dataset.action;
+
         closeMega();
-        setMenu(false);
+        if (!fineMegaPointer) syncMobileDrawerClosed();
         playTactileSound('navigation');
+
         if (action === 'documents') {
-          $('#documentViewer')?.showModal();
+          const viewer = $('#documentViewer');
+          if (viewer && !viewer.open) viewer.showModal();
           return;
         }
+
         if (destination === '#home' || action === 'top') {
           window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
           return;
         }
-        const target = document.querySelector(destination);
-        if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+
+        const scrollTarget = action === 'stitching'
+          ? $('#technical')
+          : (destination ? document.querySelector(destination) : null);
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView({
+            behavior: reducedMotion ? 'auto' : 'smooth',
+            block: 'start'
+          });
+        }
+
         if (action === 'stitching') {
           window.setTimeout(() => $('#openStitchingExplainer')?.click(), reducedMotion ? 0 : 420);
         }
+
         if (action === 'journey') {
           window.setTimeout(() => {
-            const journey = $('#about .journey-section, #about .journey-toggle');
-            journey?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+            $('#about .journey-section')?.scrollIntoView({
+              behavior: reducedMotion ? 'auto' : 'smooth',
+              block: 'center'
+            });
           }, reducedMotion ? 0 : 350);
         }
+
         if (projectName) {
           const normalized = value => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
           if (projectName === 'all') {
-            const allFilter = $('#footwear .filter-btn[data-filter="all"]');
-            allFilter?.click();
+            $('#footwear .filter-btn[data-filter="all"]')?.click();
             return;
           }
-          const card = projectCards.find(item => normalized(item.querySelector('.project-info h3')?.textContent || '') === normalized(projectName));
-          if (card) {
+
+          // Query locally in this audio/menu IIFE; the archive's projectCards is scoped elsewhere.
+          const matchingCard = $$('#projectGrid .project-card').find(card =>
+            normalized(card.querySelector('.project-info h3')?.textContent || '') === normalized(projectName)
+          );
+
+          if (matchingCard) {
             $('#footwear .filter-btn[data-filter="all"]')?.click();
             window.setTimeout(() => {
-              const accordion = card.querySelector('.project-accordion-toggle');
+              const accordion = matchingCard.querySelector('.project-accordion-toggle');
               if (accordion && accordion.getAttribute('aria-expanded') !== 'true') accordion.click();
-              card.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
-              card.querySelector('.project-accordion-toggle')?.focus({ preventScroll: true });
+              matchingCard.scrollIntoView({
+                behavior: reducedMotion ? 'auto' : 'smooth',
+                block: 'center'
+              });
+              matchingCard.querySelector('.project-accordion-toggle')?.focus({ preventScroll: true });
             }, reducedMotion ? 0 : 360);
           }
         }
       });
-      // Re-open the correct panel after desktop tab switching; the hover bridge is the panel itself.
-      megaMenu.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
+
+      window.addEventListener('resize', moveMegaIndicator, { passive: true });
+      moveMegaIndicator();
 
       const randomRate = (min, max) => min + Math.random() * (max - min);
       let lastPrimarySoundAt = -Infinity;
