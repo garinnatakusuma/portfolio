@@ -114,6 +114,64 @@
     .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line-dark); background: transparent; color: var(--white); border-radius: 50%; cursor: pointer; }
     .menu-toggle span { display: block; width: 17px; height: 1px; background: currentColor; margin: 5px auto; transition: .25s; }
     .nav-progress { position: absolute; height: 2px; left: 0; bottom: -1px; width: 0; background: var(--orange); }
+    /* Mega Menu — navigation-only interaction layer */
+    .nav-links { position: relative; }
+    .nav-links::before { content: ''; position: absolute; z-index: 2; left: 0; bottom: -10px; width: var(--mega-indicator-width, 0px); height: 2px; border-radius: 99px; background: var(--orange); box-shadow: 0 0 14px rgba(237,110,3,.42); transform: translate3d(var(--mega-indicator-x, 0px),0,0); transition: transform .48s cubic-bezier(.18,1.28,.32,1), width .34s var(--ease); pointer-events: none; }
+    .nav-links .mega-tab { min-height: 42px; padding: 0 3px; border: 0; background: transparent; color: #c9c7c4; font: 500 .82rem var(--body); cursor: pointer; transition: color .25s; }
+    .nav-links .mega-tab:hover, .nav-links .mega-tab[aria-selected="true"] { color: var(--white); }
+    .mega-menu-backdrop { position: fixed; z-index: 998; inset: var(--nav-h) 0 0; background: rgba(5,5,7,.58); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .28s ease, visibility .28s ease; }
+    .mega-menu-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .mobile-panel.mega-menu-panel { position: fixed; z-index: 1001; top: var(--nav-h); left: 4.5%; right: 4.5%; width: auto; max-height: min(74dvh, 690px); padding: 0; overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.13); border-top: 0; border-radius: 0 0 20px 20px; color: var(--white); background: linear-gradient(145deg, rgba(32,32,36,.99), rgba(17,17,20,.99) 64%, rgba(16,16,18,.99)); box-shadow: 0 28px 76px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.07); transform: translate3d(0,-15px,0) scale(.985); transform-origin: top center; opacity: 0; visibility: hidden; pointer-events: none; transition: transform .54s cubic-bezier(.16,1.28,.3,1), opacity .25s ease, visibility .25s ease; }
+    .mobile-panel.mega-menu-panel.open { transform: translate3d(0,0,0) scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
+    .mega-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; padding: 27px 31px 23px; border-bottom: 1px solid rgba(255,255,255,.09); background: linear-gradient(110deg, rgba(237,110,3,.10), transparent 48%); }
+    .mega-menu-kicker, .mega-menu-index { color: #e88b43; font: 600 .59rem var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .mega-menu-head h2 { margin-top: 8px; color: var(--white); font: 800 clamp(1.45rem,2.6vw,2.15rem)/1 var(--display); letter-spacing: -.055em; }
+    .mega-menu-head p { margin-top: 8px; max-width: 520px; color: #a9a39d; font-size: .77rem; }
+    .mega-menu-close { display: inline-flex; align-items: center; gap: 12px; min-height: 40px; padding: 0 12px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #c8c1b9; background: rgba(255,255,255,.035); font: 600 .58rem var(--mono); letter-spacing: .08em; cursor: pointer; transition: color .22s, border-color .22s, background .22s; }
+    .mega-menu-close span { color: var(--orange); font: 400 1.1rem var(--body); }
+    .mega-menu-close:hover { color: var(--white); border-color: rgba(237,110,3,.55); background: rgba(237,110,3,.09); }
+    .mega-menu-mobile-tabs { display: none; }
+    .mega-menu-footer { display: none; }
+    .mega-menu-content { padding: 23px 31px 30px; }
+    .mega-menu-view { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(22px,3.5vw,52px); }
+    .mega-menu-view[hidden] { display: none !important; }
+    .mega-menu-group { min-width: 0; padding-right: 12px; }
+    .mega-menu-group h3 { margin: 9px 0 14px; color: var(--white); font: 800 1.12rem/1.05 var(--display); letter-spacing: -.035em; }
+    .mega-menu-link { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 34px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.075); color: #bdb7b0; font-size: .75rem; transition: color .22s, padding .22s, border-color .22s; }
+    .mega-menu-link span { flex: 0 0 auto; color: #8e8780; font: 500 .8rem var(--mono); transition: color .22s, transform .22s; }
+    .mega-menu-link:hover, .mega-menu-link:focus-visible { padding-left: 6px; border-color: rgba(237,110,3,.36); color: var(--white); }
+    .mega-menu-link:hover span, .mega-menu-link:focus-visible span { color: var(--orange); transform: translate(2px,-2px); }
+    .mega-menu-view.is-entering .mega-menu-group { animation: megaMenuColumnIn .48s var(--ease) both; animation-delay: calc(var(--menu-stagger, 0) * 58ms); }
+    .mega-menu-view.is-entering .mega-menu-link { animation: megaMenuItemIn .4s var(--ease) both; animation-delay: calc(var(--menu-stagger, 0) * 58ms + var(--item-stagger, 0) * 24ms); }
+    @keyframes megaMenuColumnIn { from { opacity: 0; transform: translate3d(0,12px,0); filter: blur(4px); } to { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); } }
+    @keyframes megaMenuItemIn { from { opacity: 0; transform: translate3d(0,7px,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
+    @media (max-width: 760px) {
+      .site-nav .menu-toggle { width: 44px; height: 44px; }
+      .mobile-panel.mega-menu-panel { left: 0; right: 0; width: 100%; height: calc(100dvh - var(--nav-h)); max-height: calc(100dvh - var(--nav-h)); border: 0; border-top: 1px solid rgba(255,255,255,.08); border-radius: 0; padding: 0 0 max(20px, env(safe-area-inset-bottom)); overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; transform: translate3d(0,-12px,0); }
+      .mobile-panel.mega-menu-panel.open { transform: translate3d(0,0,0); }
+      .mega-menu-head { align-items: flex-start; gap: 12px; padding: 20px 19px 17px; }
+      .mega-menu-head h2 { font-size: 1.55rem; }
+      .mega-menu-head p { max-width: 250px; font-size: .7rem; }
+      .mega-menu-close { min-height: 44px; padding: 0 10px; font-size: .52rem; }
+      .mega-menu-mobile-tabs { display: grid; gap: 0; padding: 9px 19px 0; }
+      .mega-mobile-tab { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 3px; border: 0; border-bottom: 1px solid rgba(255,255,255,.10); color: #c9c3bc; background: transparent; text-align: left; font: 700 .92rem var(--display); cursor: pointer; }
+      .mega-mobile-tab > span { color: var(--orange); font: 500 .59rem var(--mono); }
+      .mega-mobile-tab i { margin-left: auto; color: #817a73; font: 400 .9rem var(--body); transition: transform .28s, color .28s; }
+      .mega-mobile-tab[aria-expanded="true"] { color: var(--white); }
+      .mega-mobile-tab[aria-expanded="true"] i { color: var(--orange); transform: rotate(90deg); }
+      .mega-menu-content { padding: 18px 20px 28px; }
+      .mega-menu-view { grid-template-columns: minmax(0,1fr); gap: 25px; }
+      .mega-menu-group { padding: 0; }
+      .mega-menu-group h3 { margin: 7px 0 11px; font-size: 1.08rem; }
+      .mega-menu-link { min-height: 44px; padding: 10px 0; font-size: .79rem; }
+      .mega-menu-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px max(22px, env(safe-area-inset-bottom)); border-top: 1px solid rgba(255,255,255,.08); }
+      .mega-menu-footer .sound-toggle-mobile { min-height: 44px; margin: 15px 0 0; }
+      .mega-menu-footer .mobile-cv { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 15px 0 0; padding: 10px 15px; border: 1px solid rgba(237,110,3,.5); border-radius: 999px; color: var(--orange); font: 600 .65rem var(--mono); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nav-links::before, .mega-menu-backdrop, .mobile-panel.mega-menu-panel, .mega-menu-close, .mega-menu-link, .mega-menu-link span, .mega-mobile-tab i { transition-duration: .01ms !important; }
+      .mega-menu-view.is-entering .mega-menu-group, .mega-menu-view.is-entering .mega-menu-link { animation: none !important; }
+    }
 
     /* Hero */
     .hero { min-height: 100svh; padding: calc(var(--nav-h) + 62px) 0 74px; position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 74% 44%, #2a211a 0%, #171516 28%, var(--ink) 72%); }
@@ -916,9 +974,41 @@
     .hero-intro h1 .name-garin,
     .hero-intro h1 .name-nata { display: inline; }
     .hero-intro h1 .name-garin,
-    .hero-intro h1 .name-kusuma { color: var(--orange); }
-    .hero-intro h1 .name-nata { color: var(--white); }
+    .hero-intro h1 .name-nata,
+    .hero-intro h1 .name-kusuma { color: #f8f7f4; text-shadow: none; }
     .hero-intro h1 .name-kusuma { display: block; }
+    .hero-intro.is-name-spotlighting h1 .name-garin,
+    .hero-intro.is-name-spotlighting h1 .name-nata,
+    .hero-intro.is-name-spotlighting h1 .name-kusuma {
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      background-image: linear-gradient(105deg, #f8f7f4 0%, #f8f7f4 42%, rgba(237,110,3,.98) 47.8%, #fff2e3 50%, rgba(185,78,0,.92) 52.2%, #f8f7f4 58%, #f8f7f4 100%);
+      background-size: 240% 100%;
+      background-position: 100% 50%;
+      background-repeat: no-repeat;
+      background-clip: text;
+      -webkit-background-clip: text;
+      text-shadow: 0 0 17px rgba(237,110,3,.32), 0 0 36px rgba(185,78,0,.18);
+      animation: introNameSpotlightSweep 1.8s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-intro.is-name-spotlighting h1 .scroll-reveal-word { opacity: 1 !important; transition: none !important; }
+    @keyframes introNameSpotlightSweep {
+      0% { background-position: 100% 50%; text-shadow: 0 0 0 rgba(237,110,3,0); }
+      28% { text-shadow: 0 0 17px rgba(237,110,3,.42), 0 0 38px rgba(185,78,0,.22); }
+      72% { background-position: 18% 50%; text-shadow: 0 0 15px rgba(237,110,3,.34), 0 0 32px rgba(185,78,0,.16); }
+      100% { color: #f8f7f4; -webkit-text-fill-color: #f8f7f4; background-image: none; background-position: 0 50%; text-shadow: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-intro.is-name-spotlighting h1 .name-garin,
+      .hero-intro.is-name-spotlighting h1 .name-nata,
+      .hero-intro.is-name-spotlighting h1 .name-kusuma {
+        color: #f8f7f4 !important;
+        -webkit-text-fill-color: #f8f7f4 !important;
+        background: none !important;
+        text-shadow: none !important;
+        animation: none !important;
+      }
+    }
     .hero-intro .hero-role {
       margin: 27px auto 0;
       color: #e7e2dc;
@@ -1544,7 +1634,8 @@
       opacity: var(--footer-reveal-opacity, 1);
       transform: translate3d(0, var(--footer-reveal-y, 0px), 0);
       filter: blur(var(--footer-reveal-blur, 0px));
-      will-change: opacity, transform, filter;
+      clip-path: inset(var(--footer-reveal-clip, 0%) 0 0);
+      will-change: opacity, transform, filter, clip-path;
     }
 
     /* Inline words retain the original text flow and inherit all typography. */
@@ -1559,6 +1650,7 @@
         opacity: 1 !important;
         transform: none !important;
         filter: none !important;
+        clip-path: none !important;
         will-change: auto !important;
       }
       .scroll-reveal-word { opacity: 1 !important; transition: none !important; }
@@ -1627,14 +1719,10 @@
 
   <nav class="site-nav" id="siteNav" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="Garin Nata Kusuma home"><span class="brand-mark">G</span><span class="brand-name">GARIN NATA KUSUMA</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#college">College</a></li>
-      <li><a href="#footwear">Footwear</a></li>
-      <li><a href="#technical">Technical</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links mega-tabs" id="megaMenuTabs" role="tablist" aria-label="Portfolio sections">
+      <li><button class="mega-tab" id="megaTabWork" type="button" role="tab" data-menu-tab="work" aria-selected="true" aria-controls="megaViewWork">Work</button></li>
+      <li><button class="mega-tab" id="megaTabProcess" type="button" role="tab" data-menu-tab="process" aria-selected="false" aria-controls="megaViewProcess">Process</button></li>
+      <li><button class="mega-tab" id="megaTabJourney" type="button" role="tab" data-menu-tab="journey" aria-selected="false" aria-controls="megaViewJourney">Journey</button></li>
     </ul>
     <div class="nav-cta">
       <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
@@ -1642,22 +1730,92 @@
       </button>
       <a class="nav-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel"><span></span><span></span></button>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobilePanel"><span></span><span></span></button>
     <span class="nav-progress" id="navProgress"></span>
   </nav>
 
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="#about">About <span>01</span></a>
-    <a href="#college">College project <span>02</span></a>
-    <a href="#footwear">Footwear archive <span>03</span></a>
-    <a href="#technical">Technical showcase <span>04</span></a>
-    <a href="#process">Design process <span>05</span></a>
-    <a href="#skills">Skills & tools <span>06</span></a>
-    <a href="#contact">Contact <span>07</span></a>
-    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
-      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
-    </button>
-    <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+  <div class="mega-menu-backdrop" id="megaMenuBackdrop" aria-hidden="true"></div>
+  <div class="mobile-panel mega-menu-panel" id="mobilePanel" aria-label="Portfolio mega menu" aria-hidden="true">
+    <div class="mega-menu-head">
+      <div><span class="mega-menu-kicker">PORTFOLIO INDEX / 01—03</span><h2>Explore the practice.</h2><p>Choose a direction to move through the work, process, and journey.</p></div>
+      <button class="mega-menu-close" id="megaMenuClose" type="button" aria-label="Close navigation menu">CLOSE <span aria-hidden="true">×</span></button>
+    </div>
+
+    <div class="mega-menu-mobile-tabs" role="tablist" aria-label="Choose a menu category">
+      <button class="mega-mobile-tab is-active" type="button" role="tab" data-menu-tab="work" aria-selected="true" aria-expanded="true" aria-controls="megaViewWork"><span>01</span> Work <i aria-hidden="true">↘</i></button>
+      <button class="mega-mobile-tab" type="button" role="tab" data-menu-tab="process" aria-selected="false" aria-expanded="false" aria-controls="megaViewProcess"><span>02</span> Process <i aria-hidden="true">↘</i></button>
+      <button class="mega-mobile-tab" type="button" role="tab" data-menu-tab="journey" aria-selected="false" aria-expanded="false" aria-controls="megaViewJourney"><span>03</span> Journey <i aria-hidden="true">↘</i></button>
+    </div>
+
+    <div class="mega-menu-content">
+      <section class="mega-menu-view is-active" id="megaViewWork" data-menu-view="work" aria-label="Work menu">
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">01 / ARCHIVE</span><h3>Footwear Archive</h3>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-filter="all">All Projects <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Reverve">Reverve <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Muscle Memory">Muscle Memory <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Dark System">Dark System <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Spice Bloom">Spice Bloom <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Scar Flow × Reisen">Scar Flow × Reisen <span>↗</span></a>
+        </div>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">02 / EXPLORATION</span><h3>Concepts &amp; Experiments</h3>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Blakraan">Blakraan <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Terra Nullius">Terra Nullius <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Nett">Nett <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Nothing">Nothing <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="C-ryx">C-ryx <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Spilled EXP">Spilled EXP <span>↗</span></a>
+          <a class="mega-menu-link" href="#footwear" data-menu-link data-project-jump="Tennis EXP">Tennis EXP <span>↗</span></a>
+        </div>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">03 / OTHER FORMATS</span><h3>Beyond Footwear</h3>
+          <a class="mega-menu-link" href="#college" data-menu-link data-menu-focus=".college-feature">Smooth Criminal Jacket <span>↗</span></a>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-menu-focus=".model-panel">CMF &amp; 3D Showcase <span>↗</span></a>
+        </div>
+      </section>
+
+      <section class="mega-menu-view" id="megaViewProcess" data-menu-view="process" aria-label="Process menu" hidden>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">04 / THINKING</span><h3>Thinking &amp; CAD</h3>
+          <a class="mega-menu-link" href="#process" data-menu-link data-menu-focus=".approach-step-list">04 Thinking Stages <span>↗</span></a>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-menu-focus=".model-panel">2D &amp; 3D Footwear <span>↗</span></a>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-menu-focus=".model-sidebar">Rhino · NanoCAD · Delcam <span>↗</span></a>
+        </div>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">05 / PRODUCTION</span><h3>Production &amp; Stitching</h3>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-menu-focus=".model-panel">Computer Stitching Pallet <span>↗</span></a>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-open-stitching>What is a CS Pallet? <span>↗</span></a>
+          <a class="mega-menu-link" href="#technical" data-menu-link data-menu-focus=".model-sidebar">Pattern &amp; Vulcanization <span>↗</span></a>
+        </div>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">06 / CAPABILITIES</span><h3>Capabilities</h3>
+          <a class="mega-menu-link" href="#skills" data-menu-link data-menu-focus="#skills .section-head">06 / Capabilities &amp; Tools <span>↗</span></a>
+          <a class="mega-menu-link" href="#skills" data-menu-link data-skill-focus="Visual development">Design &amp; Visual Dev <span>↗</span></a>
+          <a class="mega-menu-link" href="#skills" data-menu-link data-skill-focus="Production workflow">Manufacturing Workflow <span>↗</span></a>
+        </div>
+      </section>
+
+      <section class="mega-menu-view" id="megaViewJourney" data-menu-view="journey" aria-label="Journey menu" hidden>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">07 / BACKGROUND</span><h3>Profile &amp; Milestones</h3>
+          <a class="mega-menu-link" href="#about" data-menu-link data-menu-focus=".about-copy">About &amp; Overview <span>↗</span></a>
+          <a class="mega-menu-link" href="#about" data-menu-link data-menu-focus=".journey-section">My Journey <span>↗</span></a>
+        </div>
+        <div class="mega-menu-group">
+          <span class="mega-menu-index">08 / NEXT STEPS</span><h3>Connect &amp; Actions</h3>
+          <a class="mega-menu-link" href="#contact" data-menu-link data-menu-focus=".contact-layout">Contact <span>↗</span></a>
+          <a class="mega-menu-link" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener" data-menu-link>Documentation Viewer <span>↗</span></a>
+          <a class="mega-menu-link" href="#home" data-menu-link>Back to Top <span>↗</span></a>
+        </div>
+      </section>
+    </div>
+    <div class="mega-menu-footer">
+      <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
+      </button>
+      <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+    </div>
   </div>
 
   <main id="main">
@@ -2423,16 +2581,107 @@
 
       $('#year').textContent = new Date().getFullYear();
 
-      // Mobile navigation
+      // Mega Menu: shared desktop tabs, mobile accordion drawer, backdrop and safe scroll lock.
+      const megaBackdrop = $('#megaMenuBackdrop');
+      const megaTabButtons = $$('[data-menu-tab]');
+      const desktopMegaTabs = $$('.nav-links [data-menu-tab]', nav);
+      const megaMenuViews = $$('[data-menu-view]', mobilePanel);
+      let activeMegaTab = 'work';
+      const updateMegaIndicator = () => {
+        const tab = desktopMegaTabs.find(button => button.dataset.menuTab === activeMegaTab);
+        const tabList = $('#megaMenuTabs');
+        if (!tab || !tabList || !tab.getClientRects().length) {
+          tabList?.style.setProperty('--mega-indicator-width', '0px');
+          return;
+        }
+        const tabRect = tab.getBoundingClientRect();
+        const listRect = tabList.getBoundingClientRect();
+        tabList.style.setProperty('--mega-indicator-x', `${tabRect.left - listRect.left}px`);
+        tabList.style.setProperty('--mega-indicator-width', `${tabRect.width}px`);
+      };
+      const setMegaTab = (tabName, animate = true) => {
+        if (!megaMenuViews.some(view => view.dataset.menuView === tabName)) return;
+        activeMegaTab = tabName;
+        megaTabButtons.forEach(button => {
+          const active = button.dataset.menuTab === tabName;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-selected', String(active));
+          if (button.classList.contains('mega-mobile-tab')) button.setAttribute('aria-expanded', String(active));
+        });
+        megaMenuViews.forEach(view => {
+          const active = view.dataset.menuView === tabName;
+          view.hidden = !active;
+          view.classList.toggle('is-active', active);
+          view.classList.remove('is-entering');
+          if (active && animate && !reducedMotion) {
+            view.querySelectorAll('.mega-menu-group').forEach((group, groupIndex) => {
+              group.style.setProperty('--menu-stagger', String(groupIndex));
+              group.querySelectorAll('.mega-menu-link').forEach((link, itemIndex) => {
+                link.style.setProperty('--menu-stagger', String(groupIndex));
+                link.style.setProperty('--item-stagger', String(itemIndex));
+              });
+            });
+            requestAnimationFrame(() => view.classList.add('is-entering'));
+          }
+        });
+        updateMegaIndicator();
+      };
       const setMenu = (open) => {
         mobilePanel.classList.toggle('open', open);
+        megaBackdrop.classList.toggle('is-open', open);
+        megaBackdrop.setAttribute('aria-hidden', String(!open));
+        mobilePanel.setAttribute('aria-hidden', String(!open));
         document.body.classList.toggle('menu-open', open);
         menuToggle.setAttribute('aria-expanded', String(open));
         menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (!open && mobilePanel.contains(document.activeElement)) {
+          const focusReturn = window.matchMedia('(max-width: 760px)').matches ? menuToggle : desktopMegaTabs.find(button => button.dataset.menuTab === activeMegaTab);
+          focusReturn?.focus({ preventScroll: true });
+        }
       };
-      menuToggle.addEventListener('click', () => setMenu(!mobilePanel.classList.contains('open')));
+      desktopMegaTabs.forEach(button => button.addEventListener('click', () => {
+        const tabName = button.dataset.menuTab;
+        const alreadyOpen = mobilePanel.classList.contains('open') && activeMegaTab === tabName;
+        if (alreadyOpen) {
+          setMenu(false);
+          window.portfolioTactileAudio?.play('modalClose');
+          return;
+        }
+        setMegaTab(tabName, true);
+        setMenu(true);
+        window.portfolioTactileAudio?.play('opening');
+      }));
+      $$('.mega-menu-mobile-tabs [data-menu-tab]').forEach(button => button.addEventListener('click', () => {
+        if (activeMegaTab === button.dataset.menuTab) return;
+        setMegaTab(button.dataset.menuTab, true);
+        window.portfolioTactileAudio?.play('sliderFlip');
+      }));
+      menuToggle.addEventListener('click', () => {
+        const opening = !mobilePanel.classList.contains('open');
+        if (opening) setMegaTab(activeMegaTab, true);
+        setMenu(opening);
+        window.portfolioTactileAudio?.play(opening ? 'opening' : 'modalClose');
+      });
+      $('#megaMenuClose').addEventListener('click', () => {
+        setMenu(false);
+        const focusReturn = window.matchMedia('(max-width: 760px)').matches ? menuToggle : desktopMegaTabs.find(button => button.dataset.menuTab === activeMegaTab);
+        focusReturn?.focus({ preventScroll: true });
+        window.portfolioTactileAudio?.play('modalClose');
+      });
+      megaBackdrop.addEventListener('click', () => setMenu(false));
       $$('.mobile-panel a').forEach(link => link.addEventListener('click', () => setMenu(false)));
-      document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
+      document.addEventListener('pointerdown', event => {
+        if (!mobilePanel.classList.contains('open')) return;
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        if (mobilePanel.contains(target)) return;
+        if (nav.contains(target) && (target.closest('[data-menu-tab]') || target.closest('#menuToggle'))) return;
+        setMenu(false);
+      }, true);
+      document.addEventListener('keydown', event => { if (event.key === 'Escape' && mobilePanel.classList.contains('open')) setMenu(false); });
+      setMegaTab('work', false);
+      updateMegaIndicator();
+      window.addEventListener('resize', updateMegaIndicator, { passive: true });
+      document.fonts?.ready?.then(updateMegaIndicator);
 
       // Scroll progress, sticky navigation, and back-to-top state
       let previousScrollY = window.scrollY;
@@ -2450,6 +2699,36 @@
       onScroll();
       backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' }));
 
+      // #intro name spotlight: play automatically on entry and restart after each re-entry.
+      const introSection = $('#intro');
+      const introHeading = $('#heroName', introSection || document);
+      const introMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (introSection && introHeading && 'IntersectionObserver' in window) {
+        let introSectionInView = false;
+        const syncIntroSpotlight = () => {
+          if (introMotionPreference.matches || !introSectionInView) {
+            introSection.classList.remove('is-name-spotlighting');
+            return;
+          }
+          introSection.classList.remove('is-name-spotlighting');
+          void introHeading.offsetWidth;
+          introSection.classList.add('is-name-spotlighting');
+        };
+        const introSpotlightObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            introSectionInView = entry.isIntersecting && entry.intersectionRatio >= 0.28;
+            syncIntroSpotlight();
+          });
+        }, { threshold: [0, 0.28] });
+        introSpotlightObserver.observe(introSection);
+        const onIntroMotionPreferenceChange = () => syncIntroSpotlight();
+        if (typeof introMotionPreference.addEventListener === 'function') {
+          introMotionPreference.addEventListener('change', onIntroMotionPreferenceChange);
+        } else if (typeof introMotionPreference.addListener === 'function') {
+          introMotionPreference.addListener(onIntroMotionPreferenceChange);
+        }
+      }
+
       // Scroll reveal
       const revealItems = $$('[data-reveal]');
       if (reducedMotion || !('IntersectionObserver' in window)) {
@@ -2466,14 +2745,19 @@
         revealItems.forEach(item => revealObserver.observe(item));
       }
 
-      // Active navigation section marker
-      const sectionLinks = $$('.nav-links a');
+      // Active Mega Menu tab follows the current portfolio area without opening the panel.
       const navSections = $$('main > section[id], main > header[id]');
+      const navSectionTab = {
+        college: 'work', footwear: 'work',
+        technical: 'process', process: 'process', skills: 'process',
+        about: 'journey', contact: 'journey'
+      };
       if ('IntersectionObserver' in window) {
         const sectionObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-            sectionLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+            const tabName = navSectionTab[entry.target.id];
+            if (tabName) setMegaTab(tabName, false);
           });
         }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
         navSections.forEach(section => sectionObserver.observe(section));
@@ -2608,6 +2892,65 @@
         });
       });
 
+      // Mega Menu destinations reuse the archive filters, existing dialogs, and native section transitions.
+      const normalizeMenuLabel = value => (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+      const focusMenuDestination = (selector, skillName) => {
+        let destination = selector ? $(selector) : null;
+        if (skillName) {
+          const wanted = normalizeMenuLabel(skillName);
+          destination = $$('#skills .skill-card').find(card => normalizeMenuLabel($('h3', card)?.textContent).includes(wanted)) || destination;
+        }
+        if (!destination || !destination.isConnected) return;
+        destination.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+        if (!destination.matches('a, button, input, select, textarea, [tabindex]')) destination.setAttribute('tabindex', '-1');
+        destination.focus({ preventScroll: true });
+      };
+      mobilePanel.addEventListener('click', event => {
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        const link = target?.closest('a[data-menu-link]');
+        if (!link) return;
+
+        const projectName = link.dataset.projectJump;
+        const projectFilter = link.dataset.projectFilter;
+        if (projectName || projectFilter) {
+          event.preventDefault();
+          const allFilterButton = filterButtons.find(button => (button.dataset.filter || 'all') === (projectFilter || 'all'));
+          if (allFilterButton && !allFilterButton.classList.contains('active')) allFilterButton.click();
+          const href = link.getAttribute('href');
+          if (href && window.location.hash !== href) window.history.replaceState(null, '', href);
+          window.setTimeout(() => {
+            if (projectName) {
+              const wanted = normalizeMenuLabel(projectName);
+              const card = projectCards.find(item => normalizeMenuLabel($('h3', item)?.textContent).includes(wanted));
+              if (card && !card.hidden) {
+                card.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+                const toggle = $('.project-accordion-toggle', card);
+                if (toggle && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
+                (toggle || card).focus?.({ preventScroll: true });
+              }
+            } else {
+              $('#footwear')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+            }
+          }, reducedMotion ? 0 : 390);
+          return;
+        }
+
+        if (link.hasAttribute('data-open-stitching')) {
+          event.preventDefault();
+          const href = link.getAttribute('href');
+          if (href && window.location.hash !== href) window.history.replaceState(null, '', href);
+          $('#technical')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+          window.setTimeout(() => $('#openStitchingExplainer')?.click(), reducedMotion ? 0 : 480);
+          return;
+        }
+
+        const focusSelector = link.dataset.menuFocus;
+        const skillName = link.dataset.skillFocus;
+        if (focusSelector || skillName) {
+          window.setTimeout(() => focusMenuDestination(focusSelector, skillName), reducedMotion ? 0 : 480);
+        }
+      });
+
       // Rebalance the archive between three desktop shelves and one mobile stack on viewport changes.
       const onFootwearColumnModeChange = () => {
         const activeCards = projectCards.filter(card => !card.hidden && card.parentElement !== projectHiddenBin);
@@ -2636,6 +2979,48 @@
       projectGrid.appendChild(footwearPreloadOverlay);
 
       const footwearFiles = [...new Set($$('.swatch-dot[data-colorway-file]', projectGrid).map(swatch => swatch.dataset.colorwayFile).filter(Boolean))];
+      const footwearReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const footwearAutoCycleStates = [];
+      let footwearAutoCycleReady = false;
+      const randomFootwearDelay = (min, max) => min + Math.random() * (max - min);
+      const scheduleFootwearAutoCycle = (state, initial = false) => {
+        if (!footwearAutoCycleReady || footwearReducedMotion.matches || state.hovered || state.swatches.length < 2) return;
+        window.clearTimeout(state.timer);
+        state.timer = window.setTimeout(async () => {
+          state.timer = 0;
+          if (!footwearAutoCycleReady || footwearReducedMotion.matches || state.hovered) return;
+          const currentFile = state.image.dataset.colorwayFile || '';
+          const options = state.swatches.filter(swatch =>
+            swatch.dataset.colorwayFile !== currentFile && footwearResolvedAssets.get(swatch.dataset.colorwayFile)?.ok
+          );
+          if (options.length) {
+            const selected = options[Math.floor(Math.random() * options.length)];
+            await state.changeColorway(selected);
+          }
+          scheduleFootwearAutoCycle(state);
+        }, initial ? randomFootwearDelay(250, 1850) : randomFootwearDelay(1400, 2200));
+      };
+      const startFootwearAutoCycling = () => {
+        footwearAutoCycleReady = true;
+        if (footwearReducedMotion.matches) return;
+        footwearAutoCycleStates.forEach(state => scheduleFootwearAutoCycle(state, true));
+      };
+      const syncFootwearAutoCyclingMotionPreference = () => {
+        if (footwearReducedMotion.matches) {
+          footwearAutoCycleStates.forEach(state => {
+            window.clearTimeout(state.timer);
+            state.timer = 0;
+            state.changeId++;
+          });
+        } else if (footwearAutoCycleReady) {
+          footwearAutoCycleStates.forEach(state => scheduleFootwearAutoCycle(state, true));
+        }
+      };
+      if (typeof footwearReducedMotion.addEventListener === 'function') {
+        footwearReducedMotion.addEventListener('change', syncFootwearAutoCyclingMotionPreference);
+      } else if (typeof footwearReducedMotion.addListener === 'function') {
+        footwearReducedMotion.addListener(syncFootwearAutoCyclingMotionPreference);
+      }
       footwearPreloadStatus.querySelector('.footwear-preload-label').textContent = `PRELOADING ${footwearFiles.length} COLORWAYS`;
       footwearPreloadFraction.textContent = `0 / ${footwearFiles.length}`;
 
@@ -2800,17 +3185,55 @@
         window.setTimeout(() => {
           footwearPreloadOverlay.classList.add('is-ready');
           footwearPreloadStatus.hidden = true;
-          window.setTimeout(() => footwearPreloadOverlay.remove(), 560);
+          window.setTimeout(() => {
+            footwearPreloadOverlay.remove();
+            startFootwearAutoCycling();
+          }, 560);
         }, 280);
       };
       preloadAllFootwearAssets();
 
-      // Colorway controls swap only their own image. Successfully preloaded images decode from cache;
-      // the local shimmer state is reserved for a missed/failed cache entry or an actual network wait.
+      // FUTURE FOOTWEAR COLORWAYS:
+      // Add each new shoe as a .project-card in #projectGrid with one .project-art img and one
+      // .swatch-dot[data-colorway-file="filename.png"] per variant. Keep the initial img src equal
+      // to one swatch filename and use the exact asset filename in every data-colorway-file.
+      // The preload pass discovers all swatches automatically; every card with 2+ valid variants
+      // joins the staggered random auto-cycle and hover-pause behavior below without extra wiring.
+      // Manual swatch buttons remain supported and use the same image-swap function as auto-cycle.
+      const changeFootwearColorway = async (state, selectedSwatch) => {
+        const { image, art, swatches, setActiveSwatch } = state;
+        const nextFile = selectedSwatch?.dataset.colorwayFile;
+        if (!nextFile || image.dataset.colorwayFile === nextFile) return false;
+        const changeId = ++state.changeId;
+        const previousSwatch = swatches.find(item => item.getAttribute('aria-pressed') === 'true');
+        const alreadyLoaded = footwearResolvedAssets.get(nextFile);
+        const assetPromise = loadFootwearAsset(nextFile);
+        if (!alreadyLoaded?.ok) {
+          art.classList.add('is-colorway-loading');
+          art.setAttribute('aria-busy', 'true');
+        }
+        const asset = alreadyLoaded?.ok ? alreadyLoaded : await assetPromise;
+        if (changeId !== state.changeId) return false;
+        if (!asset.ok) {
+          art.classList.remove('is-colorway-loading');
+          art.removeAttribute('aria-busy');
+          if (previousSwatch) setActiveSwatch(previousSwatch);
+          return false;
+        }
+        image.src = asset.image.src;
+        image.dataset.colorwayFile = nextFile;
+        setActiveSwatch(selectedSwatch);
+        fitFootwearImageToShelf(image);
+        art.classList.remove('is-colorway-loading');
+        art.removeAttribute('aria-busy');
+        try { await image.decode(); } catch (_) {}
+        return true;
+      };
+
       projectCards.forEach(card => {
         const image = $('.project-art img', card);
         const art = image?.closest('.project-art');
-        const swatches = $$('.swatch-dot', card);
+        const swatches = $$('.swatch-dot[data-colorway-file]', card);
         if (!image || !art || !swatches.length) return;
         const setActiveSwatch = selected => {
           swatches.forEach(swatch => {
@@ -2823,31 +3246,37 @@
         const initiallySelected = swatches.find(swatch => swatch.dataset.colorwayFile === initialFile) || swatches[0];
         setActiveSwatch(initiallySelected);
         image.dataset.colorwayFile = initiallySelected?.dataset.colorwayFile || initialFile || '';
+
+        const state = {
+          card, image, art, swatches, setActiveSwatch,
+          timer: 0, hovered: false, changeId: 0,
+          changeColorway: selectedSwatch => changeFootwearColorway(state, selectedSwatch)
+        };
+        if (swatches.length > 1) footwearAutoCycleStates.push(state);
+
+        const pauseAutoCycle = () => {
+          if (state.hovered) return;
+          state.hovered = true;
+          window.clearTimeout(state.timer);
+          state.timer = 0;
+          state.changeId++;
+        };
+        const resumeAutoCycle = () => {
+          if (!state.hovered) return;
+          state.hovered = false;
+          scheduleFootwearAutoCycle(state);
+        };
+        card.addEventListener('pointerenter', pauseAutoCycle, { passive: true });
+        card.addEventListener('mouseenter', pauseAutoCycle, { passive: true });
+        card.addEventListener('pointerleave', resumeAutoCycle, { passive: true });
+        card.addEventListener('mouseleave', resumeAutoCycle, { passive: true });
+
         swatches.forEach(swatch => {
           swatch.addEventListener('click', async () => {
-            const nextFile = swatch.dataset.colorwayFile;
-            if (!nextFile || image.dataset.colorwayFile === nextFile) return;
-            const previousSwatch = swatches.find(item => item.getAttribute('aria-pressed') === 'true');
-            const alreadyLoaded = footwearResolvedAssets.get(nextFile);
-            const assetPromise = loadFootwearAsset(nextFile);
-            if (!alreadyLoaded?.ok) {
-              art.classList.add('is-colorway-loading');
-              art.setAttribute('aria-busy', 'true');
-            }
-            const asset = alreadyLoaded?.ok ? alreadyLoaded : await assetPromise;
-            if (!asset.ok) {
-              art.classList.remove('is-colorway-loading');
-              art.removeAttribute('aria-busy');
-              if (previousSwatch) setActiveSwatch(previousSwatch);
-              return;
-            }
-            image.src = asset.image.src;
-            try { await image.decode(); } catch (_) {}
-            image.dataset.colorwayFile = nextFile;
-            setActiveSwatch(swatch);
-            fitFootwearImageToShelf(image);
-            art.classList.remove('is-colorway-loading');
-            art.removeAttribute('aria-busy');
+            window.clearTimeout(state.timer);
+            state.timer = 0;
+            await changeFootwearColorway(state, swatch);
+            if (!state.hovered) scheduleFootwearAutoCycle(state);
           });
         });
       });
@@ -3919,12 +4348,17 @@
       const updateFooterReveal = () => {
         if (!footer || reducedMotionQuery.matches) return;
         const rect = footer.getBoundingClientRect();
-        const visibleHeight = clamp(window.innerHeight - Math.max(0, rect.top), 0, Math.min(rect.height || 1, window.innerHeight));
-        const reveal = clamp(visibleHeight / Math.max(1, Math.min(rect.height || 1, window.innerHeight)));
+        const appliedY = Number.parseFloat(footer.style.getPropertyValue('--footer-reveal-y')) || 0;
+        const layoutTop = rect.top - appliedY;
+        const revealSpan = Math.max(1, Math.min(footer.offsetHeight || 1, window.innerHeight || 1));
+        const visibleHeight = clamp((window.innerHeight || 1) - Math.max(0, layoutTop), 0, revealSpan);
+        const reveal = clamp(visibleHeight / revealSpan);
+        const riseDistance = Math.min((window.innerHeight || 1) * 0.72, Math.max(180, (footer.offsetHeight || 1) * 0.65));
         footer.classList.add('footer-reveal-active');
-        footer.style.setProperty('--footer-reveal-opacity', (0.24 + reveal * 0.76).toFixed(3));
-        footer.style.setProperty('--footer-reveal-y', `${((1 - reveal) * 34).toFixed(2)}px`);
-        footer.style.setProperty('--footer-reveal-blur', `${((1 - reveal) * 3.5).toFixed(2)}px`);
+        footer.style.setProperty('--footer-reveal-opacity', (0.12 + reveal * 0.88).toFixed(3));
+        footer.style.setProperty('--footer-reveal-y', `${((1 - reveal) * riseDistance).toFixed(2)}px`);
+        footer.style.setProperty('--footer-reveal-blur', `${((1 - reveal) * 5).toFixed(2)}px`);
+        footer.style.setProperty('--footer-reveal-clip', `${((1 - reveal) * 100).toFixed(2)}%`);
       };
 
       const updateWordReveal = () => {
@@ -3975,6 +4409,7 @@
           footer.style.removeProperty('--footer-reveal-opacity');
           footer.style.removeProperty('--footer-reveal-y');
           footer.style.removeProperty('--footer-reveal-blur');
+          footer.style.removeProperty('--footer-reveal-clip');
         }
         wordGroups.forEach(group => group.words.forEach(word => word.style.setProperty('--scroll-word-opacity', '1')));
       };
