@@ -874,6 +874,66 @@
     .hero-product-stage .hero-bottom > span:last-child { display: none; }
     .hero-product-stage .scroll-cue { color: #f7f4ef; }
 
+    /* Opening headline treatment — isolated to #home */
+    .opening-headline {
+      position: absolute; z-index: 6; top: clamp(82px, 13.5vh, 138px); left: 50%;
+      width: min(94vw, 1120px); transform: translateX(-50%); text-align: center;
+      pointer-events: none; color: #f8f7f4;
+    }
+    .opening-headline-name, .opening-headline-label {
+      display: block; color: #f8f7f4; opacity: 0; transform: translateY(13px);
+      text-shadow: 0 0 0 rgba(237,110,3,0);
+    }
+    .opening-headline-name {
+      font: 900 clamp(1.65rem, 5.9vw, 5.6rem)/.98 var(--display);
+      letter-spacing: -.065em; white-space: nowrap;
+    }
+    .opening-headline-label {
+      margin-top: 12px; font: italic 500 clamp(.72rem, 1.4vw, 1.05rem)/1.2 var(--display);
+      letter-spacing: .16em;
+    }
+    .opening-headline-name::after, .opening-headline-label::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(110deg, transparent 35%, rgba(237,110,3,.0) 43%, rgba(248,247,244,.96) 49%, rgba(237,110,3,.75) 53%, transparent 61%);
+      transform: translateX(-120%); mix-blend-mode: screen;
+    }
+    .opening-headline-name { position: relative; }
+    .opening-headline-label { position: relative; }
+    #home.headline-sequence .opening-headline-name {
+      animation: openingNameSettle 1.2s cubic-bezier(.2,.75,.2,1) .08s both;
+    }
+    #home.headline-sequence .opening-headline-name::after {
+      animation: openingHeadlineGlint 1.05s ease-out .22s both;
+    }
+    #home.headline-sequence .opening-headline-label {
+      animation: openingLabelSettle .9s cubic-bezier(.2,.75,.2,1) .46s both;
+    }
+    #home.headline-sequence .opening-headline-label::after {
+      animation: openingHeadlineGlint .85s ease-out .56s both;
+    }
+    @keyframes openingNameSettle {
+      0% { opacity: 0; transform: translateY(16px); text-shadow: 0 0 0 rgba(237,110,3,0); }
+      35% { opacity: 1; text-shadow: 0 0 22px rgba(237,110,3,.58), 0 0 48px rgba(185,78,0,.24); }
+      75% { text-shadow: 0 0 10px rgba(237,110,3,.22); }
+      100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 2px rgba(237,110,3,.1); }
+    }
+    @keyframes openingLabelSettle {
+      0% { opacity: 0; transform: translateY(9px); text-shadow: 0 0 0 rgba(237,110,3,0); }
+      38% { opacity: 1; text-shadow: 0 0 15px rgba(237,110,3,.4); }
+      100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 2px rgba(237,110,3,.08); }
+    }
+    @keyframes openingHeadlineGlint { to { transform: translateX(120%); opacity: 0; } }
+    @media (max-width: 600px) {
+      .opening-headline { top: clamp(78px, 12.5vh, 110px); width: 96vw; }
+      .opening-headline-name { font-size: clamp(1.45rem, 7.4vw, 3rem); letter-spacing: -.055em; }
+      .opening-headline-label { margin-top: 8px; font-size: .75rem; letter-spacing: .13em; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #home.headline-sequence .opening-headline-name,
+      #home.headline-sequence .opening-headline-label { animation: none; opacity: 1; transform: none; text-shadow: none; }
+      .opening-headline-name::after, .opening-headline-label::after { display: none; }
+    }
+
     .hero-intro {
       position: relative;
       isolation: isolate;
@@ -1598,7 +1658,35 @@
       .scroll-reveal-word { opacity: 1 !important; transition: none !important; }
     }
 
-  </style>
+  
+    /* Mega Menu — isolated navigation-only layer */
+    .mega-triggers { gap: clamp(18px,2.8vw,38px); }
+    .mega-trigger { position:relative; border:0; background:none; color:#c9c7c4; cursor:pointer; padding:12px 2px; font:500 .82rem var(--body); transition:color .2s; }
+    .mega-trigger:hover,.mega-trigger[aria-selected="true"] { color:var(--white); }
+    .mega-trigger[aria-selected="true"]::after { content:''; position:absolute; left:0; right:0; bottom:3px; height:2px; background:var(--orange); border-radius:2px; }
+    .mega-backdrop { position:fixed; inset:var(--nav-h) 0 0; z-index:998; background:rgba(5,5,7,.52); opacity:0; visibility:hidden; transition:opacity .24s,visibility .24s; }
+    .mega-backdrop.is-open { opacity:1; visibility:visible; }
+    .mega-panel { position:fixed; z-index:999; top:var(--nav-h); left:0; right:0; padding:clamp(24px,3.2vw,42px) 5%; background:rgba(23,23,26,.97); border-bottom:1px solid rgba(255,255,255,.12); box-shadow:0 28px 70px rgba(0,0,0,.38); transform:translate3d(0,-18px,0) scale(.985); opacity:0; visibility:hidden; transform-origin:top; transition:transform .46s cubic-bezier(.2,1.15,.35,1),opacity .25s,visibility .25s; backdrop-filter:blur(20px); }
+    .mega-panel.is-open { transform:translate3d(0,0,0) scale(1); opacity:1; visibility:visible; }
+    .mega-panel-inner { width:min(1240px,100%); margin:auto; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,3vw,42px); }
+    .mega-group { min-width:0; border-left:1px solid rgba(255,255,255,.12); padding-left:18px; opacity:0; transform:translateY(12px); transition:opacity .34s,transform .45s cubic-bezier(.2,1,.35,1); }
+    .mega-panel.is-open .mega-group { opacity:1; transform:none; }
+    .mega-panel.is-open .mega-group:nth-child(2){transition-delay:65ms}.mega-panel.is-open .mega-group:nth-child(3){transition-delay:120ms}
+    .mega-group h3 { color:var(--orange); font:600 .66rem var(--mono); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; }
+    .mega-group a { min-height:36px; display:flex; align-items:center; justify-content:space-between; gap:12px; color:#d5d1cb; font-size:.86rem; padding:4px 0; transition:color .2s,transform .2s; }
+    .mega-group a:hover { color:var(--white); transform:translateX(4px); }
+    .mega-group a small { color:#77736f; font:500 .58rem var(--mono); }
+    .mega-mobile-tabs { display:flex; gap:8px; margin-bottom:14px; position:sticky; top:0; background:inherit; }
+    .mega-mobile-tabs button { flex:1; min-height:44px; border:1px solid rgba(255,255,255,.14); border-radius:999px; background:#202024; color:#c8c4bf; font:600 .72rem var(--mono); }
+    .mega-mobile-tabs button[aria-selected="true"] { color:#111; border-color:var(--orange); background:var(--orange); }
+    .mega-mobile-content .mega-group { opacity:1; transform:none; border-left:0; padding:0; margin-bottom:18px; }
+    .mega-mobile-content .mega-group a { min-height:46px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .mega-mobile { z-index:1001; top:var(--nav-h); inset-inline:0; bottom:0; max-height:none; height:calc(100dvh - var(--nav-h)); padding:16px 20px 28px; background:#17171a; transform:translate3d(0,14px,0); opacity:0; visibility:hidden; transition:transform .32s,opacity .22s,visibility .22s; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+    .mega-mobile.open { transform:translate3d(0,0,0); opacity:1; visibility:visible; }
+    .mega-mobile .sound-toggle-mobile { margin-top:16px; }
+    @media(max-width:760px){ .mega-panel,.mega-backdrop{display:none!important} .nav-links,.nav-cta{display:none!important} .menu-toggle{display:block} }
+    @media(prefers-reduced-motion:reduce){ .mega-panel,.mega-group,.mega-backdrop,.mega-mobile,.mega-trigger{transition:none!important;animation:none!important;transform:none!important} }
+</style>
 
 <style id="portfolio-update-2026-11">
 /* Journey cards: 3D tilt, floating emblems, dark detail panel */
@@ -1661,14 +1749,10 @@
 
   <nav class="site-nav" id="siteNav" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="Garin Nata Kusuma home"><span class="brand-mark">G</span><span class="brand-name">GARIN NATA KUSUMA</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#college">College</a></li>
-      <li><a href="#footwear">Footwear</a></li>
-      <li><a href="#technical">Technical</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links mega-triggers" role="tablist" aria-label="Portfolio sections">
+      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="work">Work</button></li>
+      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="process">Process</button></li>
+      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="journey">Journey</button></li>
     </ul>
     <div class="nav-cta">
       <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
@@ -1680,23 +1764,20 @@
     <span class="nav-progress" id="navProgress"></span>
   </nav>
 
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="#about">About <span>01</span></a>
-    <a href="#college">College project <span>02</span></a>
-    <a href="#footwear">Footwear archive <span>03</span></a>
-    <a href="#technical">Technical showcase <span>04</span></a>
-    <a href="#process">Design process <span>05</span></a>
-    <a href="#skills">Skills & tools <span>06</span></a>
-    <a href="#contact">Contact <span>07</span></a>
-    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
-      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
-    </button>
+  <div class="mobile-panel mega-mobile" id="mobilePanel" aria-label="Portfolio menu">
+    <div class="mega-mobile-tabs" role="tablist"><button data-mega-tab="work" role="tab" aria-selected="false">Work</button><button data-mega-tab="process" role="tab" aria-selected="false">Process</button><button data-mega-tab="journey" role="tab" aria-selected="false">Journey</button></div>
+    <div class="mega-mobile-content" id="megaMobileContent"></div>
+    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span></button>
     <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
   </div>
 
   <main id="main">
     <header class="hero hero-product-stage" id="home" aria-label="Featured footwear design">
       <div class="hero-shade"></div>
+      <div class="opening-headline" aria-label="Garin Nata Kusuma — Digital Portofolio">
+        <span class="opening-headline-name">GARIN NATA KUSUMA</span>
+        <span class="opening-headline-label">Digital Portofolio</span>
+      </div>
       <div class="hero-stage" data-reveal>
         <div class="orbit" aria-hidden="true">
           <span class="orbit-dot d1"></span><span class="orbit-dot d2"></span><span class="orbit-dot d3"></span>
@@ -2457,16 +2538,7 @@
 
       $('#year').textContent = new Date().getFullYear();
 
-      // Mobile navigation
-      const setMenu = (open) => {
-        mobilePanel.classList.toggle('open', open);
-        document.body.classList.toggle('menu-open', open);
-        menuToggle.setAttribute('aria-expanded', String(open));
-        menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      };
-      menuToggle.addEventListener('click', () => setMenu(!mobilePanel.classList.contains('open')));
-      $$('.mobile-panel a').forEach(link => link.addEventListener('click', () => setMenu(false)));
-      document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
+      // Mobile menu interaction is managed by the isolated Mega Menu controller.
 
       // Scroll progress, sticky navigation, and back-to-top state
       let previousScrollY = window.scrollY;
@@ -4279,5 +4351,56 @@
   }
 })();
 </script>
+
+<script>
+(() => {
+  const hero = document.getElementById('home');
+  if (!hero) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { hero.classList.add('headline-sequence'); return; }
+  const replay = () => { hero.classList.remove('headline-sequence'); void hero.offsetWidth; hero.classList.add('headline-sequence'); };
+  if ('IntersectionObserver' in window) {
+    let wasVisible = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !wasVisible) replay();
+      wasVisible = entry.isIntersecting;
+    }, { threshold: 0.18 });
+    observer.observe(hero);
+  } else replay();
+})();
+</script>
+
+<script>
+(() => {
+ const nav=document.getElementById('siteNav'), panel=document.createElement('div'), backdrop=document.createElement('div'), mobile=document.getElementById('mobilePanel'), mobileContent=document.getElementById('megaMobileContent'), toggle=document.getElementById('menuToggle');
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const menus={
+ work:[['Footwear Archive','All Projects','Reverve','Muscle Memory','Dark System','Spice Bloom','Scar Flow × Reisen'],['Concepts & Experiments','Blakraan','Terra Nullius','Nett','Nothing','C-ryx','Spilled EXP','Tennis EXP'],['Beyond Footwear','Smooth Criminal Jacket','CMF & 3D Showcase']],
+ process:[['Thinking & CAD','04 Thinking Stages','2D & 3D Footwear','Rhino · NanoCAD · Delcam'],['Production & Stitching','Computer Stitching Pallet','What is a CS Pallet?','Pattern & Vulcanization'],['Capabilities','06 / Capabilities & Tools','Design & Visual Dev','Manufacturing Workflow']],
+ journey:[['Profile & Milestones','About & Overview','My Journey'],['Connect & Actions','Contact','Documentation Viewer','Back to Top']]
+ };
+ const destinations={'All Projects':'#footwear','Reverve':'#footwear','Muscle Memory':'#footwear','Dark System':'#footwear','Spice Bloom':'#footwear','Scar Flow × Reisen':'#footwear','Blakraan':'#footwear','Terra Nullius':'#footwear','Nett':'#footwear','Nothing':'#footwear','C-ryx':'#footwear','Spilled EXP':'#footwear','Tennis EXP':'#footwear','Smooth Criminal Jacket':'#college','CMF & 3D Showcase':'#technical','04 Thinking Stages':'#process','2D & 3D Footwear':'#technical','Rhino · NanoCAD · Delcam':'#technical','Computer Stitching Pallet':'#technical','What is a CS Pallet?':'#technical','Pattern & Vulcanization':'#technical','06 / Capabilities & Tools':'#skills','Design & Visual Dev':'#skills','Manufacturing Workflow':'#skills','About & Overview':'#about','My Journey':'#about','Contact':'#contact','Documentation Viewer':'#documentViewer','Back to Top':'#home'};
+ panel.className='mega-panel'; panel.id='megaPanel'; panel.setAttribute('aria-hidden','true'); panel.innerHTML='<div class="mega-panel-inner"></div>'; document.body.append(panel);
+ backdrop.className='mega-backdrop'; backdrop.setAttribute('aria-hidden','true'); document.body.append(backdrop);
+ let active='';
+ function render(tab,into){into.innerHTML=''; menus[tab].forEach((group,i)=>{const section=document.createElement('section');section.className='mega-group';const h=document.createElement('h3');h.textContent=group[0];section.append(h);group.slice(1).forEach((label,j)=>{const a=document.createElement('a');a.href=destinations[label]||'#footwear';a.dataset.megaItem=label;a.innerHTML='<span>'+label+'</span><small>'+String(i+1).padStart(2,'0')+'.'+String(j+1).padStart(2,'0')+'</small>';section.append(a)});into.append(section)});}
+ function sound(key){window.portfolioTactileAudio?.play?.(key);}
+ function setTab(tab){active=tab; document.querySelectorAll('[data-mega-tab]').forEach(b=>{const selected=b.dataset.megaTab===tab;b.setAttribute('aria-selected',String(selected));});render(tab,panel.querySelector('.mega-panel-inner'));render(tab,mobileContent);}
+ function open(tab){setTab(tab||active||'work');panel.classList.add('is-open');backdrop.classList.add('is-open');panel.setAttribute('aria-hidden','false');document.body.classList.add('menu-open');sound('opening');}
+ function close(){panel.classList.remove('is-open');backdrop.classList.remove('is-open');panel.setAttribute('aria-hidden','true');mobile.classList.remove('open');document.body.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');}
+ document.querySelectorAll('.mega-triggers [data-mega-tab]').forEach(btn=>btn.addEventListener('click',()=>{if(panel.classList.contains('is-open')&&active===btn.dataset.megaTab)close();else open(btn.dataset.megaTab)}));
+ document.querySelectorAll('.mega-mobile-tabs [data-mega-tab]').forEach(btn=>btn.addEventListener('click',()=>{setTab(btn.dataset.megaTab);sound('navigation')}));
+ toggle.addEventListener('click',()=>{const isOpen=mobile.classList.contains('open');if(isOpen)close();else{open(active||'work');mobile.classList.add('open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close menu');sound('opening')}});
+ backdrop.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(panel.classList.contains('is-open')||mobile.classList.contains('open')))close()});
+ function jump(label){const dest=destinations[label]||'#footwear';close();sound('navigation');if(label==='Documentation Viewer'){const d=document.getElementById('documentViewer');if(d?.showModal)d.showModal();return;}
+ if(label==='Back to Top'){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});return;}
+ const target=document.querySelector(dest);if(target){target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});if(dest==='#footwear'&&label!=='All Projects'){setTimeout(()=>{const cards=[...document.querySelectorAll('#footwear .project-card')];const card=cards.find(c=>c.querySelector('.project-info h3')?.textContent.toLowerCase().includes(label.toLowerCase().split(' ×')[0]));if(card){card.querySelector('.project-accordion-toggle')?.click();card.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});card.querySelector('.project-accordion-toggle')?.focus({preventScroll:true});}},reduce?0:450);}
+ if(label==='What is a CS Pallet?'){setTimeout(()=>document.getElementById('openStitchingExplainer')?.click(),reduce?0:450);}
+ }}
+ document.addEventListener('click',e=>{const link=e.target.closest('[data-mega-item]');if(link){e.preventDefault();jump(link.dataset.megaItem);return;}if(panel.contains(e.target)&&e.target.closest('a'))close();});
+ setTab('work');
+})();
+</script>
+
 </body>
 </html>
