@@ -1565,6 +1565,61 @@
     }
 
   </style>
+
+<style id="portfolio-update-2026-11">
+/* Journey cards: 3D tilt, floating emblems, dark detail panel */
+.journey-card[data-journey-card]{--jc-pad:clamp(21px,2.7vw,30px);--rx:0deg;--ry:0deg;--lift:0px;--ex:0px;--ey:0px;--erx:0deg;--ery:0deg}
+@media (max-width:760px){.journey-card[data-journey-card]{--jc-pad:22px}}
+.journey-card[data-journey-card].visible{transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translate3d(0,var(--lift),0);transition:transform .6s var(--ease),border-color .35s,box-shadow .4s,background .4s}
+.journey-card[data-journey-card].visible.is-tracking{transition:transform .14s linear,border-color .35s,box-shadow .4s,background .4s}
+.journey-card[data-journey-card].visible:hover{--lift:-8px;box-shadow:0 36px 62px rgba(63,48,31,.19),0 10px 18px rgba(63,48,31,.08),0 0 0 1px rgba(237,110,3,.06),inset 0 1px 0 rgba(255,255,255,.96)}
+.journey-card .journey-logo-frame,.journey-card .journey-brand-frame{position:relative;transform:perspective(520px) translate3d(var(--ex),var(--ey),0) rotateX(var(--erx)) rotateY(var(--ery));transition:transform .5s var(--ease),box-shadow .5s var(--ease),scale .5s var(--ease);animation:jcFloat 6.4s ease-in-out infinite}
+.journey-card .journey-brand-frame{animation-duration:7.2s;animation-delay:-2.6s}
+.journey-card:nth-child(2) .journey-logo-frame{animation-delay:-1.4s}
+.journey-card.is-tracking .journey-logo-frame,.journey-card.is-tracking .journey-brand-frame{transition:transform .16s linear,box-shadow .5s var(--ease),scale .5s var(--ease)}
+.journey-card .journey-logo-frame::before,.journey-card .journey-brand-frame::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,0) 46%,rgba(237,110,3,.12));mix-blend-mode:soft-light}
+.journey-card:hover .journey-logo-frame,.journey-card:hover .journey-brand-frame{scale:1.06;box-shadow:0 24px 30px -10px rgba(61,47,31,.3),0 8px 12px rgba(61,47,31,.1),inset 0 1px 0 #fff,inset 0 -8px 14px rgba(237,110,3,.07)}
+@keyframes jcFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.journey-card .journey-detail{margin:0 calc(-1*var(--jc-pad));padding:0 var(--jc-pad);transition:max-height .55s var(--ease),opacity .3s ease,transform .45s var(--ease),visibility .45s,margin .55s var(--ease),padding .55s var(--ease),background .4s}
+.journey-card[data-journey-card].is-expanded .journey-detail{max-height:280px;margin-top:22px;padding-top:21px;padding-bottom:8px;border-top:0;background:linear-gradient(180deg,#1b1b1f,#121214);transform:none}
+.journey-card.is-expanded .journey-detail-label{color:#f19a55}
+.journey-card.is-expanded .journey-detail li{color:#d9d2c8}
+.journey-card.is-expanded .journey-detail li::before{background:#ed6e03}
+.journey-card[data-journey-card] .journey-toggle{transition:color .25s,background .45s,margin .55s var(--ease),padding .55s var(--ease)}
+.journey-card[data-journey-card].is-expanded .journey-toggle{margin:0 calc(-1*var(--jc-pad)) calc(-1*var(--jc-pad));width:calc(100% + 2*var(--jc-pad));padding:15px var(--jc-pad) var(--jc-pad);background:#121214;color:#f6f1ea;border-top:1px solid rgba(255,255,255,.08)}
+.journey-card[data-journey-card].is-expanded .journey-toggle:hover,.journey-card[data-journey-card].is-expanded .journey-toggle:focus-visible{color:#ffb579}
+.journey-card[data-journey-card] .journey-toggle-icon{background:#121214;border-color:#121214;color:#fff;box-shadow:0 7px 14px -3px rgba(18,18,20,.35),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .55s cubic-bezier(.34,1.56,.64,1),background .3s,border-color .3s,color .3s,box-shadow .3s}
+.journey-card[data-journey-card] .journey-toggle:is(:hover,:focus-visible) .journey-toggle-icon{transform:rotate(90deg) scale(1.1)}
+.journey-card[data-journey-card].is-expanded .journey-toggle-icon{transform:rotate(45deg);background:var(--orange);border-color:var(--orange);color:#111}
+.journey-card[data-journey-card].is-expanded .journey-toggle:is(:hover,:focus-visible) .journey-toggle-icon{transform:rotate(135deg) scale(1.1)}
+@media (prefers-reduced-motion:reduce){
+  .journey-card .journey-logo-frame,.journey-card .journey-brand-frame{animation:none;transform:none;transition:none}
+  .journey-card[data-journey-card].visible{--lift:0px}
+  .journey-card[data-journey-card] .journey-toggle-icon{transition:none}
+}
+/* Process: volumetric stage icons */
+.approach-svg .vol-art{filter:url(#thinkBevel)}
+.approach-svg .viz-node>circle:first-child{filter:url(#thinkBevel)}
+.approach-svg .scene-center{fill:#fff8ef;paint-order:stroke;stroke:#8f3f00;stroke-width:2.4px;stroke-linejoin:round}
+/* Stitching explainer: sound toggle */
+.stitching-video-status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.stitching-sound-toggle{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:7px 13px;border:1px solid rgba(237,110,3,.5);border-radius:999px;background:rgba(237,110,3,.1);color:#ffd0a6;font:600 .6rem var(--mono);letter-spacing:.08em;cursor:pointer;transition:background .25s,border-color .25s,color .25s}
+.stitching-sound-toggle svg{width:16px;height:16px;flex:0 0 auto}
+.stitching-sound-toggle:hover,.stitching-sound-toggle:focus-visible{background:rgba(237,110,3,.24);border-color:var(--orange);color:#fff}
+.stitching-sound-toggle:focus-visible{outline:2px solid #ffb579;outline-offset:2px}
+.stitching-sound-toggle[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#111}
+.stitching-sound-toggle .sw-on{display:none}
+.stitching-sound-toggle[aria-pressed="true"] .sw-on{display:inline}
+.stitching-sound-toggle[aria-pressed="true"] .sw-off{display:none}
+/* Skills: fixed headers, slowly scrolling lists */
+#skills .skill-scroll{position:relative;z-index:1}
+#skills .skill-scroll.is-ping{height:98px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 20%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 20%,#000 80%,transparent 100%)}
+#skills .skill-scroll .chips{display:block;will-change:transform}
+#skills .skill-card .chips span{display:block;padding:10px 0;border:0;border-bottom:1px solid rgba(255,255,255,.07);border-radius:0;font:700 1.02rem/1.25 var(--display);letter-spacing:-.02em;transition:color .5s var(--ease),padding-left .5s var(--ease)}
+#skills .skill-card .chips span:hover{transform:none;background:none;border-color:rgba(255,255,255,.07)}
+#skills .skill-scroll.is-ping .chips span{color:rgba(194,188,181,.4)}
+#skills .skill-scroll.is-ping .chips span.is-focus{color:#fff4e6;padding-left:6px}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -1660,7 +1715,7 @@
           <p>What you see here is a collection of those narratives translated into footwear concepts. Alongside concept development, I also work as a <strong>Design Drafter for automated manufacturing</strong>, focusing on pallet design and computer stitching processes. That combination allows me to explore both the expressive side of design and the technical details required to make products.</p>
           <div class="facts-grid" aria-label="Portfolio facts">
             <div class="fact"><strong>4+</strong><span>Years designing footwear</span></div>
-            <div class="fact"><strong>09</strong><span>Documented projects</span></div>
+            <div class="fact"><strong data-documented-count>09</strong><span>Documented projects</span></div>
             <div class="fact"><strong>3D</strong><span>Rhino · NanoCAD · Delcam</span></div>
             <div class="fact"><strong>2024</strong><span>Politeknik ATK graduate</span></div>
           </div>
@@ -2186,61 +2241,78 @@
                 <linearGradient id="thinkRoute" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ed6e03"/><stop offset="1" stop-color="#b94e00"/></linearGradient>
                 <filter id="thinkGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                 <path id="thinkingPath" d="M102 338 C174 338 245 338 330 338 S477 338 565 338 S708 338 798 338" />
+                <linearGradient id="volPaper" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" stop-color="#fffefb"/><stop offset=".55" stop-color="#f1eee8"/><stop offset="1" stop-color="#d6cdbf"/></linearGradient>
+                <linearGradient id="volPaperDark" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" stop-color="#f0e8db"/><stop offset="1" stop-color="#c4b8a6"/></linearGradient>
+                <radialGradient id="volOrange" cx=".34" cy=".28" r=".85"><stop offset="0" stop-color="#ffb877"/><stop offset=".45" stop-color="#ed6e03"/><stop offset="1" stop-color="#a94600"/></radialGradient>
+                <linearGradient id="volShoe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa055"/><stop offset=".6" stop-color="#ed6e03"/><stop offset="1" stop-color="#b94e00"/></linearGradient>
+                <filter id="thinkBevel" x="-25%" y="-25%" width="150%" height="160%" color-interpolation-filters="sRGB">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="blur"/>
+                  <feSpecularLighting in="blur" surfaceScale="5" specularConstant=".9" specularExponent="26" lighting-color="#fff6ea" result="spec"><fePointLight x="-70" y="-110" z="120"/></feSpecularLighting>
+                  <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
+                  <feDiffuseLighting in="blur" surfaceScale="4" diffuseConstant="1" lighting-color="#fff" result="diff"><feDistantLight azimuth="235" elevation="55"/></feDiffuseLighting>
+                  <feComposite in="SourceGraphic" in2="diff" operator="arithmetic" k1="1.22" k2="0" k3="0" k4="0" result="shade"/>
+                  <feComposite in="shade" in2="specIn" operator="arithmetic" k1="0" k2="1" k3=".8" k4="0" result="lit"/>
+                  <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#5a2a05" flood-opacity=".26"/>
+                </filter>
               </defs>
 
               <!-- Stage 01: collecting visual, material and movement references -->
               <g class="approach-scene" data-scene="research" transform="translate(105 172)">
                 <text class="scene-kicker" x="0" y="-83">01 / INPUTS</text>
+                <g class="vol-art">
                 <g transform="translate(-60 -48) rotate(-9)">
-                  <rect x="0" y="0" width="77" height="91" rx="5" fill="#fffdfa" fill-opacity=".58" stroke="#8b8175" stroke-width="1.2"/>
-                  <circle cx="20" cy="22" r="9" fill="none" stroke="#ed6e03" stroke-width="1.5"/>
+                  <rect x="0" y="0" width="77" height="91" rx="5" fill="url(#volPaper)" stroke="#8b8175" stroke-width="1.2"/>
+                  <circle cx="20" cy="22" r="9" fill="url(#volOrange)" stroke="#b94e00" stroke-width="1.2"/>
                   <path d="M8 68L27 42L42 58L54 38L68 68Z" fill="none" stroke="#71685e" stroke-width="1.4"/>
                   <path d="M9 78H67" stroke="#a79b8c" stroke-width="1"/>
                 </g>
                 <g transform="translate(20 -51) rotate(8)">
-                  <rect x="0" y="0" width="75" height="91" rx="5" fill="#e8e0d4" fill-opacity=".55" stroke="#8b8175" stroke-width="1.2"/>
+                  <rect x="0" y="0" width="75" height="91" rx="5" fill="url(#volPaperDark)" stroke="#8b8175" stroke-width="1.2"/>
                   <rect x="10" y="12" width="54" height="54" rx="3" fill="url(#thinkMesh)" stroke="#8b8175" stroke-width=".8"/>
                   <path d="M10 77H58" stroke="#a79b8c" stroke-width="1"/>
                 </g>
                 <path d="M-11 63C-1 48 8 48 15 63S31 78 41 61" fill="none" stroke="#ed6e03" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/>
-                <text class="scene-note" x="0" y="88" text-anchor="middle">CULTURE · OBJECTS · MOVEMENT</text>
+                </g><text class="scene-note" x="0" y="88" text-anchor="middle">CULTURE · OBJECTS · MOVEMENT</text>
               </g>
 
               <!-- Stage 02: connecting observations into a clear product narrative -->
               <g class="approach-scene" data-scene="concept" transform="translate(330 172)">
                 <text class="scene-kicker" x="0" y="-83">02 / MEANING</text>
+                <g class="vol-art">
                 <g fill="none" stroke="#9a8e80" stroke-width="1.3" opacity=".9">
                   <path d="M0 8L-52 -28M0 8L54 -31M0 8L-64 52M0 8L59 53"/>
                   <path d="M-52 -28L-74 -57M54 -31L78 -57M-64 52L-84 75M59 53L83 76" stroke-dasharray="3 4"/>
                 </g>
-                <circle cx="0" cy="8" r="35" fill="#ed6e03" fill-opacity=".11" stroke="#b94e00" stroke-width="1.6"/>
-                <circle cx="0" cy="8" r="25" fill="none" stroke="#b94e00" stroke-opacity=".55" stroke-width="1" stroke-dasharray="3 4"/>
+                <circle cx="0" cy="8" r="35" fill="url(#volOrange)" stroke="#8f3f00" stroke-width="1.6"/>
+                <circle cx="0" cy="8" r="25" fill="none" stroke="#fff1de" stroke-opacity=".7" stroke-width="1" stroke-dasharray="3 4"/>
                 <text x="0" y="12" text-anchor="middle" class="scene-center">WHY?</text>
-                <g fill="#f1eee8" stroke="#b94e00" stroke-width="1.4">
+                <g fill="url(#volPaper)" stroke="#b94e00" stroke-width="1.4">
                   <circle cx="-52" cy="-28" r="8"/><circle cx="54" cy="-31" r="8"/><circle cx="-64" cy="52" r="8"/><circle cx="59" cy="53" r="8"/>
                 </g>
-                <text class="scene-note" x="0" y="111" text-anchor="middle">PURPOSE · STORY · IDENTITY</text>
+                </g><text class="scene-note" x="0" y="111" text-anchor="middle">PURPOSE · STORY · IDENTITY</text>
               </g>
 
               <!-- Stage 03: turning the story into silhouette, materials and a 3D form -->
               <g class="approach-scene" data-scene="development" transform="translate(565 172)">
                 <text class="scene-kicker" x="0" y="-83">03 / FORM</text>
-                <path d="M-91 29C-69 25-52 12-33-13C-18-32 1-39 25-31L66-15C79-10 88 7 103 18L116 28C124 35 119 43 106 44L-67 44C-84 44-99 39-91 29Z" fill="#ed6e03" fill-opacity=".09" stroke="#625a50" stroke-width="1.7"/>
-                <path d="M-33-13C-15-10 3-1 21 12C38 24 57 30 82 31" fill="none" stroke="#b94e00" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <g class="vol-art">
+                <path d="M-91 29C-69 25-52 12-33-13C-18-32 1-39 25-31L66-15C79-10 88 7 103 18L116 28C124 35 119 43 106 44L-67 44C-84 44-99 39-91 29Z" fill="url(#volShoe)" stroke="#6b3a14" stroke-width="1.7"/>
+                <path d="M-33-13C-15-10 3-1 21 12C38 24 57 30 82 31" fill="none" stroke="#fff0dc" stroke-width="1.5" stroke-dasharray="4 4"/>
                 <path d="M-86 31C-38 35 40 36 109 32" fill="none" stroke="#625a50" stroke-width="5" stroke-linecap="round"/>
                 <path d="M-11-27L-2-45L23-38L30-17M38-23L50-39L63-31" fill="none" stroke="#8b8175" stroke-width="1.2"/>
-                <circle cx="-54" cy="-2" r="5" fill="#ed6e03" fill-opacity=".7"/>
-                <text class="scene-note" x="0" y="88" text-anchor="middle">PROPORTION · MATERIAL · 2D / 3D</text>
+                <circle cx="-54" cy="-2" r="5" fill="#fff4e6"/>
+                </g><text class="scene-note" x="0" y="88" text-anchor="middle">PROPORTION · MATERIAL · 2D / 3D</text>
               </g>
 
               <!-- Stage 04: translating the resolved form into production information -->
               <g class="approach-scene" data-scene="engineering" transform="translate(798 172)">
                 <text class="scene-kicker" x="0" y="-83">04 / MAKING</text>
-                <path d="M-35-50C-59-44-65-14-59 16C-53 49-27 64 1 57C28 49 48 23 42-10C37-42 0-58-35-50Z" fill="none" stroke="#625a50" stroke-width="1.7"/>
+                <g class="vol-art">
+                <path d="M-35-50C-59-44-65-14-59 16C-53 49-27 64 1 57C28 49 48 23 42-10C37-42 0-58-35-50Z" fill="url(#volPaper)" stroke="#625a50" stroke-width="1.7"/>
                 <path d="M-36-30C-12-22 12-24 31-10M-49 4C-20 17 14 16 39 3M-35 39C-12 31 14 31 32 43" fill="none" stroke="#b94e00" stroke-width="1.4" stroke-dasharray="4 4"/>
                 <path d="M-76-54H-47M-76-54V-37M-76 68H-45M-76 68V52M58-54H78M78-54V-37M58 68H78M78 68V52" fill="none" stroke="#8b8175" stroke-width="1.1"/>
                 <path d="M-85-54H-79M-85 68H-79M-76-61V-47M-76 61V75" stroke="#b94e00" stroke-width="1.2"/>
-                <text class="scene-note" x="0" y="111" text-anchor="middle">PATTERN · TOOLING · PRODUCTION</text>
+                </g><text class="scene-note" x="0" y="111" text-anchor="middle">PATTERN · TOOLING · PRODUCTION</text>
               </g>
 
               <!-- A visible route links the four kinds of thinking in sequence. -->
@@ -2318,12 +2390,12 @@
     </div>
     <p class="stitching-explainer-copy" id="stitchingExplainerCopy">Watch this short video for context on the machine and process behind the Fiber Pallet Nike Marina 3D model.</p>
     <div class="stitching-video-frame" id="stitchingVideoFrame">
-      <video id="stitchingExplainerVideo" controls playsinline preload="none" aria-label="Computer stitching pallet explainer video">
+      <video id="stitchingExplainerVideo" controls playsinline muted preload="none" aria-label="Computer stitching pallet explainer video">
         <source src="CS_CONTOH.mp4" type="video/mp4" />
         Your browser does not support HTML video.
       </video>
     </div>
-    <p class="stitching-video-status" id="stitchingVideoStatus" aria-live="polite">The video will start automatically when you open this explanation.</p>
+    <div class="stitching-video-status"><span id="stitchingVideoStatus" aria-live="polite">The video starts muted. Use the sound button to turn audio on.</span><button class="stitching-sound-toggle" id="stitchingSoundToggle" type="button" aria-pressed="false" aria-label="Turn video sound on"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path class="sw-on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/><path class="sw-off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg><span class="stitching-sound-label">SOUND OFF</span></button></div>
     <div class="stitching-explainer-foot"><span>VIDEO REFERENCE / ORIGINAL SOURCE</span><a href="https://www.tiktok.com/@shoe_machine/video/7254318365622226177" target="_blank" rel="noopener noreferrer">View source on TikTok ↗</a></div>
   </dialog>
 
@@ -3268,6 +3340,8 @@
         let activeSectionIndex = 0;
         let ambientRgb = '237,110,3';
         let alternateRgb = '255,232,207';
+        let particlesOn = false;
+        let fade = 0;
         let pointer = { x: -1000, y: -1000 };
         const toneSections = $$('header.hero, main > section, .ticker');
         const lerp = (a, b, amount) => a + (b - a) * amount;
@@ -3288,6 +3362,9 @@
           const nextAlt = style.getPropertyValue('--particle-alt-rgb').trim() || '255,232,207';
           ambientRgb = nextMain;
           alternateRgb = nextAlt;
+          // Particles run only on dark sections: off on the hero (#home) and on light/white sections.
+          particlesOn = !source.matches('#home, .light, .projects-section, .process-section');
+          if (reducedMotion) fade = particlesOn ? 1 : 0;
         };
 
         const resizeParticles = () => {
@@ -3314,6 +3391,13 @@
 
         const drawParticles = time => {
           particleContext.clearRect(0, 0, width, height);
+          fade += ((particlesOn ? 1 : 0) - fade) * (reducedMotion ? 1 : .08);
+          if (fade < .01) {
+            fade = 0; scrollMomentum *= .88;
+            if (!reducedMotion && !document.hidden) frameId = requestAnimationFrame(drawParticles);
+            return;
+          }
+          particleContext.globalAlpha = Math.min(1, fade);
           const mode = activeSectionIndex % 4;
           const scrollFlow = Math.max(-1, Math.min(1, scrollMomentum / 30));
           const centerX = width * (.5 + Math.sin(time * .00012) * .12);
@@ -3398,7 +3482,11 @@
         };
 
         resizeParticles();
-        if (reducedMotion) drawParticles(0);
+        if (reducedMotion) {
+          drawParticles(0);
+          let staticTimer = 0;
+          window.addEventListener('scroll', () => { clearTimeout(staticTimer); staticTimer = setTimeout(() => { readSectionTone(); drawParticles(0); }, 140); }, { passive: true });
+        }
         else frameId = requestAnimationFrame(drawParticles);
         window.addEventListener('resize', resizeParticles, { passive: true });
         window.addEventListener('pointermove', event => { pointer.x = event.clientX; pointer.y = event.clientY; }, { passive: true });
@@ -3904,5 +3992,136 @@
     })();
   </script>
 
+
+<script>
+/* Portfolio update 2026-11: documented count, journey 3D, footwear sound, stitching sound toggle, skills ping-pong */
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  // 2) Documented projects = footwear cards with a real documentation link
+  const countEl = $('[data-documented-count]');
+  if (countEl) {
+    const n = new Set($$('#footwear .project-card')).size && [...new Set($$('#footwear .project-card'))].filter(card =>
+      $$('a.project-link[href]', card).some(a => { const h = (a.getAttribute('href') || '').trim(); return h && h !== '#' && !/^javascript:/i.test(h); })
+    ).length;
+    countEl.textContent = String(n).padStart(2, '0');
+  }
+
+  // 3) Journey cards: pointer tilt + emblem depth
+  if (fine.matches && !rmq.matches) {
+    $$('[data-journey-card]').forEach(card => {
+      let raf = 0, nx = 0, ny = 0;
+      const apply = () => {
+        raf = 0;
+        card.style.setProperty('--rx', (-ny * 6).toFixed(2) + 'deg');
+        card.style.setProperty('--ry', (nx * 8).toFixed(2) + 'deg');
+        card.style.setProperty('--ex', (nx * 9).toFixed(1) + 'px');
+        card.style.setProperty('--ey', (ny * 7).toFixed(1) + 'px');
+        card.style.setProperty('--erx', (-ny * 12).toFixed(1) + 'deg');
+        card.style.setProperty('--ery', (nx * 16).toFixed(1) + 'deg');
+      };
+      card.addEventListener('pointermove', e => {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        const r = card.getBoundingClientRect();
+        nx = (e.clientX - r.left) / r.width - .5;
+        ny = (e.clientY - r.top) / r.height - .5;
+        card.classList.add('is-tracking');
+        if (!raf) raf = requestAnimationFrame(apply);
+      }, { passive: true });
+      card.addEventListener('pointerleave', () => {
+        nx = ny = 0; cancelAnimationFrame(raf); raf = 0;
+        card.classList.remove('is-tracking'); apply();
+      });
+    });
+  }
+
+  // 4) Footwear: tactile sound when opening project details
+  const play = key => window.portfolioTactileAudio?.play(key);
+  const footwear = $('#footwear');
+  if (footwear) {
+    footwear.addEventListener('click', e => {
+      const t = e.target instanceof Element ? e.target : e.target?.parentElement;
+      const toggle = t?.closest('.project-accordion-toggle');
+      if (toggle) { if (toggle.getAttribute('aria-expanded') !== 'true') play('modalOpen'); return; }
+      // Documentation opens a dialog (which already plays modalOpen); only cover links that open elsewhere.
+      if (t?.closest('.project-link')) setTimeout(() => { if (!$('dialog[open]')) play('primary'); }, 60);
+    }, true);
+  }
+
+  // 5) Computer-stitching explainer: muted by default, user-controlled sound
+  const video = $('#stitchingExplainerVideo');
+  const soundBtn = $('#stitchingSoundToggle');
+  if (video) {
+    video.muted = true; video.defaultMuted = true;
+    const sync = () => {
+      if (!soundBtn) return;
+      const on = !video.muted && video.volume > 0;
+      soundBtn.setAttribute('aria-pressed', String(on));
+      soundBtn.setAttribute('aria-label', on ? 'Turn video sound off' : 'Turn video sound on');
+      $('.stitching-sound-label', soundBtn).textContent = on ? 'SOUND ON' : 'SOUND OFF';
+    };
+    soundBtn?.addEventListener('click', () => {
+      if (video.muted || video.volume === 0) { video.volume = video.volume || 1; video.muted = false; }
+      else video.muted = true;
+      sync();
+    });
+    video.addEventListener('volumechange', sync);
+    $('#openStitchingExplainer')?.addEventListener('click', () => { video.muted = true; sync(); }, true);
+    $('#stitchingExplainer')?.addEventListener('close', () => { video.muted = true; sync(); });
+    sync();
+  }
+
+  // 7) Skills: fixed card headers, slow ping-pong scrolling lists
+  if (!rmq.matches) {
+    const PAUSE = 1400, SPEED = 15; // ms hold at each end, px per second
+    const ease = x => .5 - .5 * Math.cos(Math.PI * x);
+    const wave = (t, d) => {
+      const T = 2 * (d + PAUSE); let m = t % T;
+      if (m < PAUSE) return 0; m -= PAUSE;
+      if (m < d) return ease(m / d); m -= d;
+      if (m < PAUSE) return 1;
+      return 1 - ease((m - PAUSE) / d);
+    };
+    const lists = [];
+    $$('#skills .skill-card').forEach((card, i) => {
+      const chips = $('.chips', card);
+      if (!chips) return;
+      const view = document.createElement('div');
+      view.className = 'skill-scroll is-ping';
+      chips.before(view); view.appendChild(chips);
+      const st = { view, chips, rows: [...chips.children], max: 0, clock: i * 900, paused: false, visible: true, focus: -1 };
+      card.addEventListener('pointerenter', () => { st.paused = true; });
+      card.addEventListener('pointerleave', () => { st.paused = false; });
+      card.addEventListener('focusin', () => { st.paused = true; });
+      card.addEventListener('focusout', () => { st.paused = false; });
+      if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { st.visible = en.isIntersecting; }).observe(card);
+      lists.push(st);
+    });
+    const measure = () => lists.forEach(st => { st.max = Math.max(0, st.chips.offsetHeight - st.view.clientHeight); });
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+    document.fonts?.ready?.then(measure);
+    let last = performance.now();
+    const tick = now => {
+      const dt = Math.min(now - last, 64); last = now;
+      lists.forEach(st => {
+        if (st.paused || !st.visible || !st.max) return;
+        st.clock += dt;
+        const y = st.max * wave(st.clock, st.max / SPEED * 1000);
+        st.chips.style.transform = `translate3d(0,${-y.toFixed(2)}px,0)`;
+        const line = st.view.clientHeight * .42;
+        const idx = Math.max(0, st.rows.findIndex(r => r.offsetTop + r.offsetHeight > y + line));
+        if (idx !== st.focus) { st.rows.forEach((r, k) => r.classList.toggle('is-focus', k === idx)); st.focus = idx; }
+      });
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
 </body>
 </html>
