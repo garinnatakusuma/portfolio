@@ -506,7 +506,7 @@
       .section-head { display: block; margin-bottom: 35px; }
       .section-head p { margin-top: 17px; }
       .site-nav { padding: 0 19px; }
-      .nav-links, .nav-cta { display: none; }
+      .nav-links, .nav-cta, .mega-indicator { display: none; }
       .menu-toggle { display: block; }
       .mobile-panel { position: fixed; z-index: 999; inset: var(--nav-h) 0 auto; padding: 17px 22px 26px; background: rgba(13,13,15,.98); border-bottom: 1px solid var(--line-dark); transform: translateY(-120%); opacity: 0; visibility: hidden; transition: .38s var(--ease); max-height: calc(100svh - var(--nav-h)); overflow-y: auto; }
       .mobile-panel.open { transform: translateY(0); opacity: 1; visibility: visible; }
@@ -873,66 +873,6 @@
     }
     .hero-product-stage .hero-bottom > span:last-child { display: none; }
     .hero-product-stage .scroll-cue { color: #f7f4ef; }
-
-    /* Opening headline treatment — isolated to #home */
-    .opening-headline {
-      position: absolute; z-index: 6; top: clamp(82px, 13.5vh, 138px); left: 50%;
-      width: min(94vw, 1120px); transform: translateX(-50%); text-align: center;
-      pointer-events: none; color: #f8f7f4;
-    }
-    .opening-headline-name, .opening-headline-label {
-      display: block; color: #f8f7f4; opacity: 0; transform: translateY(13px);
-      text-shadow: 0 0 0 rgba(237,110,3,0);
-    }
-    .opening-headline-name {
-      font: 900 clamp(1.65rem, 5.9vw, 5.6rem)/.98 var(--display);
-      letter-spacing: -.065em; white-space: nowrap;
-    }
-    .opening-headline-label {
-      margin-top: 12px; font: italic 500 clamp(.72rem, 1.4vw, 1.05rem)/1.2 var(--display);
-      letter-spacing: .16em;
-    }
-    .opening-headline-name::after, .opening-headline-label::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(110deg, transparent 35%, rgba(237,110,3,.0) 43%, rgba(248,247,244,.96) 49%, rgba(237,110,3,.75) 53%, transparent 61%);
-      transform: translateX(-120%); mix-blend-mode: screen;
-    }
-    .opening-headline-name { position: relative; }
-    .opening-headline-label { position: relative; }
-    #home.headline-sequence .opening-headline-name {
-      animation: openingNameSettle 1.2s cubic-bezier(.2,.75,.2,1) .08s both;
-    }
-    #home.headline-sequence .opening-headline-name::after {
-      animation: openingHeadlineGlint 1.05s ease-out .22s both;
-    }
-    #home.headline-sequence .opening-headline-label {
-      animation: openingLabelSettle .9s cubic-bezier(.2,.75,.2,1) .46s both;
-    }
-    #home.headline-sequence .opening-headline-label::after {
-      animation: openingHeadlineGlint .85s ease-out .56s both;
-    }
-    @keyframes openingNameSettle {
-      0% { opacity: 0; transform: translateY(16px); text-shadow: 0 0 0 rgba(237,110,3,0); }
-      35% { opacity: 1; text-shadow: 0 0 22px rgba(237,110,3,.58), 0 0 48px rgba(185,78,0,.24); }
-      75% { text-shadow: 0 0 10px rgba(237,110,3,.22); }
-      100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 2px rgba(237,110,3,.1); }
-    }
-    @keyframes openingLabelSettle {
-      0% { opacity: 0; transform: translateY(9px); text-shadow: 0 0 0 rgba(237,110,3,0); }
-      38% { opacity: 1; text-shadow: 0 0 15px rgba(237,110,3,.4); }
-      100% { opacity: 1; transform: translateY(0); text-shadow: 0 0 2px rgba(237,110,3,.08); }
-    }
-    @keyframes openingHeadlineGlint { to { transform: translateX(120%); opacity: 0; } }
-    @media (max-width: 600px) {
-      .opening-headline { top: clamp(78px, 12.5vh, 110px); width: 96vw; }
-      .opening-headline-name { font-size: clamp(1.45rem, 7.4vw, 3rem); letter-spacing: -.055em; }
-      .opening-headline-label { margin-top: 8px; font-size: .75rem; letter-spacing: .13em; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #home.headline-sequence .opening-headline-name,
-      #home.headline-sequence .opening-headline-label { animation: none; opacity: 1; transform: none; text-shadow: none; }
-      .opening-headline-name::after, .opening-headline-label::after { display: none; }
-    }
 
     .hero-intro {
       position: relative;
@@ -1658,35 +1598,7 @@
       .scroll-reveal-word { opacity: 1 !important; transition: none !important; }
     }
 
-  
-    /* Mega Menu — isolated navigation-only layer */
-    .mega-triggers { gap: clamp(18px,2.8vw,38px); }
-    .mega-trigger { position:relative; border:0; background:none; color:#c9c7c4; cursor:pointer; padding:12px 2px; font:500 .82rem var(--body); transition:color .2s; }
-    .mega-trigger:hover,.mega-trigger[aria-selected="true"] { color:var(--white); }
-    .mega-trigger[aria-selected="true"]::after { content:''; position:absolute; left:0; right:0; bottom:3px; height:2px; background:var(--orange); border-radius:2px; }
-    .mega-backdrop { position:fixed; inset:var(--nav-h) 0 0; z-index:998; background:rgba(5,5,7,.52); opacity:0; visibility:hidden; transition:opacity .24s,visibility .24s; }
-    .mega-backdrop.is-open { opacity:1; visibility:visible; }
-    .mega-panel { position:fixed; z-index:999; top:var(--nav-h); left:0; right:0; padding:clamp(24px,3.2vw,42px) 5%; background:rgba(23,23,26,.97); border-bottom:1px solid rgba(255,255,255,.12); box-shadow:0 28px 70px rgba(0,0,0,.38); transform:translate3d(0,-18px,0) scale(.985); opacity:0; visibility:hidden; transform-origin:top; transition:transform .46s cubic-bezier(.2,1.15,.35,1),opacity .25s,visibility .25s; backdrop-filter:blur(20px); }
-    .mega-panel.is-open { transform:translate3d(0,0,0) scale(1); opacity:1; visibility:visible; }
-    .mega-panel-inner { width:min(1240px,100%); margin:auto; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,3vw,42px); }
-    .mega-group { min-width:0; border-left:1px solid rgba(255,255,255,.12); padding-left:18px; opacity:0; transform:translateY(12px); transition:opacity .34s,transform .45s cubic-bezier(.2,1,.35,1); }
-    .mega-panel.is-open .mega-group { opacity:1; transform:none; }
-    .mega-panel.is-open .mega-group:nth-child(2){transition-delay:65ms}.mega-panel.is-open .mega-group:nth-child(3){transition-delay:120ms}
-    .mega-group h3 { color:var(--orange); font:600 .66rem var(--mono); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; }
-    .mega-group a { min-height:36px; display:flex; align-items:center; justify-content:space-between; gap:12px; color:#d5d1cb; font-size:.86rem; padding:4px 0; transition:color .2s,transform .2s; }
-    .mega-group a:hover { color:var(--white); transform:translateX(4px); }
-    .mega-group a small { color:#77736f; font:500 .58rem var(--mono); }
-    .mega-mobile-tabs { display:flex; gap:8px; margin-bottom:14px; position:sticky; top:0; background:inherit; }
-    .mega-mobile-tabs button { flex:1; min-height:44px; border:1px solid rgba(255,255,255,.14); border-radius:999px; background:#202024; color:#c8c4bf; font:600 .72rem var(--mono); }
-    .mega-mobile-tabs button[aria-selected="true"] { color:#111; border-color:var(--orange); background:var(--orange); }
-    .mega-mobile-content .mega-group { opacity:1; transform:none; border-left:0; padding:0; margin-bottom:18px; }
-    .mega-mobile-content .mega-group a { min-height:46px; border-bottom:1px solid rgba(255,255,255,.08); }
-    .mega-mobile { z-index:1001; top:var(--nav-h); inset-inline:0; bottom:0; max-height:none; height:calc(100dvh - var(--nav-h)); padding:16px 20px 28px; background:#17171a; transform:translate3d(0,14px,0); opacity:0; visibility:hidden; transition:transform .32s,opacity .22s,visibility .22s; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
-    .mega-mobile.open { transform:translate3d(0,0,0); opacity:1; visibility:visible; }
-    .mega-mobile .sound-toggle-mobile { margin-top:16px; }
-    @media(max-width:760px){ .mega-panel,.mega-backdrop{display:none!important} .nav-links,.nav-cta{display:none!important} .menu-toggle{display:block} }
-    @media(prefers-reduced-motion:reduce){ .mega-panel,.mega-group,.mega-backdrop,.mega-mobile,.mega-trigger{transition:none!important;animation:none!important;transform:none!important} }
-</style>
+  </style>
 
 <style id="portfolio-update-2026-11">
 /* Journey cards: 3D tilt, floating emblems, dark detail panel */
@@ -1741,6 +1653,68 @@
 #skills .skill-card .chips span:hover{transform:none;background:none;border-color:rgba(255,255,255,.07)}
 #skills .skill-scroll.is-ping .chips span{color:rgba(194,188,181,.4)}
 #skills .skill-scroll.is-ping .chips span.is-focus{color:#fff4e6;padding-left:6px}
+
+    /* Mega Menu — isolated navigation enhancement */
+    .nav-links { position: relative; gap: clamp(18px, 2.5vw, 38px); }
+    .mega-indicator { position: absolute; z-index: 2; bottom: 17px; left: 0; width: 0; height: 2px; border-radius: 2px; background: var(--orange); box-shadow: 0 0 12px rgba(237,110,3,.35); opacity: 0; pointer-events: none; transition: left .42s var(--ease), width .42s var(--ease), opacity .2s; }
+    .nav-links .mega-trigger { position: relative; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 2px; border: 0; background: transparent; color: #c9c7c4; cursor: pointer; font: 600 .82rem var(--body); transition: color .25s; }
+    .nav-links .mega-trigger span { color: var(--orange); font-size: .9rem; opacity: .75; transition: transform .3s var(--ease); }
+    .nav-links .mega-trigger:hover, .nav-links .mega-trigger.active, .nav-links .mega-trigger[aria-expanded="true"] { color: var(--white); }
+    .nav-links .mega-trigger[aria-expanded="true"] span { transform: rotate(180deg); }
+    .mega-menu { --mega-panel-bg: rgba(23,23,26,.985); position: fixed; z-index: 1001; top: calc(var(--nav-h) + 10px); left: 50%; width: min(1080px, calc(100vw - 9%)); max-height: min(690px, calc(100dvh - var(--nav-h) - 24px)); padding: 27px 30px 19px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.13); border-radius: 18px; color: var(--white); background: var(--mega-panel-bg); box-shadow: 0 28px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(1.15); -webkit-backdrop-filter: blur(24px) saturate(1.15); transform: translate3d(-50%,-12px,0) scale(.975); transform-origin: 50% 0; opacity: 0; visibility: hidden; pointer-events: none; transition: transform .48s cubic-bezier(.2,1.35,.35,1), opacity .22s ease, visibility .22s; }
+    .mega-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -13px; height: 14px; }
+    .mega-menu.open { transform: translate3d(-50%,0,0) scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
+    .mega-tabs { display: none; }
+    .mega-content { position: relative; }
+    .mega-panel { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(22px,3vw,42px); }
+    .mega-panel[hidden] { display: none !important; }
+    .mega-column { min-width: 0; display: flex; flex-direction: column; align-items: stretch; }
+    .mega-kicker { color: var(--orange); font: 600 .59rem var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .mega-column h3 { min-height: 42px; margin: 9px 0 13px; color: var(--white); font: 800 clamp(1.1rem,1.8vw,1.45rem)/1.05 var(--display); letter-spacing: -.045em; }
+    .mega-column > a { min-height: 39px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 9px; margin-inline: -9px; border-bottom: 1px solid rgba(255,255,255,.075); border-radius: 6px; color: #c9c5bf; font-size: .77rem; transition: color .2s, background .2s, padding .25s var(--ease); }
+    .mega-column > a span { color: var(--orange); opacity: 0; transform: translate(-4px,4px); transition: opacity .2s, transform .25s var(--ease); }
+    .mega-column > a:hover, .mega-column > a:focus-visible { padding-left: 14px; color: var(--white); background: rgba(237,110,3,.09); }
+    .mega-column > a:hover span, .mega-column > a:focus-visible span { opacity: 1; transform: translate(0,0); }
+    .mega-note { justify-content: center; padding: 22px; border: 1px solid rgba(237,110,3,.2); border-radius: 12px; background: linear-gradient(145deg,rgba(237,110,3,.1),rgba(255,255,255,.025)); }
+    .mega-note h3 { min-height: 0; max-width: 230px; font-size: 1.8rem; }
+    .mega-note p { color: #aaa5a0; font-size: .78rem; }
+    .mega-footer { display: none; }
+    .mega-menu.open .mega-column { animation: megaColumnIn .42s var(--ease) both; }
+    .mega-menu.open .mega-column:nth-child(2) { animation-delay: 55ms; }
+    .mega-menu.open .mega-column:nth-child(3) { animation-delay: 110ms; }
+    .mega-menu.open .mega-column > a { animation: megaItemIn .34s var(--ease) both; }
+    .mega-menu.open .mega-column > a:nth-of-type(2) { animation-delay: 25ms; }
+    .mega-menu.open .mega-column > a:nth-of-type(3) { animation-delay: 45ms; }
+    .mega-menu.open .mega-column > a:nth-of-type(4) { animation-delay: 65ms; }
+    .mega-menu.open .mega-column > a:nth-of-type(5) { animation-delay: 85ms; }
+    .mega-menu.open .mega-column > a:nth-of-type(6) { animation-delay: 105ms; }
+    .mega-menu.open .mega-column > a:nth-of-type(7) { animation-delay: 125ms; }
+    @keyframes megaColumnIn { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes megaItemIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .mega-backdrop { position: fixed; z-index: 998; inset: var(--nav-h) 0 0; background: rgba(5,5,7,.25); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s, visibility .25s; }
+    .mega-backdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    @media (max-width: 760px) {
+      .nav-links, .nav-cta { display: none; }
+      .menu-toggle { display: block; }
+      .mega-menu { z-index: 1001; top: var(--nav-h); left: 0; width: 100%; max-height: calc(100dvh - var(--nav-h)); padding: 12px 20px max(22px,env(safe-area-inset-bottom)); border: 0; border-top: 1px solid var(--line-dark); border-radius: 0; transform: translate3d(0,-12px,0); transform-origin: top; }
+      .mega-menu.open { transform: translate3d(0,0,0); }
+      .mega-tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; position: sticky; top: -12px; z-index: 3; padding: 12px 0 14px; background: var(--mega-panel-bg); }
+      .mega-mobile-tab { min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 5px; padding: 0 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 9px; background: #202024; color: #c9c7c4; font: 700 .76rem var(--display); cursor: pointer; }
+      .mega-mobile-tab span { color: var(--orange); font: 500 .55rem var(--mono); }
+      .mega-mobile-tab.active { border-color: rgba(237,110,3,.62); color: var(--white); background: rgba(237,110,3,.12); }
+      .mega-panel { grid-template-columns: 1fr; gap: 20px; }
+      .mega-column { padding-bottom: 9px; }
+      .mega-column h3 { min-height: 0; margin-bottom: 9px; font-size: 1.18rem; }
+      .mega-column > a { min-height: 46px; font-size: .82rem; }
+      .mega-note { min-height: 150px; }
+      .mega-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; margin-top: 16px; border-top: 1px solid var(--line-dark); }
+      .mega-footer .sound-toggle-mobile { display: inline-flex; }
+      .mega-footer .mobile-cv { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 0; padding: 10px 16px; border: 1px solid rgba(237,110,3,.5); border-radius: 999px; color: var(--orange); font-size: .75rem; }
+      .mega-backdrop { inset: var(--nav-h) 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mega-menu, .mega-backdrop, .mega-column, .mega-column > a, .mega-trigger span, .mega-indicator { animation: none !important; transition-duration: .01ms !important; }
+    }
 </style>
 </head>
 <body>
@@ -1749,11 +1723,12 @@
 
   <nav class="site-nav" id="siteNav" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="Garin Nata Kusuma home"><span class="brand-mark">G</span><span class="brand-name">GARIN NATA KUSUMA</span></a>
-    <ul class="nav-links mega-triggers" role="tablist" aria-label="Portfolio sections">
-      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="work">Work</button></li>
-      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="process">Process</button></li>
-      <li><button type="button" class="mega-trigger" role="tab" aria-selected="false" data-mega-tab="journey">Journey</button></li>
+    <ul class="nav-links" role="tablist" aria-label="Portfolio navigation">
+      <li><button class="mega-trigger active" type="button" role="tab" id="megaTabWork" aria-controls="megaPanelWork" aria-selected="true" aria-expanded="false" data-mega-tab="work">Work <span aria-hidden="true">↘</span></button></li>
+      <li><button class="mega-trigger" type="button" role="tab" id="megaTabProcess" aria-controls="megaPanelProcess" aria-selected="false" aria-expanded="false" data-mega-tab="process">Process <span aria-hidden="true">↘</span></button></li>
+      <li><button class="mega-trigger" type="button" role="tab" id="megaTabJourney" aria-controls="megaPanelJourney" aria-selected="false" aria-expanded="false" data-mega-tab="journey">Journey <span aria-hidden="true">↘</span></button></li>
     </ul>
+    <span class="mega-indicator" id="megaIndicator" aria-hidden="true"></span>
     <div class="nav-cta">
       <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
         <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
@@ -1764,20 +1739,77 @@
     <span class="nav-progress" id="navProgress"></span>
   </nav>
 
-  <div class="mobile-panel mega-mobile" id="mobilePanel" aria-label="Portfolio menu">
-    <div class="mega-mobile-tabs" role="tablist"><button data-mega-tab="work" role="tab" aria-selected="false">Work</button><button data-mega-tab="process" role="tab" aria-selected="false">Process</button><button data-mega-tab="journey" role="tab" aria-selected="false">Journey</button></div>
-    <div class="mega-mobile-content" id="megaMobileContent"></div>
-    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span></button>
-    <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+  <div class="mobile-panel mega-menu" id="mobilePanel" aria-label="Portfolio mega menu" aria-hidden="true">
+    <div class="mega-tabs" role="tablist" aria-label="Menu categories">
+      <button class="mega-mobile-tab active" type="button" role="tab" aria-selected="true" aria-controls="megaPanelWork" data-mega-tab="work">Work <span>01</span></button>
+      <button class="mega-mobile-tab" type="button" role="tab" aria-selected="false" aria-controls="megaPanelProcess" data-mega-tab="process">Process <span>02</span></button>
+      <button class="mega-mobile-tab" type="button" role="tab" aria-selected="false" aria-controls="megaPanelJourney" data-mega-tab="journey">Journey <span>03</span></button>
+    </div>
+    <div class="mega-content">
+      <section class="mega-panel active" id="megaPanelWork" role="tabpanel" aria-labelledby="megaTabWork" data-mega-panel="work">
+        <div class="mega-column"><span class="mega-kicker">01 / Archive</span><h3>Footwear Archive</h3>
+          <a href="#footwear" data-jump data-project="all">All Projects <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Reverve">Reverve <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Muscle Memory">Muscle Memory <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Dark System">Dark System <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Spice Bloom">Spice Bloom <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Scar Flow × Reisen">Scar Flow × Reisen <span>↗</span></a>
+        </div>
+        <div class="mega-column"><span class="mega-kicker">02 / Exploration</span><h3>Concepts & Experiments</h3>
+          <a href="#footwear" data-jump data-project="Blakraan">Blakraan <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Terra Nullius">Terra Nullius <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Nett">Nett <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Nothing">Nothing <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="C-ryx">C-ryx <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Spilled EXP">Spilled EXP <span>↗</span></a>
+          <a href="#footwear" data-jump data-project="Tennis EXP">Tennis EXP <span>↗</span></a>
+        </div>
+        <div class="mega-column"><span class="mega-kicker">03 / Beyond</span><h3>Beyond Footwear</h3>
+          <a href="#college" data-jump>Smooth Criminal Jacket <span>↗</span></a>
+          <a href="#technical" data-jump>CMF & 3D Showcase <span>↗</span></a>
+        </div>
+      </section>
+      <section class="mega-panel" id="megaPanelProcess" role="tabpanel" aria-labelledby="megaTabProcess" data-mega-panel="process" hidden>
+        <div class="mega-column"><span class="mega-kicker">01 / Development</span><h3>Thinking & CAD</h3>
+          <a href="#process" data-jump>04 Thinking Stages <span>↗</span></a>
+          <a href="#technical" data-jump>2D & 3D Footwear <span>↗</span></a>
+          <a href="#technical" data-jump>Rhino · NanoCAD · Delcam <span>↗</span></a>
+        </div>
+        <div class="mega-column"><span class="mega-kicker">02 / Engineering</span><h3>Production & Stitching</h3>
+          <a href="#technical" data-jump>Computer Stitching Pallet <span>↗</span></a>
+          <a href="#technical" data-jump data-action="stitching">What is a CS Pallet? <span>↗</span></a>
+          <a href="#technical" data-jump>Pattern & Vulcanization <span>↗</span></a>
+        </div>
+        <div class="mega-column"><span class="mega-kicker">03 / Expertise</span><h3>Capabilities</h3>
+          <a href="#skills" data-jump>06 / Capabilities & Tools <span>↗</span></a>
+          <a href="#skills" data-jump>Design & Visual Dev <span>↗</span></a>
+          <a href="#skills" data-jump>Manufacturing Workflow <span>↗</span></a>
+        </div>
+      </section>
+      <section class="mega-panel" id="megaPanelJourney" role="tabpanel" aria-labelledby="megaTabJourney" data-mega-panel="journey" hidden>
+        <div class="mega-column"><span class="mega-kicker">01 / Background</span><h3>Profile & Milestones</h3>
+          <a href="#about" data-jump>About & Overview <span>↗</span></a>
+          <a href="#about" data-jump data-action="journey">My Journey <span>↗</span></a>
+        </div>
+        <div class="mega-column"><span class="mega-kicker">02 / Next step</span><h3>Connect & Actions</h3>
+          <a href="#contact" data-jump>Contact <span>↗</span></a>
+          <a href="#home" data-jump data-action="documents">Documentation Viewer <span>↗</span></a>
+          <a href="#home" data-jump data-action="top">Back to Top <span>↗</span></a>
+        </div>
+        <div class="mega-column mega-note"><span class="mega-kicker">GARIN NATA KUSUMA</span><h3>From narrative to object.</h3><p>Footwear design, technical development and manufacturing thinking.</p></div>
+      </section>
+    </div>
+    <div class="mega-footer">
+      <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span></button>
+      <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
+    </div>
   </div>
+
+  <div class="mega-backdrop" id="megaBackdrop" aria-hidden="true"></div>
 
   <main id="main">
     <header class="hero hero-product-stage" id="home" aria-label="Featured footwear design">
       <div class="hero-shade"></div>
-      <div class="opening-headline" aria-label="Garin Nata Kusuma — Digital Portofolio">
-        <span class="opening-headline-name">GARIN NATA KUSUMA</span>
-        <span class="opening-headline-label">Digital Portofolio</span>
-      </div>
       <div class="hero-stage" data-reveal>
         <div class="orbit" aria-hidden="true">
           <span class="orbit-dot d1"></span><span class="orbit-dot d2"></span><span class="orbit-dot d3"></span>
@@ -2538,7 +2570,16 @@
 
       $('#year').textContent = new Date().getFullYear();
 
-      // Mobile menu interaction is managed by the isolated Mega Menu controller.
+      // Mobile navigation
+      const setMenu = (open) => {
+        mobilePanel.classList.toggle('open', open);
+        document.body.classList.toggle('menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      };
+      menuToggle.addEventListener('click', () => setMenu(!mobilePanel.classList.contains('open')));
+      $$('.mobile-panel a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
 
       // Scroll progress, sticky navigation, and back-to-top state
       let previousScrollY = window.scrollY;
@@ -3815,6 +3856,152 @@
         if (playRequest && typeof playRequest.catch === 'function') playRequest.catch(() => {});
       };
 
+
+      // Mega Menu: desktop hover/click, mobile accordion, destination jumps and tactile cues.
+      const megaMenu = $('#mobilePanel');
+      const megaBackdrop = $('#megaBackdrop');
+      const megaTriggers = $$('[data-mega-tab]');
+      const megaPanels = $$('[data-mega-panel]');
+      const desktopMegaTriggers = $$('.nav-links [data-mega-tab]');
+      const mobileMegaTriggers = $$('.mega-mobile-tab');
+      const fineMegaPointer = window.matchMedia('(pointer: fine) and (min-width: 761px)').matches;
+      let megaCloseTimer = 0;
+      let megaActiveTab = 'work';
+      const setMegaTab = tab => {
+        megaActiveTab = tab;
+        megaTriggers.forEach(trigger => {
+          const active = trigger.dataset.megaTab === tab;
+          trigger.classList.toggle('active', active);
+          trigger.setAttribute('aria-selected', String(active));
+          if (trigger.classList.contains('mega-trigger')) trigger.setAttribute('aria-expanded', String(active && megaMenu.classList.contains('open')));
+        });
+        megaPanels.forEach(panel => {
+          const active = panel.dataset.megaPanel === tab;
+          panel.hidden = !active;
+          panel.classList.toggle('active', active);
+        });
+        if (megaMenu.classList.contains('open')) {
+          megaMenu.classList.remove('open');
+          void megaMenu.offsetWidth;
+          megaMenu.classList.add('open');
+        }
+      };
+      const openMega = tab => {
+        window.clearTimeout(megaCloseTimer);
+        if (tab) setMegaTab(tab);
+        megaMenu.classList.add('open');
+        megaMenu.setAttribute('aria-hidden', 'false');
+        megaBackdrop.classList.add('open');
+        desktopMegaTriggers.forEach(trigger => trigger.setAttribute('aria-expanded', String(trigger.dataset.megaTab === megaActiveTab)));
+        if (fineMegaPointer) menuToggle.setAttribute('aria-expanded', 'true');
+      };
+      const closeMega = () => {
+        window.clearTimeout(megaCloseTimer);
+        megaMenu.classList.remove('open');
+        megaMenu.setAttribute('aria-hidden', 'true');
+        megaBackdrop.classList.remove('open');
+        desktopMegaTriggers.forEach(trigger => trigger.setAttribute('aria-expanded', 'false'));
+        if (fineMegaPointer) menuToggle.setAttribute('aria-expanded', 'false');
+        if (document.body.classList.contains('menu-open')) setMenu(false);
+      };
+      const scheduleMegaClose = () => {
+        window.clearTimeout(megaCloseTimer);
+        megaCloseTimer = window.setTimeout(closeMega, fineMegaPointer ? 170 : 0);
+      };
+      desktopMegaTriggers.forEach(trigger => {
+        trigger.addEventListener('pointerenter', () => { if (fineMegaPointer) openMega(trigger.dataset.megaTab); });
+        trigger.addEventListener('mouseenter', () => { if (fineMegaPointer) openMega(trigger.dataset.megaTab); });
+        trigger.addEventListener('focus', () => openMega(trigger.dataset.megaTab));
+        trigger.addEventListener('click', () => {
+          const same = megaMenu.classList.contains('open') && megaActiveTab === trigger.dataset.megaTab;
+          if (same) closeMega(); else openMega(trigger.dataset.megaTab);
+          playTactileSound('navigation');
+        });
+      });
+      mobileMegaTriggers.forEach(trigger => trigger.addEventListener('click', () => {
+        setMegaTab(trigger.dataset.megaTab);
+        playTactileSound('rollover', { volume: 0.22 });
+      }));
+      [nav, megaMenu].forEach(region => {
+        region.addEventListener('pointerleave', event => {
+          if (!fineMegaPointer) return;
+          const related = event.relatedTarget;
+          if (related instanceof Node && (nav.contains(related) || megaMenu.contains(related))) return;
+          scheduleMegaClose();
+        });
+        region.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
+      });
+      megaBackdrop.addEventListener('click', closeMega);
+      document.addEventListener('pointerdown', event => {
+        if (!megaMenu.classList.contains('open')) return;
+        const target = event.target;
+        if (!(target instanceof Node) || (!nav.contains(target) && !megaMenu.contains(target))) closeMega();
+      });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMega(); });
+      menuToggle.addEventListener('click', () => {
+        if (mobilePanel.classList.contains('open')) {
+          openMega(megaActiveTab);
+          megaMenu.setAttribute('aria-hidden', 'false');
+        } else {
+          closeMega();
+        }
+      });
+      // The existing mobile toggle handler runs first; synchronize drawer state and body scroll lock.
+      mobilePanel.addEventListener('transitionend', event => {
+        if (event.propertyName !== 'transform') return;
+        if (!mobilePanel.classList.contains('open') && !megaMenu.classList.contains('open')) document.body.classList.remove('menu-open');
+      });
+      megaMenu.addEventListener('click', event => {
+        const link = event.target.closest('a[data-jump]');
+        if (!link) return;
+        event.preventDefault();
+        const destination = link.getAttribute('href');
+        const projectName = link.dataset.project;
+        const action = link.dataset.action;
+        closeMega();
+        setMenu(false);
+        playTactileSound('navigation');
+        if (action === 'documents') {
+          $('#documentViewer')?.showModal();
+          return;
+        }
+        if (destination === '#home' || action === 'top') {
+          window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+          return;
+        }
+        const target = document.querySelector(destination);
+        if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        if (action === 'stitching') {
+          window.setTimeout(() => $('#openStitchingExplainer')?.click(), reducedMotion ? 0 : 420);
+        }
+        if (action === 'journey') {
+          window.setTimeout(() => {
+            const journey = $('#about .journey-section, #about .journey-toggle');
+            journey?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+          }, reducedMotion ? 0 : 350);
+        }
+        if (projectName) {
+          const normalized = value => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+          if (projectName === 'all') {
+            const allFilter = $('#footwear .filter-btn[data-filter="all"]');
+            allFilter?.click();
+            return;
+          }
+          const card = projectCards.find(item => normalized(item.querySelector('.project-info h3')?.textContent || '') === normalized(projectName));
+          if (card) {
+            $('#footwear .filter-btn[data-filter="all"]')?.click();
+            window.setTimeout(() => {
+              const accordion = card.querySelector('.project-accordion-toggle');
+              if (accordion && accordion.getAttribute('aria-expanded') !== 'true') accordion.click();
+              card.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+              card.querySelector('.project-accordion-toggle')?.focus({ preventScroll: true });
+            }, reducedMotion ? 0 : 360);
+          }
+        }
+      });
+      // Re-open the correct panel after desktop tab switching; the hover bridge is the panel itself.
+      megaMenu.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
+
       const randomRate = (min, max) => min + Math.random() * (max - min);
       let lastPrimarySoundAt = -Infinity;
       const playPrimaryOnce = () => {
@@ -4351,56 +4538,5 @@
   }
 })();
 </script>
-
-<script>
-(() => {
-  const hero = document.getElementById('home');
-  if (!hero) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) { hero.classList.add('headline-sequence'); return; }
-  const replay = () => { hero.classList.remove('headline-sequence'); void hero.offsetWidth; hero.classList.add('headline-sequence'); };
-  if ('IntersectionObserver' in window) {
-    let wasVisible = false;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !wasVisible) replay();
-      wasVisible = entry.isIntersecting;
-    }, { threshold: 0.18 });
-    observer.observe(hero);
-  } else replay();
-})();
-</script>
-
-<script>
-(() => {
- const nav=document.getElementById('siteNav'), panel=document.createElement('div'), backdrop=document.createElement('div'), mobile=document.getElementById('mobilePanel'), mobileContent=document.getElementById('megaMobileContent'), toggle=document.getElementById('menuToggle');
- const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const menus={
- work:[['Footwear Archive','All Projects','Reverve','Muscle Memory','Dark System','Spice Bloom','Scar Flow × Reisen'],['Concepts & Experiments','Blakraan','Terra Nullius','Nett','Nothing','C-ryx','Spilled EXP','Tennis EXP'],['Beyond Footwear','Smooth Criminal Jacket','CMF & 3D Showcase']],
- process:[['Thinking & CAD','04 Thinking Stages','2D & 3D Footwear','Rhino · NanoCAD · Delcam'],['Production & Stitching','Computer Stitching Pallet','What is a CS Pallet?','Pattern & Vulcanization'],['Capabilities','06 / Capabilities & Tools','Design & Visual Dev','Manufacturing Workflow']],
- journey:[['Profile & Milestones','About & Overview','My Journey'],['Connect & Actions','Contact','Documentation Viewer','Back to Top']]
- };
- const destinations={'All Projects':'#footwear','Reverve':'#footwear','Muscle Memory':'#footwear','Dark System':'#footwear','Spice Bloom':'#footwear','Scar Flow × Reisen':'#footwear','Blakraan':'#footwear','Terra Nullius':'#footwear','Nett':'#footwear','Nothing':'#footwear','C-ryx':'#footwear','Spilled EXP':'#footwear','Tennis EXP':'#footwear','Smooth Criminal Jacket':'#college','CMF & 3D Showcase':'#technical','04 Thinking Stages':'#process','2D & 3D Footwear':'#technical','Rhino · NanoCAD · Delcam':'#technical','Computer Stitching Pallet':'#technical','What is a CS Pallet?':'#technical','Pattern & Vulcanization':'#technical','06 / Capabilities & Tools':'#skills','Design & Visual Dev':'#skills','Manufacturing Workflow':'#skills','About & Overview':'#about','My Journey':'#about','Contact':'#contact','Documentation Viewer':'#documentViewer','Back to Top':'#home'};
- panel.className='mega-panel'; panel.id='megaPanel'; panel.setAttribute('aria-hidden','true'); panel.innerHTML='<div class="mega-panel-inner"></div>'; document.body.append(panel);
- backdrop.className='mega-backdrop'; backdrop.setAttribute('aria-hidden','true'); document.body.append(backdrop);
- let active='';
- function render(tab,into){into.innerHTML=''; menus[tab].forEach((group,i)=>{const section=document.createElement('section');section.className='mega-group';const h=document.createElement('h3');h.textContent=group[0];section.append(h);group.slice(1).forEach((label,j)=>{const a=document.createElement('a');a.href=destinations[label]||'#footwear';a.dataset.megaItem=label;a.innerHTML='<span>'+label+'</span><small>'+String(i+1).padStart(2,'0')+'.'+String(j+1).padStart(2,'0')+'</small>';section.append(a)});into.append(section)});}
- function sound(key){window.portfolioTactileAudio?.play?.(key);}
- function setTab(tab){active=tab; document.querySelectorAll('[data-mega-tab]').forEach(b=>{const selected=b.dataset.megaTab===tab;b.setAttribute('aria-selected',String(selected));});render(tab,panel.querySelector('.mega-panel-inner'));render(tab,mobileContent);}
- function open(tab){setTab(tab||active||'work');panel.classList.add('is-open');backdrop.classList.add('is-open');panel.setAttribute('aria-hidden','false');document.body.classList.add('menu-open');sound('opening');}
- function close(){panel.classList.remove('is-open');backdrop.classList.remove('is-open');panel.setAttribute('aria-hidden','true');mobile.classList.remove('open');document.body.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');}
- document.querySelectorAll('.mega-triggers [data-mega-tab]').forEach(btn=>btn.addEventListener('click',()=>{if(panel.classList.contains('is-open')&&active===btn.dataset.megaTab)close();else open(btn.dataset.megaTab)}));
- document.querySelectorAll('.mega-mobile-tabs [data-mega-tab]').forEach(btn=>btn.addEventListener('click',()=>{setTab(btn.dataset.megaTab);sound('navigation')}));
- toggle.addEventListener('click',()=>{const isOpen=mobile.classList.contains('open');if(isOpen)close();else{open(active||'work');mobile.classList.add('open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close menu');sound('opening')}});
- backdrop.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(panel.classList.contains('is-open')||mobile.classList.contains('open')))close()});
- function jump(label){const dest=destinations[label]||'#footwear';close();sound('navigation');if(label==='Documentation Viewer'){const d=document.getElementById('documentViewer');if(d?.showModal)d.showModal();return;}
- if(label==='Back to Top'){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});return;}
- const target=document.querySelector(dest);if(target){target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});if(dest==='#footwear'&&label!=='All Projects'){setTimeout(()=>{const cards=[...document.querySelectorAll('#footwear .project-card')];const card=cards.find(c=>c.querySelector('.project-info h3')?.textContent.toLowerCase().includes(label.toLowerCase().split(' ×')[0]));if(card){card.querySelector('.project-accordion-toggle')?.click();card.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});card.querySelector('.project-accordion-toggle')?.focus({preventScroll:true});}},reduce?0:450);}
- if(label==='What is a CS Pallet?'){setTimeout(()=>document.getElementById('openStitchingExplainer')?.click(),reduce?0:450);}
- }}
- document.addEventListener('click',e=>{const link=e.target.closest('[data-mega-item]');if(link){e.preventDefault();jump(link.dataset.megaItem);return;}if(panel.contains(e.target)&&e.target.closest('a'))close();});
- setTab('work');
-})();
-</script>
-
 </body>
 </html>
