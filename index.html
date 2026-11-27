@@ -506,7 +506,7 @@
       .section-head { display: block; margin-bottom: 35px; }
       .section-head p { margin-top: 17px; }
       .site-nav { padding: 0 19px; }
-      .nav-links, .nav-cta, .mega-indicator { display: none; }
+      .nav-links, .nav-cta { display: none; }
       .menu-toggle { display: block; }
       .mobile-panel { position: fixed; z-index: 999; inset: var(--nav-h) 0 auto; padding: 17px 22px 26px; background: rgba(13,13,15,.98); border-bottom: 1px solid var(--line-dark); transform: translateY(-120%); opacity: 0; visibility: hidden; transition: .38s var(--ease); max-height: calc(100svh - var(--nav-h)); overflow-y: auto; }
       .mobile-panel.open { transform: translateY(0); opacity: 1; visibility: visible; }
@@ -1653,67 +1653,6 @@
 #skills .skill-card .chips span:hover{transform:none;background:none;border-color:rgba(255,255,255,.07)}
 #skills .skill-scroll.is-ping .chips span{color:rgba(194,188,181,.4)}
 #skills .skill-scroll.is-ping .chips span.is-focus{color:#fff4e6;padding-left:6px}
-
-    /* Mega Menu — isolated navigation enhancement */
-    .nav-links { position: relative; gap: clamp(18px, 2.5vw, 38px); }
-    .mega-indicator { position: absolute; z-index: 2; bottom: 17px; left: 0; width: 0; height: 2px; border-radius: 2px; background: var(--orange); box-shadow: 0 0 12px rgba(237,110,3,.35); opacity: 0; pointer-events: none; transition: left .42s var(--ease), width .42s var(--ease), opacity .2s; }
-    .nav-links .mega-trigger { position: relative; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 2px; border: 0; background: transparent; color: #c9c7c4; cursor: pointer; font: 600 .82rem var(--body); transition: color .25s; }
-    .nav-links .mega-trigger span { color: var(--orange); font-size: .9rem; opacity: .75; transition: transform .3s var(--ease); }
-    .nav-links .mega-trigger:hover, .nav-links .mega-trigger.active, .nav-links .mega-trigger[aria-expanded="true"] { color: var(--white); }
-    .nav-links .mega-trigger[aria-expanded="true"] span { transform: rotate(180deg); }
-    .mega-menu { --mega-panel-bg: rgba(23,23,26,.985); position: fixed; z-index: 1001; top: var(--nav-h); left: 50%; width: min(1080px, calc(100vw - 9%)); max-height: min(690px, calc(100dvh - var(--nav-h) - 24px)); padding: 27px 30px 19px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.13); border-radius: 18px; color: var(--white); background: var(--mega-panel-bg); box-shadow: 0 28px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(1.15); -webkit-backdrop-filter: blur(24px) saturate(1.15); transform: translate3d(-50%,-12px,0) scale(.975); transform-origin: 50% 0; opacity: 0; visibility: hidden; pointer-events: none; transition: transform .48s cubic-bezier(.2,1.35,.35,1), opacity .22s ease, visibility .22s; }
-    .mega-menu.open { transform: translate3d(-50%,0,0) scale(1); opacity: 1; visibility: visible; pointer-events: auto; }
-    .mega-tabs { display: none; }
-    .mega-content { position: relative; }
-    .mega-panel { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(22px,3vw,42px); }
-    .mega-panel[hidden] { display: none !important; }
-    .mega-column { min-width: 0; display: flex; flex-direction: column; align-items: stretch; }
-    .mega-kicker { color: var(--orange); font: 600 .59rem var(--mono); letter-spacing: .13em; text-transform: uppercase; }
-    .mega-column h3 { min-height: 42px; margin: 9px 0 13px; color: var(--white); font: 800 clamp(1.1rem,1.8vw,1.45rem)/1.05 var(--display); letter-spacing: -.045em; }
-    .mega-column > a { min-height: 39px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 9px; margin-inline: -9px; border-bottom: 1px solid rgba(255,255,255,.075); border-radius: 6px; color: #c9c5bf; font-size: .77rem; transition: color .2s, background .2s, padding .25s var(--ease); }
-    .mega-column > a span { color: var(--orange); opacity: 0; transform: translate(-4px,4px); transition: opacity .2s, transform .25s var(--ease); }
-    .mega-column > a:hover, .mega-column > a:focus-visible { padding-left: 14px; color: var(--white); background: rgba(237,110,3,.09); }
-    .mega-column > a:hover span, .mega-column > a:focus-visible span { opacity: 1; transform: translate(0,0); }
-    .mega-note { justify-content: center; padding: 22px; border: 1px solid rgba(237,110,3,.2); border-radius: 12px; background: linear-gradient(145deg,rgba(237,110,3,.1),rgba(255,255,255,.025)); }
-    .mega-note h3 { min-height: 0; max-width: 230px; font-size: 1.8rem; }
-    .mega-note p { color: #aaa5a0; font-size: .78rem; }
-    .mega-footer { display: none; }
-    .mega-menu.open .mega-column { animation: megaColumnIn .42s var(--ease) both; }
-    .mega-menu.open .mega-column:nth-child(2) { animation-delay: 55ms; }
-    .mega-menu.open .mega-column:nth-child(3) { animation-delay: 110ms; }
-    .mega-menu.open .mega-column > a { animation: megaItemIn .34s var(--ease) both; }
-    .mega-menu.open .mega-column > a:nth-of-type(2) { animation-delay: 25ms; }
-    .mega-menu.open .mega-column > a:nth-of-type(3) { animation-delay: 45ms; }
-    .mega-menu.open .mega-column > a:nth-of-type(4) { animation-delay: 65ms; }
-    .mega-menu.open .mega-column > a:nth-of-type(5) { animation-delay: 85ms; }
-    .mega-menu.open .mega-column > a:nth-of-type(6) { animation-delay: 105ms; }
-    .mega-menu.open .mega-column > a:nth-of-type(7) { animation-delay: 125ms; }
-    @keyframes megaColumnIn { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes megaItemIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    .mega-backdrop { position: fixed; z-index: 998; inset: var(--nav-h) 0 0; background: rgba(5,5,7,.25); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s, visibility .25s; }
-    .mega-backdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
-    @media (max-width: 760px) {
-      .nav-links, .nav-cta { display: none; }
-      .menu-toggle { display: block; }
-      .mega-menu { z-index: 1001; top: var(--nav-h); left: 0; width: 100%; max-height: calc(100dvh - var(--nav-h)); padding: 12px 20px max(22px,env(safe-area-inset-bottom)); border: 0; border-top: 1px solid var(--line-dark); border-radius: 0; transform: translate3d(0,-12px,0); transform-origin: top; }
-      .mega-menu.open { transform: translate3d(0,0,0); }
-      .mega-tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; position: sticky; top: -12px; z-index: 3; padding: 12px 0 14px; background: var(--mega-panel-bg); }
-      .mega-mobile-tab { min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 5px; padding: 0 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 9px; background: #202024; color: #c9c7c4; font: 700 .76rem var(--display); cursor: pointer; }
-      .mega-mobile-tab span { color: var(--orange); font: 500 .55rem var(--mono); }
-      .mega-mobile-tab.active { border-color: rgba(237,110,3,.62); color: var(--white); background: rgba(237,110,3,.12); }
-      .mega-panel { grid-template-columns: 1fr; gap: 20px; }
-      .mega-column { padding-bottom: 9px; }
-      .mega-column h3 { min-height: 0; margin-bottom: 9px; font-size: 1.18rem; }
-      .mega-column > a { min-height: 46px; font-size: .82rem; }
-      .mega-note { min-height: 150px; }
-      .mega-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; margin-top: 16px; border-top: 1px solid var(--line-dark); }
-      .mega-footer .sound-toggle-mobile { display: inline-flex; }
-      .mega-footer .mobile-cv { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 0; padding: 10px 16px; border: 1px solid rgba(237,110,3,.5); border-radius: 999px; color: var(--orange); font-size: .75rem; }
-      .mega-backdrop { inset: var(--nav-h) 0 0; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .mega-menu, .mega-backdrop, .mega-column, .mega-column > a, .mega-trigger span, .mega-indicator { animation: none !important; transition-duration: .01ms !important; }
-    }
 </style>
 </head>
 <body>
@@ -1722,12 +1661,15 @@
 
   <nav class="site-nav" id="siteNav" aria-label="Main navigation">
     <a class="brand" href="#home" aria-label="Garin Nata Kusuma home"><span class="brand-mark">G</span><span class="brand-name">GARIN NATA KUSUMA</span></a>
-    <ul class="nav-links" role="tablist" aria-label="Portfolio navigation">
-      <li><button class="mega-trigger active" type="button" role="tab" id="megaTabWork" aria-controls="megaPanelWork" aria-selected="true" aria-expanded="false" data-mega-tab="work">Work <span aria-hidden="true">↘</span></button></li>
-      <li><button class="mega-trigger" type="button" role="tab" id="megaTabProcess" aria-controls="megaPanelProcess" aria-selected="false" aria-expanded="false" data-mega-tab="process">Process <span aria-hidden="true">↘</span></button></li>
-      <li><button class="mega-trigger" type="button" role="tab" id="megaTabJourney" aria-controls="megaPanelJourney" aria-selected="false" aria-expanded="false" data-mega-tab="journey">Journey <span aria-hidden="true">↘</span></button></li>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#college">College</a></li>
+      <li><a href="#footwear">Footwear</a></li>
+      <li><a href="#technical">Technical</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <span class="mega-indicator" id="megaIndicator" aria-hidden="true"></span>
     <div class="nav-cta">
       <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
         <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
@@ -1738,73 +1680,19 @@
     <span class="nav-progress" id="navProgress"></span>
   </nav>
 
-  <div class="mobile-panel mega-menu" id="mobilePanel" aria-label="Portfolio mega menu" aria-hidden="true">
-    <div class="mega-tabs" role="tablist" aria-label="Menu categories">
-      <button class="mega-mobile-tab active" type="button" role="tab" aria-selected="true" aria-controls="megaPanelWork" data-mega-tab="work">Work <span>01</span></button>
-      <button class="mega-mobile-tab" type="button" role="tab" aria-selected="false" aria-controls="megaPanelProcess" data-mega-tab="process">Process <span>02</span></button>
-      <button class="mega-mobile-tab" type="button" role="tab" aria-selected="false" aria-controls="megaPanelJourney" data-mega-tab="journey">Journey <span>03</span></button>
-    </div>
-    <div class="mega-content">
-      <section class="mega-panel active" id="megaPanelWork" role="tabpanel" aria-labelledby="megaTabWork" data-mega-panel="work">
-        <div class="mega-column"><span class="mega-kicker">01 / Archive</span><h3>Footwear Archive</h3>
-          <a href="#footwear" data-jump data-project="all">All Projects <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Reverve">Reverve <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Muscle Memory">Muscle Memory <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Dark System">Dark System <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Spice Bloom">Spice Bloom <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Scar Flow × Reisen">Scar Flow × Reisen <span>↗</span></a>
-        </div>
-        <div class="mega-column"><span class="mega-kicker">02 / Exploration</span><h3>Concepts & Experiments</h3>
-          <a href="#footwear" data-jump data-project="Blakraan">Blakraan <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Terra Nullius">Terra Nullius <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Nett">Nett <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Nothing">Nothing <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="C-ryx">C-ryx <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Spilled EXP">Spilled EXP <span>↗</span></a>
-          <a href="#footwear" data-jump data-project="Tennis EXP">Tennis EXP <span>↗</span></a>
-        </div>
-        <div class="mega-column"><span class="mega-kicker">03 / Beyond</span><h3>Beyond Footwear</h3>
-          <a href="#college" data-jump>Smooth Criminal Jacket <span>↗</span></a>
-          <a href="#technical" data-jump>CMF & 3D Showcase <span>↗</span></a>
-        </div>
-      </section>
-      <section class="mega-panel" id="megaPanelProcess" role="tabpanel" aria-labelledby="megaTabProcess" data-mega-panel="process" hidden>
-        <div class="mega-column"><span class="mega-kicker">01 / Development</span><h3>Thinking & CAD</h3>
-          <a href="#process" data-jump>04 Thinking Stages <span>↗</span></a>
-          <a href="#technical" data-jump>2D & 3D Footwear <span>↗</span></a>
-          <a href="#technical" data-jump>Rhino · NanoCAD · Delcam <span>↗</span></a>
-        </div>
-        <div class="mega-column"><span class="mega-kicker">02 / Engineering</span><h3>Production & Stitching</h3>
-          <a href="#technical" data-jump>Computer Stitching Pallet <span>↗</span></a>
-          <a href="#technical" data-jump data-action="stitching">What is a CS Pallet? <span>↗</span></a>
-          <a href="#technical" data-jump>Pattern & Vulcanization <span>↗</span></a>
-        </div>
-        <div class="mega-column"><span class="mega-kicker">03 / Expertise</span><h3>Capabilities</h3>
-          <a href="#skills" data-jump>06 / Capabilities & Tools <span>↗</span></a>
-          <a href="#skills" data-jump>Design & Visual Dev <span>↗</span></a>
-          <a href="#skills" data-jump>Manufacturing Workflow <span>↗</span></a>
-        </div>
-      </section>
-      <section class="mega-panel" id="megaPanelJourney" role="tabpanel" aria-labelledby="megaTabJourney" data-mega-panel="journey" hidden>
-        <div class="mega-column"><span class="mega-kicker">01 / Background</span><h3>Profile & Milestones</h3>
-          <a href="#about" data-jump>About & Overview <span>↗</span></a>
-          <a href="#about" data-jump data-action="journey">My Journey <span>↗</span></a>
-        </div>
-        <div class="mega-column"><span class="mega-kicker">02 / Next step</span><h3>Connect & Actions</h3>
-          <a href="#contact" data-jump>Contact <span>↗</span></a>
-          <a href="#documentViewer" data-jump data-action="documents">Documentation Viewer <span>↗</span></a>
-          <a href="#home" data-jump data-action="top">Back to Top <span>↗</span></a>
-        </div>
-        <div class="mega-column mega-note"><span class="mega-kicker">GARIN NATA KUSUMA</span><h3>From narrative to object.</h3><p>Footwear design, technical development and manufacturing thinking.</p></div>
-      </section>
-    </div>
-    <div class="mega-footer">
-      <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span></button>
-      <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
-    </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#about">About <span>01</span></a>
+    <a href="#college">College project <span>02</span></a>
+    <a href="#footwear">Footwear archive <span>03</span></a>
+    <a href="#technical">Technical showcase <span>04</span></a>
+    <a href="#process">Design process <span>05</span></a>
+    <a href="#skills">Skills & tools <span>06</span></a>
+    <a href="#contact">Contact <span>07</span></a>
+    <button class="sound-toggle sound-toggle-mobile" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn interface sound off">
+      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-toggle-label">SOUND ON</span>
+    </button>
+    <a class="mobile-cv" href="https://drive.google.com/file/d/1ePu6T1SUCCebkwRLNRzu6ztTi1o_CsF0/view?usp=drive_link" target="_blank" rel="noopener">Download CV ↗</a>
   </div>
-
-  <div class="mega-backdrop" id="megaBackdrop" aria-hidden="true"></div>
 
   <main id="main">
     <header class="hero hero-product-stage" id="home" aria-label="Featured footwear design">
@@ -3854,215 +3742,6 @@
         const playRequest = audio.play();
         if (playRequest && typeof playRequest.catch === 'function') playRequest.catch(() => {});
       };
-
-
-      // Mega Menu: immediate desktop hover, mobile tabs, destination jumps and tactile cues.
-      const megaMenu = $('#mobilePanel');
-      const megaBackdrop = $('#megaBackdrop');
-      const megaTriggers = $$('[data-mega-tab]');
-      const megaPanels = $$('[data-mega-panel]');
-      const desktopMegaTriggers = $$('.nav-links [data-mega-tab]');
-      const mobileMegaTriggers = $$('.mega-mobile-tab');
-      const megaIndicator = $('#megaIndicator');
-      const fineMegaPointer = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)').matches;
-      let megaCloseTimer = 0;
-      let megaActiveTab = 'work';
-
-      const moveMegaIndicator = () => {
-        const activeTrigger = desktopMegaTriggers.find(trigger => trigger.dataset.megaTab === megaActiveTab);
-        if (!activeTrigger || !megaIndicator) return;
-        const navRect = nav.getBoundingClientRect();
-        const triggerRect = activeTrigger.getBoundingClientRect();
-        megaIndicator.style.left = `${triggerRect.left - navRect.left}px`;
-        megaIndicator.style.width = `${triggerRect.width}px`;
-        megaIndicator.style.opacity = '1';
-      };
-
-      const setMegaTab = tab => {
-        if (!tab || !['work', 'process', 'journey'].includes(tab)) return;
-        megaActiveTab = tab;
-        megaTriggers.forEach(trigger => {
-          const active = trigger.dataset.megaTab === tab;
-          trigger.classList.toggle('active', active);
-          trigger.setAttribute('aria-selected', String(active));
-          if (trigger.classList.contains('mega-trigger')) {
-            trigger.setAttribute('aria-expanded', String(active && megaMenu.classList.contains('open')));
-          }
-        });
-        megaPanels.forEach(panel => {
-          const active = panel.dataset.megaPanel === tab;
-          panel.hidden = !active;
-          panel.classList.toggle('active', active);
-        });
-        moveMegaIndicator();
-        if (megaMenu.classList.contains('open')) {
-          megaMenu.classList.remove('open');
-          void megaMenu.offsetWidth;
-          megaMenu.classList.add('open');
-        }
-      };
-
-      const syncMobileDrawerClosed = () => {
-        if (fineMegaPointer) return;
-        megaMenu.classList.remove('open');
-        document.body.classList.remove('menu-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.setAttribute('aria-label', 'Open menu');
-      };
-
-      const openMega = tab => {
-        window.clearTimeout(megaCloseTimer);
-        if (tab) setMegaTab(tab);
-        megaMenu.classList.add('open');
-        megaMenu.setAttribute('aria-hidden', 'false');
-        megaBackdrop.classList.add('open');
-        desktopMegaTriggers.forEach(trigger => {
-          trigger.setAttribute('aria-expanded', String(trigger.dataset.megaTab === megaActiveTab));
-        });
-        if (!fineMegaPointer) {
-          menuToggle.setAttribute('aria-expanded', 'true');
-          menuToggle.setAttribute('aria-label', 'Close menu');
-        }
-      };
-
-      const closeMega = () => {
-        window.clearTimeout(megaCloseTimer);
-        megaMenu.classList.remove('open');
-        megaMenu.setAttribute('aria-hidden', 'true');
-        megaBackdrop.classList.remove('open');
-        desktopMegaTriggers.forEach(trigger => trigger.setAttribute('aria-expanded', 'false'));
-        if (!fineMegaPointer) syncMobileDrawerClosed();
-        if (megaIndicator) megaIndicator.style.opacity = '0';
-      };
-
-      const scheduleMegaClose = () => {
-        window.clearTimeout(megaCloseTimer);
-        megaCloseTimer = window.setTimeout(closeMega, 180);
-      };
-
-      // Pointer entry opens immediately; moving between triggers swaps tabs without a click.
-      desktopMegaTriggers.forEach(trigger => {
-        trigger.addEventListener('pointerenter', () => {
-          if (fineMegaPointer) openMega(trigger.dataset.megaTab);
-        });
-        trigger.addEventListener('focus', () => openMega(trigger.dataset.megaTab));
-        trigger.addEventListener('click', () => {
-          openMega(trigger.dataset.megaTab);
-          playTactileSound('navigation');
-        });
-      });
-
-      mobileMegaTriggers.forEach(trigger => trigger.addEventListener('click', () => {
-        setMegaTab(trigger.dataset.megaTab);
-        playTactileSound('rollover', { volume: 0.22 });
-      }));
-
-      // Treat the navigation and dropdown as one hover region, with a short exit grace period.
-      [nav, megaMenu].forEach(region => {
-        region.addEventListener('pointerenter', () => window.clearTimeout(megaCloseTimer));
-        region.addEventListener('pointerleave', event => {
-          if (!fineMegaPointer) return;
-          const related = event.relatedTarget;
-          if (related instanceof Node && (nav.contains(related) || megaMenu.contains(related))) return;
-          scheduleMegaClose();
-        });
-      });
-
-      megaBackdrop.addEventListener('click', closeMega);
-      document.addEventListener('pointerdown', event => {
-        if (!megaMenu.classList.contains('open')) return;
-        const target = event.target;
-        if (!(target instanceof Node) || (!nav.contains(target) && !megaMenu.contains(target))) closeMega();
-      });
-      document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && megaMenu.classList.contains('open')) closeMega();
-      });
-
-      // The original mobile toggle handler updates the drawer class first; mirror its state here.
-      menuToggle.addEventListener('click', () => {
-        if (mobilePanel.classList.contains('open')) {
-          openMega(megaActiveTab);
-        } else {
-          closeMega();
-        }
-      });
-
-      megaMenu.addEventListener('click', event => {
-        const link = event.target.closest('a[data-jump]');
-        if (!link) return;
-        event.preventDefault();
-
-        const destination = link.getAttribute('href');
-        const projectName = link.dataset.project;
-        const action = link.dataset.action;
-
-        closeMega();
-        if (!fineMegaPointer) syncMobileDrawerClosed();
-        playTactileSound('navigation');
-
-        if (action === 'documents') {
-          const viewer = $('#documentViewer');
-          if (viewer && !viewer.open) viewer.showModal();
-          return;
-        }
-
-        if (destination === '#home' || action === 'top') {
-          window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-          return;
-        }
-
-        const scrollTarget = action === 'stitching'
-          ? $('#technical')
-          : (destination ? document.querySelector(destination) : null);
-        if (scrollTarget) {
-          scrollTarget.scrollIntoView({
-            behavior: reducedMotion ? 'auto' : 'smooth',
-            block: 'start'
-          });
-        }
-
-        if (action === 'stitching') {
-          window.setTimeout(() => $('#openStitchingExplainer')?.click(), reducedMotion ? 0 : 420);
-        }
-
-        if (action === 'journey') {
-          window.setTimeout(() => {
-            $('#about .journey-section')?.scrollIntoView({
-              behavior: reducedMotion ? 'auto' : 'smooth',
-              block: 'center'
-            });
-          }, reducedMotion ? 0 : 350);
-        }
-
-        if (projectName) {
-          const normalized = value => value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-          if (projectName === 'all') {
-            $('#footwear .filter-btn[data-filter="all"]')?.click();
-            return;
-          }
-
-          // Query locally in this audio/menu IIFE; the archive's projectCards is scoped elsewhere.
-          const matchingCard = $$('#projectGrid .project-card').find(card =>
-            normalized(card.querySelector('.project-info h3')?.textContent || '') === normalized(projectName)
-          );
-
-          if (matchingCard) {
-            $('#footwear .filter-btn[data-filter="all"]')?.click();
-            window.setTimeout(() => {
-              const accordion = matchingCard.querySelector('.project-accordion-toggle');
-              if (accordion && accordion.getAttribute('aria-expanded') !== 'true') accordion.click();
-              matchingCard.scrollIntoView({
-                behavior: reducedMotion ? 'auto' : 'smooth',
-                block: 'center'
-              });
-              matchingCard.querySelector('.project-accordion-toggle')?.focus({ preventScroll: true });
-            }, reducedMotion ? 0 : 360);
-          }
-        }
-      });
-
-      window.addEventListener('resize', moveMegaIndicator, { passive: true });
-      moveMegaIndicator();
 
       const randomRate = (min, max) => min + Math.random() * (max - min);
       let lastPrimarySoundAt = -Infinity;
