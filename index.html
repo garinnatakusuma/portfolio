@@ -913,6 +913,12 @@
       text-wrap: balance;
     }
     .hero-intro h1 span { display: block; color: var(--orange); }
+    .hero-intro h1 .name-garin,
+    .hero-intro h1 .name-nata { display: inline; }
+    .hero-intro h1 .name-garin,
+    .hero-intro h1 .name-kusuma { color: var(--orange); }
+    .hero-intro h1 .name-nata { color: var(--white); }
+    .hero-intro h1 .name-kusuma { display: block; }
     .hero-intro .hero-role {
       margin: 27px auto 0;
       color: #e7e2dc;
@@ -1302,6 +1308,24 @@
       box-shadow: 0 0 0 4px rgba(255,255,255,.86), inset 0 1px 2px rgba(255,255,255,.4);
     }
     #footwear.projects-section .swatch-dot:focus-visible { outline: 2px solid var(--orange-deep); outline-offset: 4px; }
+    #footwear.projects-section .project-card[data-order="1"] .project-swatches {
+      z-index: 20;
+      gap: 12px;
+      padding: 9px 11px;
+      pointer-events: auto;
+      isolation: isolate;
+    }
+    #footwear.projects-section .project-card[data-order="1"] .swatch-dot {
+      position: relative;
+      z-index: 21;
+      width: 24px;
+      height: 24px;
+      flex-basis: 24px;
+      min-width: 24px;
+      min-height: 24px;
+      touch-action: manipulation;
+      pointer-events: auto;
+    }
     @media (max-width: 760px) {
       #footwear.projects-section #projectGrid { padding: 17px 16px 21px; border-radius: 23px; }
       #footwear.projects-section .project-column { gap: 31px; }
@@ -1477,75 +1501,42 @@
 
 
     /* ================================================================
-       NAVIGATION PIXEL CURTAIN / FOOTER REVEAL / SCROLL WORD REVEAL
+       LIGHTWEIGHT NAVIGATION SHEEN / FOOTER REVEAL / SCROLL WORD REVEAL
        Progressive enhancements only; existing page styling stays intact.
        ================================================================ */
-    .portfolio-pixel-curtain {
+    /* Lightweight, direction-aware navigation sheen: CSS compositor only, no generated tile DOM. */
+    body::after {
+      content: '';
       position: fixed;
-      z-index: 1800;
+      z-index: 1799;
       inset: 0;
-      display: grid;
-      grid-template-columns: repeat(var(--pixel-columns, 16), minmax(0, 1fr));
-      grid-template-rows: repeat(var(--pixel-rows, 9), minmax(0, 1fr));
-      gap: clamp(2px, .28vw, 4px);
-      padding: clamp(2px, .28vw, 4px);
-      overflow: hidden;
       pointer-events: none;
-      perspective: 1100px;
-      transform-style: preserve-3d;
-      isolation: isolate;
-    }
-    .portfolio-pixel-curtain__tile {
-      min-width: 0;
-      min-height: 0;
-      display: block;
       opacity: 0;
-      border: 1px solid rgba(255,255,255,.42);
-      border-radius: clamp(3px, .58vw, 9px);
-      background: linear-gradient(145deg, rgba(255,255,255,.66), rgba(241,238,232,.3) 45%, rgba(16,16,18,.25));
-      box-shadow: 0 9px 22px rgba(16,16,18,.13), inset 1px 1px 0 rgba(255,255,255,.78), inset -1px -2px 0 rgba(16,16,18,.18);
-      -webkit-backdrop-filter: blur(15px) saturate(1.22);
-      backdrop-filter: blur(15px) saturate(1.22);
-      transform-origin: 50% 50%;
-      transform-style: preserve-3d;
-      animation: portfolioPixelCurtain .98s cubic-bezier(.2,.76,.22,1) var(--pixel-delay, 0s) both;
-      will-change: transform, opacity, filter;
+      transform: translate3d(0, 0, 0);
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(237,110,3,.025) 38%,
+        rgba(248,247,244,.115) 50%,
+        rgba(185,78,0,.035) 61%,
+        transparent 100%);
     }
-    .portfolio-pixel-curtain__tile.is-ink {
-      background: linear-gradient(145deg, rgba(248,247,244,.43), rgba(16,16,18,.62) 78%);
-      border-color: rgba(255,255,255,.28);
-      box-shadow: 0 10px 24px rgba(0,0,0,.22), inset 1px 1px 0 rgba(255,255,255,.48), inset -1px -2px 0 rgba(0,0,0,.3);
+    body.nav-transition-down::after {
+      animation: navigationSheenDown .58s cubic-bezier(.22,1,.36,1) both;
+      will-change: transform, opacity;
     }
-    .portfolio-pixel-curtain__tile.is-paper {
-      background: linear-gradient(145deg, rgba(255,255,255,.86), rgba(241,238,232,.61) 64%, rgba(185,78,0,.13));
-      border-color: rgba(255,255,255,.82);
+    body.nav-transition-up::after {
+      animation: navigationSheenUp .58s cubic-bezier(.22,1,.36,1) both;
+      will-change: transform, opacity;
     }
-    .portfolio-pixel-curtain__tile.is-orange {
-      background: linear-gradient(145deg, rgba(255,220,188,.74), rgba(237,110,3,.28) 62%, rgba(16,16,18,.24));
-      border-color: rgba(255,239,222,.68);
-      box-shadow: 0 10px 26px rgba(185,78,0,.18), inset 1px 1px 0 rgba(255,255,255,.8), inset -1px -2px 0 rgba(105,43,0,.18);
+    @keyframes navigationSheenDown {
+      0% { opacity: 0; transform: translate3d(0,-9vh,0); }
+      35% { opacity: .76; }
+      100% { opacity: 0; transform: translate3d(0,9vh,0); }
     }
-    @keyframes portfolioPixelCurtain {
-      0% {
-        opacity: 0;
-        filter: blur(8px) saturate(.82);
-        transform: translate3d(0, var(--pixel-enter-y, -28px), -90px) rotateX(var(--pixel-tilt, -13deg)) scale(.68);
-      }
-      34% {
-        opacity: .96;
-        filter: blur(0) saturate(1.18);
-        transform: translate3d(0, 0, 0) rotateX(0) scale(1.015);
-      }
-      62% {
-        opacity: .9;
-        filter: blur(0) saturate(1.12);
-        transform: translate3d(0, 0, 0) rotateX(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        filter: blur(6px) saturate(.9);
-        transform: translate3d(0, var(--pixel-exit-y, 30px), -42px) rotateX(var(--pixel-exit-tilt, 8deg)) scale(.84);
-      }
+    @keyframes navigationSheenUp {
+      0% { opacity: 0; transform: translate3d(0,9vh,0); }
+      35% { opacity: .76; }
+      100% { opacity: 0; transform: translate3d(0,-9vh,0); }
     }
 
     /* Only the outer footer wrapper is animated; its inner design is untouched. */
@@ -1563,7 +1554,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .portfolio-pixel-curtain { display: none !important; }
+      body.nav-transition-down::after, body.nav-transition-up::after { display: none !important; animation: none !important; }
       .footer.footer-reveal-active {
         opacity: 1 !important;
         transform: none !important;
@@ -1642,7 +1633,7 @@
       <div class="wrap hero-intro-wrap">
         <div class="hero-intro-copy" data-reveal>
           <div class="availability"><i></i> OPEN TO FULL-TIME ROLES</div>
-          <h1 id="heroName">Garin Nata <span>Kusuma.</span></h1>
+          <h1 id="heroName"><span class="name-garin">Garin</span> <span class="name-nata">Nata</span> <span class="name-kusuma">Kusuma.</span></h1>
           <p class="hero-role">Footwear Designer <b>/</b> Technical Design Drafter</p>
           <p class="hero-desc">I turn narratives into functional, high-performance footwear, connecting concept development and storytelling with technical drawing, pattern making, and manufacturing tooling.</p>
           <div class="hero-actions">
@@ -3708,13 +3699,21 @@
       const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
       const footer = document.querySelector('.footer');
       const wordTargetsSelector = [
-        '#main h1', '#main h2', '#main h3', '#main p',
-        '#main .hero-kicker', '#main .hero-role',
-        '#main .project-category', '#main .project-note'
+        '#main .hero-intro h1',
+        '#main .hero-intro .hero-role',
+        '#main .hero-intro .hero-desc',
+        '#main .section-head h2',
+        '#main .section-head p',
+        '#main .about-copy h2',
+        '#main .about-copy > p',
+        '#main .journey-heading h3',
+        '#main .journey-heading > p',
+        '#main .contact-section h2',
+        '#main .contact-copy'
       ].join(',');
 
-      let curtainLayer = null;
-      let curtainCleanup = 0;
+      let navigationTransitionStart = 0;
+      let navigationTransitionCleanup = 0;
       let scrollFrame = 0;
       let wordGroups = [];
       let wordsInitialized = false;
@@ -3736,55 +3735,31 @@
         return Math.max(0, targetTop - offset);
       };
 
-      const removeCurtain = () => {
-        if (curtainCleanup) window.clearTimeout(curtainCleanup);
-        curtainCleanup = 0;
-        if (curtainLayer?.isConnected) curtainLayer.remove();
-        curtainLayer = null;
+      const clearNavigationTransition = () => {
+        if (navigationTransitionStart) window.clearTimeout(navigationTransitionStart);
+        if (navigationTransitionCleanup) window.clearTimeout(navigationTransitionCleanup);
+        navigationTransitionStart = 0;
+        navigationTransitionCleanup = 0;
+        document.body.classList.remove('nav-transition-down', 'nav-transition-up');
       };
 
-      const runPixelCurtain = direction => {
+      const runNavigationTransition = direction => {
         if (reducedMotionQuery.matches) return;
-        removeCurtain();
-
-        const columns = Math.max(10, Math.min(18, Math.ceil(window.innerWidth / 84)));
-        const rows = Math.max(7, Math.min(12, Math.ceil(window.innerHeight / 86)));
-        const layer = document.createElement('div');
-        layer.className = 'portfolio-pixel-curtain';
-        layer.dataset.direction = direction;
-        layer.setAttribute('aria-hidden', 'true');
-        layer.style.setProperty('--pixel-columns', String(columns));
-        layer.style.setProperty('--pixel-rows', String(rows));
-
-        let maxDelay = 0;
-        for (let row = 0; row < rows; row++) {
-          for (let column = 0; column < columns; column++) {
-            const tile = document.createElement('span');
-            tile.className = 'portfolio-pixel-curtain__tile';
-            const toneIndex = (row * 7 + column * 3) % 17;
-            if (toneIndex === 0 || toneIndex === 8) tile.classList.add('is-orange');
-            else if (toneIndex % 4 === 0) tile.classList.add('is-ink');
-            else if (toneIndex % 5 === 0) tile.classList.add('is-paper');
-
-            // The first row is at the top when travelling down and at the bottom when travelling up.
-            const waveRow = direction === 'down' ? row : rows - 1 - row;
-            const delay = waveRow * .038 + (column % 5) * .006;
-            maxDelay = Math.max(maxDelay, delay);
-            tile.style.setProperty('--pixel-delay', `${delay.toFixed(3)}s`);
-            tile.style.setProperty('--pixel-enter-y', direction === 'down' ? '-30px' : '30px');
-            tile.style.setProperty('--pixel-exit-y', direction === 'down' ? '34px' : '-34px');
-            tile.style.setProperty('--pixel-tilt', direction === 'down' ? '-13deg' : '13deg');
-            tile.style.setProperty('--pixel-exit-tilt', direction === 'down' ? '8deg' : '-8deg');
-            layer.appendChild(tile);
-          }
-        }
-
-        document.body.appendChild(layer);
-        curtainLayer = layer;
-        curtainCleanup = window.setTimeout(removeCurtain, Math.ceil((maxDelay + 1.08) * 1000) + 100);
+        clearNavigationTransition();
+        const transitionClass = direction === 'down' ? 'nav-transition-down' : 'nav-transition-up';
+        // A short task boundary lets the CSS compositor restart the same directional animation
+        // without measuring layout, generating DOM nodes, or running a per-frame JavaScript loop.
+        navigationTransitionStart = window.setTimeout(() => {
+          navigationTransitionStart = 0;
+          document.body.classList.add(transitionClass);
+          navigationTransitionCleanup = window.setTimeout(() => {
+            document.body.classList.remove(transitionClass);
+            navigationTransitionCleanup = 0;
+          }, 640);
+        }, 16);
       };
 
-      // Capture only the requested in-page controls. Native anchor scrolling remains untouched.
+      // Native anchor behavior remains intact; the visual sheen never intercepts pointer input.
       document.addEventListener('click', event => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         const clicked = event.target instanceof Element ? event.target.closest('a[href^="#"], #backTop') : null;
@@ -3793,7 +3768,7 @@
         if (targetY === null) return;
         const currentY = window.scrollY;
         if (Math.abs(targetY - currentY) < 36) return;
-        runPixelCurtain(targetY > currentY ? 'down' : 'up');
+        runNavigationTransition(targetY > currentY ? 'down' : 'up');
       }, true);
 
       const buildWordRevealGroups = () => {
@@ -3801,10 +3776,11 @@
         wordsInitialized = true;
 
         const excluded = 'a, button, input, select, textarea, label, svg, model-viewer, [contenteditable="true"], [role="button"], [data-sound-toggle]';
+        const cardRegions = 'article, aside, .project-card, .project-accordion, .project-accordion-panel, .project-info, .journey-card, .skill-card, .college-feature, .college-video, .about-side, .facts-grid, .fact, .model-panel, .model-sidebar, .coming-grid, .coming-copy, .process-step, .approach-visual, .approach-controls, .approach-detail, .approach-step-list, .contact-actions, .contact-action, .footer, .document-viewer, .stitching-explainer';
         document.querySelectorAll(wordTargetsSelector).forEach(element => {
-          if (element.dataset.scrollWordsReady === 'true' || element.closest('.footer, .document-viewer, .stitching-explainer')) return;
+          if (element.dataset.scrollWordsReady === 'true' || element.closest(cardRegions)) return;
           if (element.matches(excluded) || element.querySelector(excluded)) return;
-          if (element.getAttribute('aria-hidden') === 'true') return;
+          if (element.closest('[aria-hidden="true"]') || element.getAttribute('aria-hidden') === 'true') return;
 
           const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
             acceptNode(node) {
@@ -3903,7 +3879,7 @@
       };
 
       const deactivateMotionEnhancements = () => {
-        removeCurtain();
+        clearNavigationTransition();
         if (scrollFrame) cancelAnimationFrame(scrollFrame);
         scrollFrame = 0;
         if (footer) {
